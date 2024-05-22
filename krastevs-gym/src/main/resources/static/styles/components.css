@@ -1,0 +1,39 @@
+/*.btn {
+  background-color: transparent;
+  border: none;
+  color: var(--color-primary);
+  font-size: 9px;
+  padding: 2px 4px;
+  text-decoration: none;
+}
+
+.section {
+  padding: 3rem 1rem;
+}
+
+.divider {
+  background-color: var(--color-dark-gray);
+  height: 5px;
+}
+
+.add,
+.edit,
+.delete {
+padding: 2px 4px;
+text-decoration: none;
+font-size: 9px;
+padding: 0.25rem 0.5rem;
+background-color: transparent;
+color: var(--color-primary);
+border: 2px solid var(--color-primary);
+}
+
+.input {
+  border: none;
+  padding: 0.75rem;
+  background-color: var(--color-white);
+  color: var(--color-dark-gray);
+  border-radius: 2px;
+}
+
+*/
