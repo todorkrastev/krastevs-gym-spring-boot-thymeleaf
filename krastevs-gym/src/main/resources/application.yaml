@@ -1,7 +1,0 @@
-spring:
-    application:
-        name: krastevs-gym
-    thymeleaf:
-        check-template-location: true
-        cache: false
-        prefix: file:./src/main/resources/templates/
