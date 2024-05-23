@@ -1,0 +1,119 @@
+.input {
+    border: none;
+    padding: 0.75rem;
+    background-color: var(--color-white);
+    color: var(--color-dark-gray);
+    border-radius: 2px;
+}
+
+.btn {
+    background-color: transparent;
+    border: none;
+    color: var(--color-primary);
+    font-size: 9px;
+    padding: 2px 4px;
+    text-decoration: none;
+}
+
+.section {
+    padding: 3rem 1rem;
+}
+
+.divider {
+    background-color: var(--color-dark-gray);
+    height: 5px;
+}
+
+#login {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 1rem;
+    position: relative;
+    text-align: center;
+  }
+
+
+.hero__form--login__title {
+    margin-bottom: 1rem;
+}
+
+.hero__form--login {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.hero__form--login .hero__form--login__field {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--color-black);
+    padding: 0.5rem;
+}
+
+
+#login .hero__login--submit {
+    /* padding: 0.75rem; */
+    background-color: var(--color-primary);
+    color: var(--color-dark-gray);
+    padding: 0.25rem 0.75rem;
+    text-transform: capitalize;
+    font-size: 1rem;
+    border: 2px solid transparent;
+}
+
+.hero__login--register {
+    position: relative;
+    z-index: 3;
+    font-size: 0.75rem;
+}
+
+.hero__login--register a {
+    color: var(--color-primary);
+}
+
+
+@media screen and (min-width: 640px) {}
+
+@media screen and (min-width: 768px) {
+    .hero__form--login .hero__form--login__field {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .hero__form--login .hero__form--login__field {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .hero__form--login .hero__form--login__field {
+        width: 30%;
+    }
+
+
+   #login .hero__form--login .hero__login--submit:hover {
+        background-color: transparent;
+        color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+        cursor: pointer;
+        transition: color 250ms ease-in-out;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .hero__form--login .hero__form--login__field {
+        width: 25%;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    .hero__form--login .hero__form--login__field {
+        width: 20%;
+    }
+}
