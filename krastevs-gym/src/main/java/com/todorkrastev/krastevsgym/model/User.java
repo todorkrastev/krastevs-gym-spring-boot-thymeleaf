@@ -8,7 +8,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue
     private long id;
@@ -33,8 +32,12 @@ public class User {
     @ManyToMany
     private Set<Role> roles;
 
+    @ManyToMany
+    private Set<Exercise> exercises;
+
     public User() {
         this.roles = new HashSet<>();
+        this.exercises = new HashSet<>();
     }
 
     public long getId() {
@@ -107,5 +110,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(Set<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }
