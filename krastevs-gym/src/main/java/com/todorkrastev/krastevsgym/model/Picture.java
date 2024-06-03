@@ -9,6 +9,8 @@ public class Picture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String title;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String url;
 
@@ -27,6 +29,14 @@ public class Picture {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getUrl() {

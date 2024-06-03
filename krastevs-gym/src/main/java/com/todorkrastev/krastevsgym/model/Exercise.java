@@ -15,6 +15,7 @@ public class Exercise {
     @Column(nullable = false, unique = true)
     private String exerciseName;
 
+    @Column(columnDefinition = "TEXT")
     private String instructions;
 
     @OneToMany(targetEntity = Picture.class, mappedBy = "exercise")
