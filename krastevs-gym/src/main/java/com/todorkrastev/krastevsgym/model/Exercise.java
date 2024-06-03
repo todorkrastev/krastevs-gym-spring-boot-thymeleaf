@@ -2,9 +2,7 @@ package com.todorkrastev.krastevsgym.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,24 +17,14 @@ public class Exercise {
 
     private String instructions;
 
-    @OneToOne
-    private Picture picture;
-
-    @OneToMany(targetEntity = Note.class, mappedBy = "exercise")
-    private Set<Note> notes;
-
-    @OneToMany(targetEntity = ExerciseSet.class, mappedBy = "exercise")
-    private List<ExerciseSet> exerciseSets;
-
-    @ManyToOne(optional = false)
-    private WorkoutDay workoutDay;
+    @OneToMany(targetEntity = Picture.class, mappedBy = "exercise")
+    private Set<Picture> pictures;
 
     @ManyToMany
     private Set<ExerciseCategory> exerciseCategories;
 
     public Exercise() {
-        this.notes = new HashSet<>();
-        this.exerciseSets = new ArrayList<>();
+        this.pictures = new HashSet<>();
         this.exerciseCategories = new HashSet<>();
     }
 
@@ -64,36 +52,12 @@ public class Exercise {
         this.instructions = instructions;
     }
 
-    public Picture getPicture() {
-        return picture;
+    public Set<Picture> getPictures() {
+        return pictures;
     }
 
-    public void setPicture(Picture picture) {
-        this.picture = picture;
-    }
-
-    public Set<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(Set<Note> notes) {
-        this.notes = notes;
-    }
-
-    public List<ExerciseSet> getExerciseSets() {
-        return exerciseSets;
-    }
-
-    public void setExerciseSets(List<ExerciseSet> exerciseSets) {
-        this.exerciseSets = exerciseSets;
-    }
-
-    public WorkoutDay getWorkoutDay() {
-        return workoutDay;
-    }
-
-    public void setWorkoutDay(WorkoutDay workoutDay) {
-        this.workoutDay = workoutDay;
+    public void setPictures(Set<Picture> pictures) {
+        this.pictures = pictures;
     }
 
     public Set<ExerciseCategory> getExerciseCategories() {

@@ -15,6 +15,9 @@ public class Picture {
     @ManyToOne(optional = false)
     private User author;
 
+    @ManyToOne(optional = false)
+    private Exercise exercise;
+
     public Picture() {
     }
 
@@ -40,5 +43,13 @@ public class Picture {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Exercise getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 }
