@@ -1,6 +1,6 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
-import com.todorkrastev.krastevsgym.model.UserRegisterDTO;
+import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.service.UserService;
 import org.springframework.stereotype.Service;
 

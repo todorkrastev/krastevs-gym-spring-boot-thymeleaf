@@ -1,6 +1,6 @@
 package com.todorkrastev.krastevsgym.web;
 
-import com.todorkrastev.krastevsgym.model.UserRegisterDTO;
+import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
