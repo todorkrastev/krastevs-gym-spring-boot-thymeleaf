@@ -12,7 +12,7 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "exercise_name", nullable = false, unique = true)
     private String exerciseName;
 
     @Column(columnDefinition = "TEXT")
