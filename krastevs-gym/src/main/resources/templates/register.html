@@ -35,11 +35,13 @@
 
 <main>
     <section id="register">
-        <form th:method="post"
+        <form th:object="${userRegisterDTO}"
               th:action="@{/users/register}"
+              th:method="post"
               class="hero__form--register">
             <h1 class="hero__form--register__title">Register</h1>
-            <input id="firstName"
+            <input th:field="*{firstName}"
+                   id="firstName"
                    name="firstName"
                    type="text"
                    class="hero__form--register__field"
