@@ -1,4 +1,4 @@
-package com.todorkrastev.krastevsgym.model;
+package com.todorkrastev.krastevsgym.model.entity;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "posts")
-public class Post {
+public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,12 +19,12 @@ public class Post {
     private String content;
 
     @ManyToOne(optional = false)
-    private User author;
+    private UserEntity author;
 
-    @OneToMany(targetEntity = Comment.class, mappedBy = "post")
-    private Set<Comment> comments;
+    @OneToMany(targetEntity = CommentEntity.class, mappedBy = "post")
+    private Set<CommentEntity> comments;
 
-    public Post() {
+    public PostEntity() {
         this.comments = new HashSet<>();
     }
 
@@ -32,39 +32,44 @@ public class Post {
         return id;
     }
 
-    public void setId(long id) {
+    public PostEntity setId(long id) {
         this.id = id;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public PostEntity setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public PostEntity setContent(String content) {
         this.content = content;
+        return this;
     }
 
-    public User getAuthor() {
+    public UserEntity getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public PostEntity setAuthor(UserEntity author) {
         this.author = author;
+        return this;
     }
 
-    public Set<Comment> getComments() {
+    public Set<CommentEntity> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public PostEntity setComments(Set<CommentEntity> comments) {
         this.comments = comments;
+        return this;
     }
 }

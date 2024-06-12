@@ -1,4 +1,4 @@
-package com.todorkrastev.krastevsgym.model;
+package com.todorkrastev.krastevsgym.model.entity;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name="comments")
-public class Comment {
+public class CommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,59 +21,66 @@ public class Comment {
     private String content;
 
     @ManyToOne(optional = false)
-    private User author;
+    private UserEntity author;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Post post;
+    private PostEntity post;
 
-    public Comment() {
+    public CommentEntity() {
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public CommentEntity setId(long id) {
         this.id = id;
+        return this;
     }
 
     public boolean isApproved() {
         return approved;
     }
 
-    public void setApproved(boolean approved) {
+    public CommentEntity setApproved(boolean approved) {
         this.approved = approved;
+        return this;
     }
 
     public Instant getCreated() {
         return created;
     }
 
-    public void setCreated(Instant created) {
+    public CommentEntity setCreated(Instant created) {
         this.created = created;
+        return this;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public CommentEntity setContent(String content) {
         this.content = content;
+        return this;
     }
 
-    public User getAuthor() {
+    public UserEntity getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public CommentEntity setAuthor(UserEntity author) {
         this.author = author;
+        return this;
     }
 
-    public Post getPost() {
+    public PostEntity getPost() {
         return post;
     }
 
-    public void setPost(Post post) {
+    public CommentEntity setPost(PostEntity post) {
         this.post = post;
+        return this;
     }
 }
+

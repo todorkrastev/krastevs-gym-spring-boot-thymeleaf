@@ -1,4 +1,4 @@
-package com.todorkrastev.krastevsgym.model;
+package com.todorkrastev.krastevsgym.model.enums;
 
 public enum UserRolesEnum {
     USER, MODERATOR, ADMIN

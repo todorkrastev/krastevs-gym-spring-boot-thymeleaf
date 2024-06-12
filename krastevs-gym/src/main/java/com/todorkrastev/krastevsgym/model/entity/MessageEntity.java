@@ -1,4 +1,4 @@
-package com.todorkrastev.krastevsgym.model;
+package com.todorkrastev.krastevsgym.model.entity;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "messages")
-public class Message {
+public class MessageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
@@ -18,52 +18,57 @@ public class Message {
     private String content;
 
     @ManyToOne(optional = false)
-    private User author;
+    private UserEntity author;
 
     @ManyToOne(optional = false)
-    private User recipient;
+    private UserEntity recipient;
 
-    public Message() {
+    public MessageEntity() {
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public MessageEntity setId(long id) {
         this.id = id;
+        return this;
     }
 
     public Instant getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Instant dateTime) {
+    public MessageEntity setDateTime(Instant dateTime) {
         this.dateTime = dateTime;
+        return this;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public MessageEntity setContent(String content) {
         this.content = content;
+        return this;
     }
 
-    public User getAuthor() {
+    public UserEntity getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public MessageEntity setAuthor(UserEntity author) {
         this.author = author;
+        return this;
     }
 
-    public User getRecipient() {
+    public UserEntity getRecipient() {
         return recipient;
     }
 
-    public void setRecipient(User recipient) {
+    public MessageEntity setRecipient(UserEntity recipient) {
         this.recipient = recipient;
+        return this;
     }
 }
 

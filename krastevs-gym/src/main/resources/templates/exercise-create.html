@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="theme-color" content="#ffffff">
+  <title>Krastev's Gym</title>
+  <!-- <script src="/src/app.js" type="module"></script> -->
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__wrapper">
+      <a href="/static">
+        <img src="/imgs/logo.png" class="header__logo" alt="Logo" />
+      </a>
+      <nav class="header__navigation">
+        <div id="guest">
+          <a href="/users/login" class="btn">My Trainer</a>
+          <a href="/exercises.html" class="btn">Exercises</a>
+          <a href="/users/login" class="btn">Workouts</a>
+          <a href="/users/login" class="btn">Progress</a>
+          <a href="/shop.html" class="btn">Shop</a>
+          <a href="/users/login" class="btn">Nutrition</a>
+          <a href="/users/login" class="icon btn"><i class="fa-solid fa-circle-user"></i></a>
+        </div>
+      </nav>
+    </div>
+
+  </header>
+
+  <main>
+    <section id="create__exercise">
+      <form th:action="@{/exercises/create}"
+            th:method="post"
+            th:object="${createExerciseDTO}"
+            class="hero__form--create__exercise">
+        <h1 class="hero__form--create__exercise__title">Create Exercise</h1>
+
+        <input name="exerciseName" class="hero__form--create__exercise__field" placeholder="Exercise Name" type="text"
+          minlength="1" maxlength="50" required value="">
+
+        <select th:field="*{exerciseCategoryEnum}" name="exerciseCategoryEnum" class="hero__form--create__exercise__field">
+          <option class="hero__form--create__exercise__drop" value="">--Exercise Category--</option>
+          <option th:each="category: ${allExerciseCategories}"
+                  th:value="${category}"
+                  th:text="${category}"
+                  class="hero__form--create__exercise__drop">ABS</option>
+        </select>
+
+        <select th:field="*{equipmentTypeEnum}" name="equipmentTypeEnum" class="hero__form--create__exercise__field">
+          <option class="hero__form--create__exercise__drop" value="">--Equipment Type--</option>
+          <option th:each="type: ${allEquipmentTypes}"
+                  th:value="${type}"
+                  th:text="${type}"
+                  class="hero__form--create__exercise__drop" value="">BARBELL</option>
+        </select>
+
+        <textarea th:field="*{instructions}"
+                name="instructions"
+                class="hero__form--create__exercise__field"
+                placeholder="Description"
+                type="text"
+                minlength="1"
+                maxlength="65535"
+                required
+                value=""></textarea>
+
+        <button type="submit" class="hero__create__exercise--submit btn">Submit</button>
+      </form>
+    </section>
+
+    <div class="divider"></div>
+
+  </main>
+
+  <footer class="footer">
+    <!-- Info -->
+    <div class="navi">
+      <div class="navi-group">
+        <h3 class="navi-group__title">Krastev's Gym</h3>
+        <nav>
+          <ul>
+            <li>
+              <p>Krastev's Gym is the most iconic gym in the world. Since 1989, no one has stood for fitness and
+                bodybuilding. Become part of our Legacy now!
+              </p>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- About -->
+      <div class="navi-group">
+        <h3 class="navi-group__title">About</h3>
+        <nav>
+          <ul>
+            <li><a href="" class="navi-group__subtitle">Terms of Use</a></li>
+            <li><a href="" class="navi-group__subtitle">Data Privacy</a></li>
+            <li><a href="" class="navi-group__subtitle">Legal Notice</a></li>
+            <li><a href="" class="navi-group__subtitle">Cancellation</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Help -->
+      <div class="navi-group">
+        <h3 class="navi-group__title">Help & Contact</h3>
+        <nav>
+          <ul>
+            <li><a href="" class="navi-group__subtitle">Self Service</a></li>
+            <li><a href="" class="navi-group__subtitle">Help Center</a></li>
+            <li><a href="" class="navi-group__subtitle">Terminate Membership</a></li>
+            <li><a href="" class="navi-group__subtitle">Gym Usage</a></li>
+            <li><a href="" class="navi-group__subtitle">Franchise</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Careers -->
+      <div class="navi-group">
+        <h3 class="navi-group__title">Careers</h3>
+        <nav>
+          <ul>
+            <li><a href="" class="navi-group__subtitle">Jobs at Krastev's Gym</a></li>
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Media -->
+    <div class="info">
+      <ul class="socials">
+        <li class="socials__item">
+          <a href=""><i class="fab fa-facebook-f"></i></a>
+        </li>
+        <li class="socials__item">
+          <a href=""><i class="fab fa-twitter"></i></a>
+        </li>
+        <li class="socials__item">
+          <a href=""><i class="fab fa-google-plus-g"></i></a>
+        </li>
+        <li class="socials__item">
+          <a href=""><i class="fab fa-youtube"></i></a>
+        </li>
+        <li class="socials__item">
+          <a href=""><i class="fab fa-instagram"></i></a>
+        </li>
+      </ul>
+      <p class="rights">Copyright © 2024 Krastev & Waller GmbH. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/index.js"></script>
+</body>
+
+</html>

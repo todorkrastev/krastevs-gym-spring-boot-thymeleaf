@@ -1,10 +1,11 @@
-package com.todorkrastev.krastevsgym.model;
+package com.todorkrastev.krastevsgym.model.entity;
 
+import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "exercise_categories")
-public class ExerciseCategory {
+public class ExerciseCategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
@@ -12,22 +13,24 @@ public class ExerciseCategory {
     @Enumerated(EnumType.STRING)
     public ExerciseCategoryEnum exerciseCategory;
 
-    public ExerciseCategory() {
+    public ExerciseCategoryEntity() {
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public ExerciseCategoryEntity setId(long id) {
         this.id = id;
+        return this;
     }
 
     public ExerciseCategoryEnum getExerciseCategory() {
         return exerciseCategory;
     }
 
-    public void setExerciseCategory(ExerciseCategoryEnum exerciseCategory) {
+    public ExerciseCategoryEntity setExerciseCategory(ExerciseCategoryEnum exerciseCategory) {
         this.exerciseCategory = exerciseCategory;
+        return this;
     }
 }

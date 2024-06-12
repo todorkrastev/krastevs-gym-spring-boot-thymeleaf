@@ -1,10 +1,10 @@
-package com.todorkrastev.krastevsgym.model;
+package com.todorkrastev.krastevsgym.model.entity;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="pictures")
-public class Picture {
+public class PictureEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -15,51 +15,56 @@ public class Picture {
     private String url;
 
     @ManyToOne(optional = false)
-    private User author;
+    private UserEntity author;
 
     @ManyToOne(optional = false)
-    private Exercise exercise;
+    private ExerciseEntity exercise;
 
-    public Picture() {
+    public PictureEntity() {
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public PictureEntity setId(long id) {
         this.id = id;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public PictureEntity setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public PictureEntity setUrl(String url) {
         this.url = url;
+        return this;
     }
 
-    public User getAuthor() {
+    public UserEntity getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public PictureEntity setAuthor(UserEntity author) {
         this.author = author;
+        return this;
     }
 
-    public Exercise getExercise() {
+    public ExerciseEntity getExercise() {
         return exercise;
     }
 
-    public void setExercise(Exercise exercise) {
+    public PictureEntity setExercise(ExerciseEntity exercise) {
         this.exercise = exercise;
+        return this;
     }
 }

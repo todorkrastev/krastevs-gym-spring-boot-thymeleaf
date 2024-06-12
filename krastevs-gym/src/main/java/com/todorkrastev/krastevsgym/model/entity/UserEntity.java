@@ -1,5 +1,6 @@
-package com.todorkrastev.krastevsgym.model;
+package com.todorkrastev.krastevsgym.model.entity;
 
+import com.todorkrastev.krastevsgym.model.enums.UserLevelEnum;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -7,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,12 +31,12 @@ public class User {
     private UserLevelEnum level;
 
     @ManyToMany
-    private Set<Role> roles;
+    private Set<RoleEntity> roles;
 
     @ManyToMany
-    private Set<Exercise> exercises;
+    private Set<ExerciseEntity> exercises;
 
-    public User() {
+    public UserEntity() {
         this.roles = new HashSet<>();
         this.exercises = new HashSet<>();
     }
@@ -44,79 +45,89 @@ public class User {
         return id;
     }
 
-    public void setId(long id) {
+    public UserEntity setId(long id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public UserEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Integer getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public UserEntity setAge(Integer age) {
         this.age = age;
+        return this;
     }
 
     public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public UserEntity setWeight(Integer weight) {
         this.weight = weight;
+        return this;
     }
 
     public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public UserEntity setHeight(Integer height) {
         this.height = height;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public UserEntity setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public UserEntity setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public UserLevelEnum getLevel() {
         return level;
     }
 
-    public void setLevel(UserLevelEnum level) {
+    public UserEntity setLevel(UserLevelEnum level) {
         this.level = level;
+        return this;
     }
 
-    public Set<Role> getRoles() {
+    public Set<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public UserEntity setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
+        return this;
     }
 
-    public Set<Exercise> getExercises() {
+    public Set<ExerciseEntity> getExercises() {
         return exercises;
     }
 
-    public void setExercises(Set<Exercise> exercises) {
+    public UserEntity setExercises(Set<ExerciseEntity> exercises) {
         this.exercises = exercises;
+        return this;
     }
 }
