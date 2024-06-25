@@ -5,9 +5,31 @@
 @import url("./components.css");
 @import url("./login.css");
 @import url("./register.css");
+@import url("./add-product.css");
+@import url("./add-course.css");
+@import url("./add-activity.css");
+@import url("./shop.css");
+@import url("./shop-men.css");
+@import url("./shop-women.css");
+@import url("./course.css");
+@import url("./abs.css");
+@import url("./abs-old.css");
+@import url("./arms-biceps.css");
+@import url("./arms-forearms.css");
+@import url("./arms-old.css");
+@import url("./arms-triceps.css");
+@import url("./back-lats.css");
+@import url("./back-lower-back.css");
+@import url("./back-old.css");
+@import url("./back-traps.css");
+@import url("./chest.css");
+@import url("./chest-old.css");
+@import url("./exercise.css");
 @import url("./exercise-create.css");
 @import url("./exercises.css");
-
+@import url("./legs.css");
+@import url("./legs-old.css");
+@import url("./shoulders.css");
 
 :root {
   --color-primary: #ffdd4d;

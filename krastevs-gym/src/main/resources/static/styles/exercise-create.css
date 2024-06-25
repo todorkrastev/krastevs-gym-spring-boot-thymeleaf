@@ -70,22 +70,31 @@
     border: 2px solid transparent;
 }
 
-@media screen and (min-width: 640px) {}
+.error {
+    color: red;
+    margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 640px) {
+}
 
 @media screen and (min-width: 768px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field {
+    .hero__form--create__exercise .hero__form--create__exercise__field,
+    .error {
         width: 80%;
     }
 }
 
 @media screen and (min-width: 1024px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field {
+    .hero__form--create__exercise .hero__form--create__exercise__field,
+    .error {
         width: 60%;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field {
+    .hero__form--create__exercise .hero__form--create__exercise__field,
+    .error {
         width: 30%;
     }
 
@@ -100,13 +109,15 @@
 }
 
 @media screen and (min-width: 1600px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field {
+    .hero__form--create__exercise .hero__form--create__exercise__field,
+    .error {
         width: 25%;
     }
 }
 
 @media screen and (min-width: 1800px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field {
+    .hero__form--create__exercise .hero__form--create__exercise__field,
+    .error {
         width: 20%;
     }
 }

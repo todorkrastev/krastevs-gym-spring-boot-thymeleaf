@@ -1,6 +1,7 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
+import com.todorkrastev.krastevsgym.model.dto.ExerciseDetailsDTO;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseShortInfoDTO;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgym.model.entity.PictureEntity;
@@ -33,8 +34,26 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public void createExercise(CreateExerciseDTO createExerciseDTO) {
-        exerciseRepository.save(map(createExerciseDTO));
+    public long createExercise(CreateExerciseDTO createExerciseDTO) {
+      return exerciseRepository.save(map(createExerciseDTO)).getId();
+    }
+
+    @Override
+    public ExerciseDetailsDTO getExerciseDetails(Long id) {
+        return this.exerciseRepository
+                .findById(id)
+                .map(ExerciseServiceImpl::toExerciseDetails)
+                .orElseThrow();
+    }
+
+    private static ExerciseDetailsDTO toExerciseDetails(ExerciseEntity exerciseEntity) {
+        return new ExerciseDetailsDTO(exerciseEntity.getId(),
+                exerciseEntity.getName(),
+                exerciseEntity.getDescription(),
+                exerciseEntity.getVideoUrl(),
+                exerciseEntity.getMusclesWorkedUrl(),
+                exerciseEntity.getInstructions(),
+                exerciseEntity.getNotes());
     }
 
     private ExerciseShortInfoDTO mapToInfo(ExerciseEntity exercise) {
@@ -48,7 +67,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     private static ExerciseEntity map(CreateExerciseDTO createExerciseDTO) {
         return new ExerciseEntity()
-                .setExerciseName(createExerciseDTO.exerciseName())
+                .setName(createExerciseDTO.name())
                 .setEquipmentTypeEnum(createExerciseDTO.equipmentTypeEnum())
                 .setInstructions(createExerciseDTO.instructions());
     }

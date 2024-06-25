@@ -5,11 +5,15 @@ import com.todorkrastev.krastevsgym.model.dto.ExerciseShortInfoDTO;
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.service.ExerciseService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -21,6 +25,16 @@ public class ExerciseController {
 
     public ExerciseController(ExerciseService exerciseService) {
         this.exerciseService = exerciseService;
+    }
+
+    @ModelAttribute("allExerciseCategories")
+    public ExerciseCategoryEnum[] allExerciseCategories() {
+        return ExerciseCategoryEnum.values();
+    }
+
+    @ModelAttribute("allEquipmentTypes")
+    public EquipmentTypeEnum[] allEquipmentTypes() {
+        return EquipmentTypeEnum.values();
     }
 
 
@@ -38,16 +52,25 @@ public class ExerciseController {
         if (!model.containsAttribute("createExerciseDTO")) {
             model.addAttribute("createExerciseDTO", CreateExerciseDTO.empty());
         }
-        model.addAttribute("allExerciseCategories", ExerciseCategoryEnum.values());
-        model.addAttribute("allEquipmentTypes", EquipmentTypeEnum.values());
+
         return "exercise-create";
     }
 
     @PostMapping("/create")
-    public String createExercise(CreateExerciseDTO createExerciseDTO) {
-        exerciseService.createExercise(createExerciseDTO);
+    public String createExercise(@Valid CreateExerciseDTO createExerciseDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
 
-        return "exercise-create";
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("createExerciseDTO", createExerciseDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.createExerciseDTO", bindingResult);
+
+            return "redirect:/exercises/create";
+        }
+
+        long newExerciseId = exerciseService.createExercise(createExerciseDTO);
+
+        return "redirect:/exercises/" + newExerciseId;
     }
 
 }

@@ -2,7 +2,7 @@ package com.todorkrastev.krastevsgym.model.dto;
 
 public class ExerciseShortInfoDTO {
     private long id;
-    private String exerciseName;
+    private String name;
     private String imageUrl;
 
     public ExerciseShortInfoDTO() {
@@ -16,12 +16,12 @@ public class ExerciseShortInfoDTO {
         this.id = id;
     }
 
-    public String getExerciseName() {
-        return exerciseName;
+    public String getName() {
+        return name;
     }
 
-    public void setExerciseName(String exerciseName) {
-        this.exerciseName = exerciseName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImageUrl() {

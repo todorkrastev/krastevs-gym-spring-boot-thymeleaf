@@ -19,28 +19,12 @@
 
 <body>
   <header class="header">
-    <div class="header__wrapper">
-      <a href="/">
-        <img src="/imgs/logo.png" class="header__logo" alt="Logo" />
-      </a>
-      <nav class="header__navigation">
-        <div id="guest">
-          <a href="/users/login" class="btn">My Trainer</a>
-          <a href="/exercise.html" class="btn">Exercises</a>
-          <a href="/users/login" class="btn">Workouts</a>
-          <a href="/users/login" class="btn">Progress</a>
-          <a href="/shop.html" class="btn">Shop</a>
-          <a href="/users/login" class="btn">Nutrition</a>
-          <a href="/users/login" class="icon btn"><i class="fa-solid fa-circle-user"></i></a>
-        </div>
-      </nav>
-    </div>
-
+    <div th:replace="~{fragments/navbar}"></div>
   </header>
 
   <main>
     <section id="hero">
-      <img src="/imgs/exercise.jpg" class="img--bg--exercise" alt="Background poster" />
+      <img src="/imgs/hero/exercise.jpg" class="img--bg--exercise" alt="Background poster" />
 
       <div class="hero__exercises">
         <h1 class="hero__title__exercises">Exercises</h1>
@@ -61,7 +45,7 @@
       <section th:each="exercise : ${exercises}" class="exercise section">
         <a href="/abs.html" class="exercise__wrapper">
           <img th:src="${exercise.imageUrl}" class="exercise__poster"  alt="Section poster" />
-          <h2 th:text="${exercise.exerciseName}" class="exercise__title">Abs</h2>
+          <h2 th:text="${exercise.name}" class="exercise__title">Abs</h2>
         </a>
       </section>
     </div>

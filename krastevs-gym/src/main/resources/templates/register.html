@@ -22,7 +22,7 @@
 <header class="header">
     <div class="header__wrapper">
         <a href="/">
-            <img src="/imgs/logo.png" class="header__logo" alt="Logo"/>
+            <img src="/imgs/logo/logo.png" class="header__logo" alt="Logo"/>
         </a>
         <nav class="header__navigation">
             <div id="guest">
@@ -46,19 +46,22 @@
                    type="text"
                    class="hero__form--register__field"
                    placeholder="First Name">
-            <input id="lastName"
+            <input th:field="*{lastName}"
+                   id="lastName"
                    name="lastName"
                    type="text"
                    class="hero__form--register__field"
                    placeholder="Last Name">
             <!--<input name="role" class="hero__form--register__field" placeholder="Role" type="text" minlength="5"
                    maxlength="50" required value="">-->
-            <input id="email"
+            <input th:field="*{email}"
+                   id="email"
                    name="email"
                    type="email"
                    class="hero__form--register__field"
                    placeholder="Email">
-            <input id="password"
+            <input th:field="*{password}"
+                   id="password"
                    name="password"
                    type="password"
                    class="hero__form--register__field"

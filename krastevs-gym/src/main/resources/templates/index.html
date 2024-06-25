@@ -19,29 +19,27 @@
 
 <body>
   <header class="header">
-    <div class="header__wrapper">
-      <a href="/">
-        <img src="/imgs/logo.png" class="header__logo" alt="Logo" />
-      </a>
-      <nav class="header__navigation">
-        <div id="guest">
-          <a href="/login.html" class="sign__in">Sign in</a>
-        </div>
-      </nav>
-    </div>
-
+    <div th:replace="~{fragments/navbar}"></div>
   </header>
 
   <main>
     <section id="hero">
-      <img src="/imgs/hero.jpg" class="img--bg" alt="Background poster" />
+      <img src="/imgs/hero/hero.jpg" class="img--bg" alt="Background poster" />
 
       <h1 class="hero__title">no excuses!</h1>
       <h2 class="hero__subtitle">get fit now</h2>
 
-      <a href="register.html" class="member__btn">
-        get started >
-      </a>
+      <th:block th:if="${@currentUser.isLoggedIn()}">
+          <a href="register.html" class="member__btn">
+              start a training >
+          </a>
+      </th:block>
+      <th:block th:unless="${@currentUser.isLoggedIn()}">
+          <a href="register.html" class="member__btn">
+              get started >
+          </a>
+      </th:block>
+
     </section>
 
     <div class="divider"></div>

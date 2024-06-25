@@ -19,23 +19,7 @@
 
 <body>
   <header class="header">
-    <div class="header__wrapper">
-      <a href="/static">
-        <img src="/imgs/logo.png" class="header__logo" alt="Logo" />
-      </a>
-      <nav class="header__navigation">
-        <div id="guest">
-          <a href="/users/login" class="btn">My Trainer</a>
-          <a href="/exercises.html" class="btn">Exercises</a>
-          <a href="/users/login" class="btn">Workouts</a>
-          <a href="/users/login" class="btn">Progress</a>
-          <a href="/shop.html" class="btn">Shop</a>
-          <a href="/users/login" class="btn">Nutrition</a>
-          <a href="/users/login" class="icon btn"><i class="fa-solid fa-circle-user"></i></a>
-        </div>
-      </nav>
-    </div>
-
+    <div th:replace="~{fragments/navbar}"></div>
   </header>
 
   <main>
@@ -46,8 +30,10 @@
             class="hero__form--create__exercise">
         <h1 class="hero__form--create__exercise__title">Create Exercise</h1>
 
-        <input name="exerciseName" class="hero__form--create__exercise__field" placeholder="Exercise Name" type="text"
-          minlength="1" maxlength="50" required value="">
+        <input th:field="*{name}"
+               name="name" class="hero__form--create__exercise__field" placeholder="Exercise Name" type="text"
+               minlength="1" maxlength="50" required value="">
+        <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
 
         <select th:field="*{exerciseCategoryEnum}" name="exerciseCategoryEnum" class="hero__form--create__exercise__field">
           <option class="hero__form--create__exercise__drop" value="">--Exercise Category--</option>
@@ -56,6 +42,7 @@
                   th:text="${category}"
                   class="hero__form--create__exercise__drop">ABS</option>
         </select>
+        <p th:if="${#fields.hasErrors('exerciseCategoryEnum')}" th:errorclass="error" th:errors="*{exerciseCategoryEnum}"></p>
 
         <select th:field="*{equipmentTypeEnum}" name="equipmentTypeEnum" class="hero__form--create__exercise__field">
           <option class="hero__form--create__exercise__drop" value="">--Equipment Type--</option>
@@ -64,6 +51,7 @@
                   th:text="${type}"
                   class="hero__form--create__exercise__drop" value="">BARBELL</option>
         </select>
+        <p th:if="${#fields.hasErrors('equipmentTypeEnum')}" th:errorclass="error" th:errors="*{equipmentTypeEnum}"></p>
 
         <textarea th:field="*{instructions}"
                 name="instructions"
@@ -73,7 +61,8 @@
                 minlength="1"
                 maxlength="65535"
                 required
-                value=""></textarea>
+                value="">
+        </textarea>
 
         <button type="submit" class="hero__create__exercise--submit btn">Submit</button>
       </form>

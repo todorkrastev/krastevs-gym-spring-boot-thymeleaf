@@ -14,10 +14,21 @@ public class ExerciseEntity {
     private long id;
 
     @Column(name = "exercise_name", nullable = false, unique = true)
-    private String exerciseName;
+    private String name;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column(name = "video_url")
+    private String videoUrl;
+
+    private String musclesWorkedUrl;
 
     @Column(columnDefinition = "TEXT")
     private String instructions;
+
+    @Column(columnDefinition = "TEXT")
+    private String notes;
 
     @Column(name = "equipment_type")
     @Enumerated(EnumType.STRING)
@@ -43,12 +54,39 @@ public class ExerciseEntity {
         return this;
     }
 
-    public String getExerciseName() {
-        return exerciseName;
+    public String getName() {
+        return name;
     }
 
-    public ExerciseEntity setExerciseName(String exerciseName) {
-        this.exerciseName = exerciseName;
+    public ExerciseEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public ExerciseEntity setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public ExerciseEntity setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+        return this;
+    }
+
+    public String getMusclesWorkedUrl() {
+        return musclesWorkedUrl;
+    }
+
+    public ExerciseEntity setMusclesWorkedUrl(String musclesWorkedUrl) {
+        this.musclesWorkedUrl = musclesWorkedUrl;
         return this;
     }
 
@@ -58,6 +96,15 @@ public class ExerciseEntity {
 
     public ExerciseEntity setInstructions(String instructions) {
         this.instructions = instructions;
+        return this;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public ExerciseEntity setNotes(String notes) {
+        this.notes = notes;
         return this;
     }
 

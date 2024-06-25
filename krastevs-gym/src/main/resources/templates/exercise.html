@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/styles/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+    <!-- <script src="/src/app.js" type="module"></script> -->
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+
+<main>
+    <div class="exercise__container section--exercise__first">
+        <section class="exercise">
+            <div th:object="${exerciseDetails}"
+                 class="exercise__wrapper--info">
+                <div class="exercise__wrapper--short__info">
+                    <h2 th:text="*{name}"
+                        class="exercise__title">Stability ball V-pass</h2>
+                    <p th:text="*{description}"
+                       class="exercise__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
+                        autem hic
+                        architecto? Laborum earum
+                        adipisci ut voluptatum esse unde maxime, maiores voluptatem. Explicabo fuga obcaecati numquam.
+                        Perspiciatis
+                        cum quibusdam ad.</p>
+                </div>
+                <img th:src="*{videoUrl}"
+                     class="exercise__poster" alt="Section poster"/>
+            </div>
+        </section>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="exercise__container section--exercise">
+        <section class="exercise">
+            <div th:object="${exerciseDetails}"
+                 class="exercise__wrapper--detailed__info">
+                <img th:src="*{musclesWorkedUrl}"
+                     class="exercise__view_of_muscle"
+                     alt="Section view of muscles"/>
+                <div class="exercise__wrapper--instructions">
+                    <h3 class="exercise__instructions__title">Instructions</h3>
+                    <p th:text="*{instructions}"
+                       class="exercise__instructions">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum,
+                        rem
+                        cupiditate! Totam at, vitae, deleniti laboriosam minus accusantium aut sapiente quia omnis
+                        consequuntur
+                        voluptatum fuga expedita a doloribus aliquid repellendus!
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="exercise__container section--exercise">
+        <section class="exercise">
+            <form method="POST" class="create__note">
+          <textarea name="notes" class="exercise__notes" placeholder="Exercise Notes" type="text" minlength="1"
+                    maxlength="255" required value=""></textarea>
+                <button type="submit" class="create__note--submit">Submit</button>
+            </form>
+        </section>
+    </div>
+
+    <div class="divider"></div>
+
+</main>
+
+<footer class="footer">
+    <!-- Info -->
+    <div class="navi">
+        <div class="navi-group">
+            <h3 class="navi-group__title">Krastev's Gym</h3>
+            <nav>
+                <ul>
+                    <li>
+                        <p>Krastev's Gym is the most iconic gym in the world. Since 1989, no one has stood for fitness
+                            and
+                            bodybuilding. Become part of our Legacy now!
+                        </p>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- About -->
+        <div class="navi-group">
+            <h3 class="navi-group__title">About</h3>
+            <nav>
+                <ul>
+                    <li><a href="" class="navi-group__subtitle">Terms of Use</a></li>
+                    <li><a href="" class="navi-group__subtitle">Data Privacy</a></li>
+                    <li><a href="" class="navi-group__subtitle">Legal Notice</a></li>
+                    <li><a href="" class="navi-group__subtitle">Cancellation</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Help -->
+        <div class="navi-group">
+            <h3 class="navi-group__title">Help & Contact</h3>
+            <nav>
+                <ul>
+                    <li><a href="" class="navi-group__subtitle">Self Service</a></li>
+                    <li><a href="" class="navi-group__subtitle">Help Center</a></li>
+                    <li><a href="" class="navi-group__subtitle">Terminate Membership</a></li>
+                    <li><a href="" class="navi-group__subtitle">Gym Usage</a></li>
+                    <li><a href="" class="navi-group__subtitle">Franchise</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Careers -->
+        <div class="navi-group">
+            <h3 class="navi-group__title">Careers</h3>
+            <nav>
+                <ul>
+                    <li><a href="" class="navi-group__subtitle">Jobs at Krastev's Gym</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+    <!-- Media -->
+    <div class="info">
+        <ul class="socials">
+            <li class="socials__item">
+                <a href=""><i class="fab fa-facebook-f"></i></a>
+            </li>
+            <li class="socials__item">
+                <a href=""><i class="fab fa-twitter"></i></a>
+            </li>
+            <li class="socials__item">
+                <a href=""><i class="fab fa-google-plus-g"></i></a>
+            </li>
+            <li class="socials__item">
+                <a href=""><i class="fab fa-youtube"></i></a>
+            </li>
+            <li class="socials__item">
+                <a href=""><i class="fab fa-instagram"></i></a>
+            </li>
+        </ul>
+        <p class="rights">Copyright © 2024 Krastev & Waller GmbH. All Rights Reserved.</p>
+    </div>
+</footer>
+</body>
+
+</html>

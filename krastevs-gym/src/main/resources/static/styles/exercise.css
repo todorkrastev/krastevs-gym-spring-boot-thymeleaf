@@ -1,0 +1,151 @@
+.section--exercise,
+.section--exercise__first {
+    padding: 3rem 1rem 3rem;
+}
+
+.exercise__wrapper--info {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.exercise__poster,
+.exercise__view_of_muscle {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.exercise__title {
+    color: var(--color-primary);
+    font-size: 1.4rem;
+    margin: 1rem 0 1rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.exercise__notes {
+    width: 100%;
+    color: var(--color-black);
+    padding: 0.5rem;
+}
+
+.exercise__wrapper--detailed__info {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.exercise__instructions__title {
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    margin: 1rem 0 1rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.exercise__instructions {
+    margin-bottom: 0.5rem;
+    white-space: pre-wrap;
+}
+
+.exercise__instructions:nth-last-of-type(1) {
+    margin-bottom: 0;
+}
+
+.exercise__notes {
+    min-height: 200px;
+}
+
+.create__note {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.create__note--submit {
+    background-color: var(--color-primary);
+    color: var(--color-dark-gray);
+    padding: 0.25rem 0.75rem;
+    text-transform: capitalize;
+    font-size: 1rem;
+    border: 2px solid transparent;
+}
+
+@media screen and (min-width: 768px) {
+    .exercise__wrapper--info {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .section--exercise__first {
+        padding: 5rem 1rem 5rem;
+    }
+
+    .exercise__title {
+        text-align: start;
+    }
+
+    .exercise__view_of_muscle {
+        max-height: 360px;
+        max-width: 360px;
+    }
+
+    .exercise__wrapper--detailed__info {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .exercise__instructions__title {
+        text-align: start;
+    }
+
+    .exercise__wrapper--notes {
+        display: flex;
+        justify-content: center;
+    }
+
+    .exercise__notes {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 1024px) {}
+
+@media screen and (min-width: 1200px) {
+    .exercise {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section--exercise__first {
+        padding: 6rem 1rem 6rem;
+    }
+
+    .create__note--submit:hover {
+        background-color: transparent;
+        color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+        cursor: pointer;
+        transition: color 250ms ease-in-out;
+    }
+}
+
+@media screen and (min-width: 1600px) {}
+
+@media screen and (min-width: 1800px) {}

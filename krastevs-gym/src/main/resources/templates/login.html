@@ -21,7 +21,7 @@
   <header class="header">
     <div class="header__wrapper">
       <a href="/">
-        <img src="/imgs/logo.png" class="header__logo" alt="Logo" />
+        <img src="/imgs/logo/logo.png" class="header__logo" alt="Logo" />
       </a>
       <nav class="header__navigation">
         <div id="guest">
@@ -34,7 +34,11 @@
 
   <main>
     <section id="login">
-      <form method="POST" class="hero__form--login">
+      <form
+            th:action="@{/users/login}"
+            th:method="post"
+
+            class="hero__form--login">
         <h1 class="hero__form--login__title">Sign In</h1>
 
         <input name="username" class="hero__form--login__field" placeholder="Username" type="text" minlength="1"
