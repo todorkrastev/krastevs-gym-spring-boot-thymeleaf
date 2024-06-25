@@ -21,12 +21,12 @@
 <body>
 <header class="header">
     <div class="header__wrapper">
-        <a href="/">
+        <a th:href="@{/}">
             <img src="/imgs/logo/logo.png" class="header__logo" alt="Logo"/>
         </a>
         <nav class="header__navigation">
             <div id="guest">
-                <a href="/login.html" class="sign__in">Sign in</a>
+                <a th:href="@{/users/login}" class="sign__in">Sign in</a>
             </div>
         </nav>
     </div>
@@ -69,9 +69,9 @@
             <button type="submit" class="hero__register--submit btn">Submit</button>
         </form>
         <div class="hero__register--register">
-            <p class="hero__register--terms">By creating an account you agree to our <a href="/index.html">Terms &
+            <p class="hero__register--terms">By creating an account you agree to our <a th:href="@{/}">Terms &
                 Privacy.</a></p>
-            <p class="hero__register--login">Already have an account? <a href="/login.html">Sign in.</a></p>
+            <p class="hero__register--login">Already have an account? <a th:href="@{/users/login}">Sign in.</a></p>
         </div>
     </section>
 
@@ -79,86 +79,7 @@
 
 </main>
 
-<footer class="footer">
-    <!-- Info -->
-    <div class="navi">
-        <div class="navi-group">
-            <h3 class="navi-group__title">Krastev's Gym</h3>
-            <nav>
-                <ul>
-                    <li>
-                        <p>Krastev's Gym is the most iconic gym in the world. Since 1989, no one has stood for fitness
-                            and
-                            bodybuilding. Become part of our Legacy now!
-                        </p>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
-        <!-- About -->
-        <div class="navi-group">
-            <h3 class="navi-group__title">About</h3>
-            <nav>
-                <ul>
-                    <li><a href="" class="navi-group__subtitle">Terms of Use</a></li>
-                    <li><a href="" class="navi-group__subtitle">Data Privacy</a></li>
-                    <li><a href="" class="navi-group__subtitle">Legal Notice</a></li>
-                    <li><a href="" class="navi-group__subtitle">Cancellation</a></li>
-                </ul>
-            </nav>
-        </div>
-
-        <!-- Help -->
-        <div class="navi-group">
-            <h3 class="navi-group__title">Help & Contact</h3>
-            <nav>
-                <ul>
-                    <li><a href="" class="navi-group__subtitle">Self Service</a></li>
-                    <li><a href="" class="navi-group__subtitle">Help Center</a></li>
-                    <li><a href="" class="navi-group__subtitle">Terminate Membership</a></li>
-                    <li><a href="" class="navi-group__subtitle">Gym Usage</a></li>
-                    <li><a href="" class="navi-group__subtitle">Franchise</a></li>
-                </ul>
-            </nav>
-        </div>
-
-        <!-- Careers -->
-        <div class="navi-group">
-            <h3 class="navi-group__title">Careers</h3>
-            <nav>
-                <ul>
-                    <li><a href="" class="navi-group__subtitle">Jobs at Krastev's Gym</a></li>
-                </ul>
-            </nav>
-        </div>
-
-    </div>
-
-    <!-- Media -->
-    <div class="info">
-        <ul class="socials">
-            <li class="socials__item">
-                <a href=""><i class="fab fa-facebook-f"></i></a>
-            </li>
-            <li class="socials__item">
-                <a href=""><i class="fab fa-twitter"></i></a>
-            </li>
-            <li class="socials__item">
-                <a href=""><i class="fab fa-google-plus-g"></i></a>
-            </li>
-            <li class="socials__item">
-                <a href=""><i class="fab fa-youtube"></i></a>
-            </li>
-            <li class="socials__item">
-                <a href=""><i class="fab fa-instagram"></i></a>
-            </li>
-        </ul>
-        <p class="rights">Copyright © 2024 Krastev & Waller GmbH. All Rights Reserved.</p>
-    </div>
-</footer>
-
-<script src="/js/index.js"></script>
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
 </body>
 
 </html>

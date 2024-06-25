@@ -9,5 +9,4 @@ public class KrastevsGymApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KrastevsGymApplication.class, args);
 	}
-
 }
