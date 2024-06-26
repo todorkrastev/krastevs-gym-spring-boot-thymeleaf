@@ -4,7 +4,7 @@ import com.todorkrastev.krastevsgym.model.dto.UserLoginDTO;
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 import com.todorkrastev.krastevsgym.repository.UserRepository;
-import com.todorkrastev.krastevsgym.service.CurrentUser;
+import com.todorkrastev.krastevsgym.util.CurrentUser;
 import com.todorkrastev.krastevsgym.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,10 +46,15 @@ public class UserServiceImpl implements UserService {
             currentUser.setLoggedIn(true);
             currentUser.setFullName(userEntity.getFirstName() + " " + userEntity.getLastName());
         } else {
-            currentUser.clean();
+            currentUser.clear();
         }
 
         return false;
+    }
+
+    @Override
+    public void logout() {
+        currentUser.clear();
     }
 
     private UserEntity map(UserRegisterDTO userRegisterDTO) {

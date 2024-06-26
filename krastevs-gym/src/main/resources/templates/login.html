@@ -34,14 +34,12 @@
 
   <main>
     <section id="login">
-      <form
-            th:action="@{/users/login}"
+      <form th:action="@{/users/login}"
             th:method="post"
-
             class="hero__form--login">
         <h1 class="hero__form--login__title">Sign In</h1>
 
-        <input name="username" class="hero__form--login__field" placeholder="Username" type="text" minlength="1"
+        <input name="email" class="hero__form--login__field" placeholder="Email" type="text" minlength="1"
           maxlength="50" required value="">
 
         <input name="password" class="hero__form--login__field" placeholder="Password" type="password" minlength="6"

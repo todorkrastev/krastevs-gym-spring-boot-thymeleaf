@@ -1,4 +1,4 @@
-package com.todorkrastev.krastevsgym.service;
+package com.todorkrastev.krastevsgym.util;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -29,7 +29,7 @@ public class CurrentUser {
         return this;
     }
 
-    public void clean() {
+    public void clear() {
         this.fullName = null;
         this.isLoggedIn = false;
     }
