@@ -15,28 +15,18 @@
     text-decoration: none;
 }
 
-.section {
-    padding: 3rem 1rem;
-}
-
 .divider {
     background-color: var(--color-dark-gray);
     height: 5px;
 }
 
 #create__exercise {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 0 1rem;
-    position: relative;
-    text-align: center;
+    margin: 6rem 1rem 2rem;
 }
 
 
 .hero__form--create__exercise__title {
+    color: var(--color-primary);
     margin-bottom: 1rem;
 }
 
@@ -45,7 +35,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
 }
 
 .hero__form--create__exercise .hero__form--create__exercise__field {
@@ -53,6 +42,10 @@
     margin-bottom: 1rem;
     color: var(--color-black);
     padding: 0.5rem;
+}
+
+.textarea {
+    min-height: 150px;
 }
 
 .hero__form--create__exercise__drop {
@@ -70,31 +63,30 @@
     border: 2px solid transparent;
 }
 
-.error {
-    color: red;
-    margin-bottom: 1rem;
-}
-
-@media screen and (min-width: 640px) {
-}
+@media screen and (min-width: 640px) {}
 
 @media screen and (min-width: 768px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field,
-    .error {
+    #create__exercise {
+        margin: 8rem 1rem 3rem;
+    }
+
+    .hero__form--create__exercise .hero__form--create__exercise__field {
         width: 80%;
     }
 }
 
 @media screen and (min-width: 1024px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field,
-    .error {
+    .hero__form--create__exercise .hero__form--create__exercise__field {
         width: 60%;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field,
-    .error {
+    #create__exercise {
+        margin: 10rem 1rem 5rem;
+    }
+
+    .hero__form--create__exercise .hero__form--create__exercise__field {
         width: 30%;
     }
 
@@ -109,15 +101,13 @@
 }
 
 @media screen and (min-width: 1600px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field,
-    .error {
+    .hero__form--create__exercise .hero__form--create__exercise__field {
         width: 25%;
     }
 }
 
 @media screen and (min-width: 1800px) {
-    .hero__form--create__exercise .hero__form--create__exercise__field,
-    .error {
+    .hero__form--create__exercise .hero__form--create__exercise__field {
         width: 20%;
     }
 }

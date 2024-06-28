@@ -35,6 +35,15 @@
                minlength="1" maxlength="50" required value="">
         <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
 
+        <textarea th:field="*{description}"
+                name="description"
+                class="hero__form--create__exercise__field textarea"
+                placeholder="Description"
+                type="text"
+                minlength="1"
+                maxlength="65535"
+                required value=""></textarea>
+
         <select th:field="*{exerciseCategoryEnum}" name="exerciseCategoryEnum" class="hero__form--create__exercise__field">
           <option class="hero__form--create__exercise__drop" value="">--Exercise Category--</option>
           <option th:each="category: ${allExerciseCategories}"
@@ -53,15 +62,23 @@
         </select>
         <p th:if="${#fields.hasErrors('equipmentTypeEnum')}" th:errorclass="error" th:errors="*{equipmentTypeEnum}"></p>
 
-        <textarea th:field="*{instructions}"
-                name="instructions"
+        <input th:field="*{videoUrl}"
+                name="videoUrl"
                 class="hero__form--create__exercise__field"
-                placeholder="Description"
+                placeholder="Video URL"
                 type="text"
                 minlength="1"
-                maxlength="65535"
-                required
-                value="">
+                maxlength="65535" required value="">
+
+        <textarea th:field="*{instructions}"
+                  name="instructions"
+                  class="hero__form--create__exercise__field textarea"
+                  placeholder="Instructions"
+                  type="text"
+                  minlength="1"
+                  maxlength="65535"
+                  required
+                  value="">
         </textarea>
 
         <button type="submit" class="hero__create__exercise--submit btn">Submit</button>

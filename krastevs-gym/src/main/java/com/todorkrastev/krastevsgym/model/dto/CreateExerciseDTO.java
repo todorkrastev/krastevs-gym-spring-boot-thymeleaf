@@ -10,14 +10,16 @@ public record CreateExerciseDTO(
         @NotBlank(message = "{create.exercise.name.not.blank}")
         @Size(min = 1, message = "{create.exercise.name.size}")
         String name,
-        String instructions,
+        String description,
         @NotNull(message = "You must select the equipment type!")
         EquipmentTypeEnum equipmentTypeEnum,
         @NotNull(message = "You must select the exercise category!")
-        ExerciseCategoryEnum exerciseCategoryEnum
+        ExerciseCategoryEnum exerciseCategoryEnum,
+        String instructions,
+        String videoUrl
 ) {
 
     public static CreateExerciseDTO empty() {
-        return new CreateExerciseDTO(null, null, null, null);
+        return new CreateExerciseDTO(null, null, null, null, null, null);
     }
 }
