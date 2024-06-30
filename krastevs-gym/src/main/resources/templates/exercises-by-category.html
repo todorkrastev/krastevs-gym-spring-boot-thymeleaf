@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/styles/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+    <!-- <script src="/src/app.js" type="module"></script> -->
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+    <section id="hero">
+        <img src="/imgs/hero/exercise.jpg" class="img--bg--abs" alt="Background poster"/>
+
+        <div th:object="${exerciseCategoryInfo}"
+             class="hero__abs">
+            <h1 th:text="*{exerciseCategory().name().toLowerCase()}"
+                class="hero__title__abs">Abs</h1>
+            <!--<h2 class="hero__title__abs">Exercises</h2>
+            <h2 class="hero__title__abs">Abs</h2>-->
+
+            <div class="hero__exercises__subtitles">
+                <p th:text="*{description()}" class="hero__exercises__subtitle">
+                    Abdominal muscles play a crucial role in posture, support of the spine, balance, stability, and
+                    respiratory
+                    functions such as breathing.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+
+    <section class="exercises__container--abs section">
+        <article th:each="exercise: ${exercisesByCategory}" class="exercise--abs">
+            <a th:href="@{/exercises/{id}(id=${exercise.getId()})}" class="exercise__wrapper--abs">
+                <img th:src="${exercise.getGifUrl()}" class="exercise__poster--abs" alt="Section poster"/>
+                <h6 th:text="${exercise.getName()}" class="exercise__title--abs">Stability ball V-pass</h6>
+            </a>
+        </article>
+    </section>
+
+    <div class="divider"></div>
+
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+</body>
+
+</html>

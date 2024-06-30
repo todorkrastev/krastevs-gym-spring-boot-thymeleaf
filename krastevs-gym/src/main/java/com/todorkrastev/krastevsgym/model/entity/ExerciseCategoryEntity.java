@@ -13,6 +13,12 @@ public class ExerciseCategoryEntity {
     @Enumerated(EnumType.STRING)
     public ExerciseCategoryEnum exerciseCategory;
 
+    @Column(columnDefinition = "TEXT")
+    public String description;
+
+    @Column(name = "gif_url", nullable = false, columnDefinition = "TEXT")
+    public String gifUrl;
+
     public ExerciseCategoryEntity() {
     }
 
@@ -31,6 +37,24 @@ public class ExerciseCategoryEntity {
 
     public ExerciseCategoryEntity setExerciseCategory(ExerciseCategoryEnum exerciseCategory) {
         this.exerciseCategory = exerciseCategory;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public ExerciseCategoryEntity setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public String getGifUrl() {
+        return gifUrl;
+    }
+
+    public ExerciseCategoryEntity setGifUrl(String gifUrl) {
+        this.gifUrl = gifUrl;
         return this;
     }
 }

@@ -1,5 +1,5 @@
 package com.todorkrastev.krastevsgym.model.enums;
 
 public enum ExerciseCategoryEnum {
-    ABS, BACK, BICEPS, CHEST, FOREARMS, LEGS, SHOULDERS, TRICEPS
+    ABS, BICEPS, CHEST, FOREARMS, LATS, LEGS, LOWERBACK, SHOULDERS, TRAPS, TRICEPS
 }

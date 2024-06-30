@@ -1,0 +1,81 @@
+#hero .img--bg--abs {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+#hero .hero__abs {
+    position: relative;
+    z-index: 3;
+}
+
+
+#hero .hero__title__abs {
+    color: var(--color-primary);
+    font-weight: 700;
+    padding: 0.75rem;
+    text-transform: capitalize;
+}
+
+#hero .hero__title__abs:nth-child(3n+2) {
+    color: var(--color-white);
+}
+
+.exercise--abs {
+    padding: 0.5rem;
+}
+
+.exercise__wrapper--abs {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.exercise__poster--abs {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.exercise__title--abs {
+    margin-top: 1rem;
+    text-transform: capitalize;
+}
+
+@media screen and (min-width: 768px) {
+    .exercises__container--abs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    #hero .hero__title__abs {
+        text-align: start;
+    }
+
+    #hero .hero__abs {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #hero .hero__abs {
+        max-width: 1200px;
+    }
+
+    .exercises__container--abs {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
