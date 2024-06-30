@@ -42,17 +42,15 @@
     <div class="divider"></div>
 
     <div class="exercises__container">
-      <section th:each="exercise : ${exercises}" class="exercise section">
-        <a href="/abs.html" class="exercise__wrapper">
-          <img th:src="${exercise.imageUrl}" class="exercise__poster"  alt="Section poster" />
-          <h2 th:text="${exercise.name}" class="exercise__title">Abs</h2>
+      <section th:each="category : ${categories}" class="exercise section">
+        <a th:href="@{/exercises/categories/{id}(id=${category.id()})}" class="exercise__wrapper">
+          <img th:src="${category.gifUrl()}" class="exercise__poster"  alt="Section poster" />
+          <h2 th:text="${category.exerciseCategory()}" class="exercise__title">Abs</h2>
         </a>
       </section>
     </div>
 
     <div class="divider"></div>
-
-
   </main>
 
   <footer th:replace="~{fragments/footer}" class="footer"></footer>

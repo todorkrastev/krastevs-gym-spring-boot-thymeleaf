@@ -1,6 +1,7 @@
 package com.todorkrastev.krastevsgym.model.entity;
 
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
+import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -19,9 +20,10 @@ public class ExerciseEntity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "video_url")
-    private String videoUrl;
+    @Column(name = "gif_url", columnDefinition = "TEXT")
+    private String gifUrl;
 
+    @Column(columnDefinition = "TEXT")
     private String musclesWorkedUrl;
 
     @Column(columnDefinition = "TEXT")
@@ -30,19 +32,19 @@ public class ExerciseEntity {
     @Column(columnDefinition = "TEXT")
     private String notes;
 
-    @Column(name = "equipment_type")
+    @Column(name = "exercise_category", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ExerciseCategoryEnum exerciseCategory;
+
+    @Column(name = "equipment_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private EquipmentTypeEnum equipmentTypeEnum;
 
     @OneToMany(targetEntity = PictureEntity.class, mappedBy = "exercise")
     private Set<PictureEntity> pictures;
 
-    @ManyToMany
-    private Set<ExerciseCategoryEntity> exerciseCategories;
-
     public ExerciseEntity() {
         this.pictures = new HashSet<>();
-        this.exerciseCategories = new HashSet<>();
     }
 
     public long getId() {
@@ -72,12 +74,12 @@ public class ExerciseEntity {
         return this;
     }
 
-    public String getVideoUrl() {
-        return videoUrl;
+    public String getGifUrl() {
+        return gifUrl;
     }
 
-    public ExerciseEntity setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
+    public ExerciseEntity setGifUrl(String gifUrl) {
+        this.gifUrl = gifUrl;
         return this;
     }
 
@@ -108,6 +110,15 @@ public class ExerciseEntity {
         return this;
     }
 
+    public ExerciseCategoryEnum getExerciseCategory() {
+        return exerciseCategory;
+    }
+
+    public ExerciseEntity setExerciseCategory(ExerciseCategoryEnum exerciseCategory) {
+        this.exerciseCategory = exerciseCategory;
+        return this;
+    }
+
     public EquipmentTypeEnum getEquipmentTypeEnum() {
         return equipmentTypeEnum;
     }
@@ -123,15 +134,6 @@ public class ExerciseEntity {
 
     public ExerciseEntity setPictures(Set<PictureEntity> pictures) {
         this.pictures = pictures;
-        return this;
-    }
-
-    public Set<ExerciseCategoryEntity> getExerciseCategories() {
-        return exerciseCategories;
-    }
-
-    public ExerciseEntity setExerciseCategories(Set<ExerciseCategoryEntity> exerciseCategories) {
-        this.exerciseCategories = exerciseCategories;
         return this;
     }
 }

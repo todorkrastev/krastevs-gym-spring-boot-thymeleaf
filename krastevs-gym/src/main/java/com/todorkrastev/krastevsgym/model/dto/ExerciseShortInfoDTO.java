@@ -3,7 +3,7 @@ package com.todorkrastev.krastevsgym.model.dto;
 public class ExerciseShortInfoDTO {
     private long id;
     private String name;
-    private String imageUrl;
+    private String gifUrl;
 
     public ExerciseShortInfoDTO() {
     }
@@ -24,11 +24,11 @@ public class ExerciseShortInfoDTO {
         this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getGifUrl() {
+        return gifUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setGifUrl(String gifUrl) {
+        this.gifUrl = gifUrl;
     }
 }

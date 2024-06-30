@@ -9,19 +9,17 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/exercises")
 public class ExerciseController {
 
-    private ExerciseService exerciseService;
+    private final ExerciseService exerciseService;
 
     public ExerciseController(ExerciseService exerciseService) {
         this.exerciseService = exerciseService;
@@ -37,14 +35,11 @@ public class ExerciseController {
         return EquipmentTypeEnum.values();
     }
 
+    @GetMapping("/{id}")
+    public String exerciseDetail(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("exerciseDetails", exerciseService.getExerciseDetails(id));
 
-    @GetMapping()
-    public String exercises(Model model) {
-        List<ExerciseShortInfoDTO> exercises = this.exerciseService.getAll();
-
-        model.addAttribute("exercises", exercises);
-
-        return "exercises";
+        return "exercise";
     }
 
     @GetMapping("/create")
@@ -61,7 +56,7 @@ public class ExerciseController {
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("createExerciseDTO", createExerciseDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.createExerciseDTO", bindingResult);
 
@@ -72,5 +67,4 @@ public class ExerciseController {
 
         return "redirect:/exercises/" + newExerciseId;
     }
-
 }
