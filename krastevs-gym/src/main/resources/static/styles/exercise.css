@@ -97,6 +97,7 @@
         text-align: start;
     }
 
+    .exercise__poster,
     .exercise__view_of_muscle {
         max-height: 360px;
         max-width: 360px;

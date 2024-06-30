@@ -18,28 +18,31 @@
 </head>
 
 <body>
-    <div th:fragment="navbar" class="header__wrapper">
-        <a th:href="@{/}">
-            <img src="/imgs/logo/logo.png" class="header__logo" alt="Logo"/>
-        </a>
-        <nav class="header__navigation">
-            <div id="guest">
-                <th:block th:unless="${@currentUser.isLoggedIn()}">
-                    <a th:href="@{/users/login}" class="sign__in">Sign in</a>
-                </th:block>
-                <th:block th:if="${@currentUser.isLoggedIn()}">
-                    <a th:href="@{/trainer}" class="btn">My Trainer</a>
-                    <a th:href="@{/exercises}" class="btn">Exercises</a>
-                    <a th:href="@{/workouts}" class="btn">Workouts</a>
-                    <a th:href="@{/progress}" class="btn">Progress</a>
-                    <a th:href="@{/shop}" class="btn">Shop</a>
-                    <a th:href="@{/nutrition}" class="btn">Nutrition</a>
-                    <a th:href="@{/users/logout}" class="icon btn"><i class="fa-solid fa-circle-user"></i></a>
-                </th:block>
+<div th:fragment="navbar" class="header__wrapper">
+    <a th:href="@{/}">
+        <img src="/imgs/logo/logo.png" class="header__logo" alt="Logo"/>
+    </a>
+    <nav class="header__navigation">
+        <div id="guest">
+            <th:block th:unless="${@currentUser.isLoggedIn()}">
+                <a th:href="@{/users/login}" class="sign__in">Sign in</a>
+            </th:block>
+            <th:block th:if="${@currentUser.isLoggedIn()}">
+                <a th:href="@{/trainer}" class="btn">My Trainer</a>
+                <a th:href="@{/exercises}" class="btn">Exercises</a>
+                <a th:href="@{/workouts}" class="btn">Workouts</a>
+                <a th:href="@{/progress}" class="btn">Progress</a>
+                <a th:href="@{/shop}" class="btn">Shop</a>
+                <a th:href="@{/nutrition}" class="btn">Nutrition</a>
+                <form th:method="post"
+                      th:action="@{/users/logout}">
+                    <button class="icon btn">Logout</button>
+                </form>
+            </th:block>
 
-            </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
 </body>
 
 </html>

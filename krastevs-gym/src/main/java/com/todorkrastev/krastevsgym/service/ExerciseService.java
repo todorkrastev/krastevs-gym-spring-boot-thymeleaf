@@ -11,6 +11,8 @@ import java.util.List;
 public interface ExerciseService {
     long createExercise(CreateExerciseDTO createExerciseDTO);
 
+    void deleteExercise(Long id);
+
     ExerciseDetailsDTO getExerciseDetails(Long id);
 
     List<ExerciseShortInfoDTO> getExercisesByGivenCategory(ExerciseCategoryEnum exerciseCategory);

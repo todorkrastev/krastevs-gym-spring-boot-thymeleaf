@@ -50,6 +50,11 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public void deleteExercise(Long id) {
+        exerciseRepository.deleteById(id);
+    }
+
+    @Override
     public ExerciseDetailsDTO getExerciseDetails(Long id) {
         return this.exerciseRepository
                 .findById(id)

@@ -38,6 +38,13 @@
                         adipisci ut voluptatum esse unde maxime, maiores voluptatem. Explicabo fuga obcaecati numquam.
                         Perspiciatis
                         cum quibusdam ad.</p>
+                    <div class="info__buttons">
+                        <button class="info__button edit">Edit</button>
+                        <form th:method="delete"
+                              th:action="@{/exercises/{id}(id=*{id})}">
+                            <button class="info__button delete">Delete</button>
+                        </form>
+                    </div>
                 </div>
                 <img th:src="*{videoUrl}"
                      class="exercise__poster" alt="Section poster"/>
@@ -73,8 +80,8 @@
     <div class="exercise__container section--exercise">
         <section class="exercise">
             <form method="POST" class="create__note">
-          <textarea name="notes" class="exercise__notes" placeholder="Exercise Notes" type="text" minlength="1"
-                    maxlength="255" required value=""></textarea>
+          <textarea name="notes" class="exercise__notes" placeholder="Exercise Notes" minlength="1"
+                    maxlength="255" required></textarea>
                 <button type="submit" class="create__note--submit">Submit</button>
             </form>
         </section>
