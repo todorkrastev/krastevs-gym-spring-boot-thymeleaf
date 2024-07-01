@@ -26,6 +26,12 @@ spring:
         format_sql: true
     defer-datasource-initialization: true
 
+forex:
+  api:
+    key: ${FOREX_API_KEY:}
+    url: "https://openexchangerates.org/api/latest.json?app_id={app_id}"
+    base: "USD"
+
 #spring:
 #    application:
 #        name: krastevs-gym
