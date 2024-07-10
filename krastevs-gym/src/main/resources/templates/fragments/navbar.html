@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/styles/main.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
@@ -20,14 +21,14 @@
 <body>
 <div th:fragment="navbar" class="header__wrapper">
     <a th:href="@{/}">
-        <img src="/imgs/logo/logo.png" class="header__logo" alt="Logo"/>
+        <img src="/images/logo/logo.png" class="header__logo" alt="Logo"/>
     </a>
     <nav class="header__navigation">
         <div id="guest">
-            <th:block th:unless="${@currentUser.isLoggedIn()}">
+            <th:block sec:authorize="!isAuthenticated()">
                 <a th:href="@{/users/login}" class="sign__in">Sign in</a>
             </th:block>
-            <th:block th:if="${@currentUser.isLoggedIn()}">
+            <th:block sec:authorize="isAuthenticated()">
                 <a th:href="@{/trainer}" class="btn">My Trainer</a>
                 <a th:href="@{/exercises}" class="btn">Exercises</a>
                 <a th:href="@{/workouts}" class="btn">Workouts</a>
