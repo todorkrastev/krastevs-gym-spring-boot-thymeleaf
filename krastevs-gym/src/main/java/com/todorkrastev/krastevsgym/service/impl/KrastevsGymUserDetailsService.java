@@ -1,14 +1,16 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
-import com.todorkrastev.krastevsgym.model.entity.KrastevsGymUserDetails;
+import com.todorkrastev.krastevsgym.model.entity.UserRoleEntity;
+import com.todorkrastev.krastevsgym.model.enums.UserRoleEnum;
+import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 import com.todorkrastev.krastevsgym.repository.UserRepository;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Collections;
 import java.util.List;
 
 public class KrastevsGymUserDetailsService implements UserDetailsService {
@@ -33,9 +35,13 @@ public class KrastevsGymUserDetailsService implements UserDetailsService {
         return new KrastevsGymUserDetails(
                 userEntity.getEmail(),
                 userEntity.getPassword(),
-                List.of(),
+                userEntity.getRoles().stream().map(UserRoleEntity::getRole).map(KrastevsGymUserDetailsService::map).toList(),
                 userEntity.getFirstName(),
                 userEntity.getLastName()
         );
+    }
+
+    private static GrantedAuthority map(UserRoleEnum role) {
+        return new SimpleGrantedAuthority("ROLE_" + role);
     }
 }

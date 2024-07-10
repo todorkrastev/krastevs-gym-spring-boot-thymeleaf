@@ -32,8 +32,8 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserLevelEnum level;
 
-    @ManyToMany
-    private Set<RoleEntity> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<UserRoleEntity> roles;
 
     @ManyToMany
     private Set<ExerciseEntity> exercises;
@@ -124,11 +124,11 @@ public class UserEntity {
         return this;
     }
 
-    public Set<RoleEntity> getRoles() {
+    public Set<UserRoleEntity> getRoles() {
         return roles;
     }
 
-    public UserEntity setRoles(Set<RoleEntity> roles) {
+    public UserEntity setRoles(Set<UserRoleEntity> roles) {
         this.roles = roles;
         return this;
     }

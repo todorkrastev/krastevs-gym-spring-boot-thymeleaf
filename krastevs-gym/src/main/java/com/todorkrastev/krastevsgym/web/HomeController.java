@@ -1,6 +1,6 @@
 package com.todorkrastev.krastevsgym.web;
 
-import com.todorkrastev.krastevsgym.model.entity.KrastevsGymUserDetails;
+import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.todorkrastev.krastevsgym.model.entity;
+package com.todorkrastev.krastevsgym.model.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

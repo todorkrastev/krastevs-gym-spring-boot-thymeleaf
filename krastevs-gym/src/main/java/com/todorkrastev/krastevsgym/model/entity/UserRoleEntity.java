@@ -1,35 +1,35 @@
 package com.todorkrastev.krastevsgym.model.entity;
 
-import com.todorkrastev.krastevsgym.model.enums.UserRolesEnum;
+import com.todorkrastev.krastevsgym.model.enums.UserRoleEnum;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class RoleEntity {
+public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Enumerated(EnumType.STRING)
-    private UserRolesEnum name;
+    private UserRoleEnum role;
 
-    public RoleEntity() {}
+    public UserRoleEntity() {}
 
     public long getId() {
         return id;
     }
 
-    public RoleEntity setId(long id) {
+    public UserRoleEntity setId(long id) {
         this.id = id;
         return this;
     }
 
-    public UserRolesEnum getName() {
-        return name;
+    public UserRoleEnum getRole() {
+        return role;
     }
 
-    public RoleEntity setName(UserRolesEnum name) {
-        this.name = name;
+    public UserRoleEntity setRole(UserRoleEnum role) {
+        this.role = role;
         return this;
     }
 }
