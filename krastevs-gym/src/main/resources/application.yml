@@ -32,6 +32,15 @@ forex:
     url: "https://openexchangerates.org/api/latest.json?app_id={app_id}"
     base: "USD"
 
+#server:
+#  error:
+#    whitelabel:
+#      enabled: false
+
+#server:
+#  error:
+#    include-stacktrace: always
+
 #spring:
 #    application:
 #        name: krastevs-gym

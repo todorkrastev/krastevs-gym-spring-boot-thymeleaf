@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
+import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseDetailsDTO;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseShortInfoDTO;
@@ -56,10 +57,15 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public ExerciseDetailsDTO getExerciseDetails(Long id) {
+//        return this.exerciseRepository
+//                .findById(id)
+//                .map(ExerciseServiceImpl::toExerciseDetails)
+//                .orElseThrow(() -> new ObjectNotFoundException("Exercise not found!", id));
+
         return this.exerciseRepository
                 .findById(id)
                 .map(ExerciseServiceImpl::toExerciseDetails)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
     }
 
     @Override

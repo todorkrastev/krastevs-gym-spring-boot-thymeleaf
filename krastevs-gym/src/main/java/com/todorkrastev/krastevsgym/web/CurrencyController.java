@@ -1,13 +1,14 @@
 package com.todorkrastev.krastevsgym.web;
 
+import com.todorkrastev.krastevsgym.exception.ApiObjectNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.ConversionResultDTO;
 import com.todorkrastev.krastevsgym.service.ExRateService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.security.SignedObject;
 
 @RestController
 public class CurrencyController {
@@ -33,4 +34,14 @@ public class CurrencyController {
         ));
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ApiObjectNotFoundException.class)
+    @ResponseBody
+    public NotFoundErrorInfo handleApiObjectNotFoundException(ApiObjectNotFoundException apiObjectNotFoundException) {
+        return new NotFoundErrorInfo("NOT FOUND", apiObjectNotFoundException.getId());
+    }
+
+    public record NotFoundErrorInfo(String code, Object id) {
+
+    }
 }

@@ -1,11 +1,11 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.config.ForexApiConfig;
+import com.todorkrastev.krastevsgym.exception.ApiObjectNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.ExRatesDTO;
 import com.todorkrastev.krastevsgym.model.entity.ExRateEntity;
 import com.todorkrastev.krastevsgym.repository.ExRateRepository;
 import com.todorkrastev.krastevsgym.service.ExRateService;
-import com.todorkrastev.krastevsgym.service.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -98,7 +98,7 @@ public class ExRateServiceImpl implements ExRateService {
     @Override
     public BigDecimal convert(String from, String to, BigDecimal amount) {
         return findExRate(from, to)
-                .orElseThrow(() -> new ObjectNotFoundException("Conversion from " + from + " to " + to + " not possible!"))
+                .orElseThrow(() -> new ApiObjectNotFoundException("Conversion from " + from + " to " + to + " not possible!", from + "~" + to))
                 .multiply(amount);
     }
 }

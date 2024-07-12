@@ -1,0 +1,1 @@
+GET http://localhost:8080/api/convert?from=XXX&to=EUR&amount=50
