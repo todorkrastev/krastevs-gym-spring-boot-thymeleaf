@@ -1,0 +1,36 @@
+spring:
+    datasource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/krastevs_gym_exercises?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+        username: ${db_username}
+        password: ${db_password}
+    #  sql:
+    #      init:
+    #        mode: never
+    jpa:
+        #    database-platform: org.hibernate.dialect.MySQLDialect
+        hibernate:
+            ddl-auto: update
+        open-in-view: false
+        properties:
+            hibernate:
+                show_sql: true
+                format_sql: true
+        defer-datasource-initialization: true
+
+#server:
+#  error:
+#    whitelabel:
+#      enabled: false
+
+#server:
+#  error:
+#    include-stacktrace: always
+
+#spring:
+#    application:
+#        name: krastevs-gym
+#    thymeleaf:
+#        cache: false
+#        check-template-location: true
+#        prefix: file:./src/main/resources/templates/
