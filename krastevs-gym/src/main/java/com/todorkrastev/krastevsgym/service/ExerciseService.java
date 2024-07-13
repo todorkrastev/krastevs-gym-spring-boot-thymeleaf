@@ -9,7 +9,9 @@ import java.util.List;
 
 
 public interface ExerciseService {
-    long createExercise(CreateExerciseDTO createExerciseDTO);
+    List<ExerciseDetailsDTO> getAllExercises();
+
+    void createExercise(CreateExerciseDTO createExerciseDTO);
 
     void deleteExercise(Long id);
 

@@ -9,45 +9,70 @@ import com.todorkrastev.krastevsgym.model.entity.PictureEntity;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.repository.ExerciseRepository;
 import com.todorkrastev.krastevsgym.service.ExerciseService;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
-
+    private final Logger LOGGER = LoggerFactory.getLogger(ExerciseServiceImpl.class);
+    private final RestClient exercisesRestClient;
     private final ExerciseRepository exerciseRepository;
     private final ModelMapper modelMapper;
 
-    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper) {
+    public ExerciseServiceImpl(@Qualifier("exercisesRestClient") RestClient exercisesRestClient, ExerciseRepository exerciseRepository, ModelMapper modelMapper) {
+        this.exercisesRestClient = exercisesRestClient;
         this.exerciseRepository = exerciseRepository;
         this.modelMapper = modelMapper;
     }
 
-    @Transactional
-    public List<ExerciseShortInfoDTO> getAll() {
-        return exerciseRepository.findAll()
-                .stream()
-                .map(this::mapToInfo)
-                .toList();
+    @Override
+    public List<ExerciseDetailsDTO> getAllExercises() {
+        LOGGER.info("Get all exercises");
+
+        //REST
+        return exercisesRestClient
+                .get()
+                .uri("http://localhost:8081/exercises")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
     }
 
     @Override
-    public long createExercise(CreateExerciseDTO createExerciseDTO) {
-        ExerciseEntity exercise = new ExerciseEntity()
-                .setName(createExerciseDTO.name())
-                .setDescription(createExerciseDTO.description())
-                .setEquipmentTypeEnum(createExerciseDTO.equipmentTypeEnum())
-                .setExerciseCategory(createExerciseDTO.exerciseCategoryEnum())
-                .setInstructions(createExerciseDTO.instructions())
-                .setGifUrl(createExerciseDTO.videoUrl());
+    public void createExercise(CreateExerciseDTO createExerciseDTO) {
+        // Thymeleaf
 
+//        ExerciseEntity exercise = new ExerciseEntity()
+//                .setName(createExerciseDTO.name())
+//                .setDescription(createExerciseDTO.description())
+//                .setEquipmentTypeEnum(createExerciseDTO.equipmentTypeEnum())
+//                .setExerciseCategory(createExerciseDTO.exerciseCategoryEnum())
+//                .setInstructions(createExerciseDTO.instructions())
+//                .setGifUrl(createExerciseDTO.videoUrl());
+//
+//
+//        //  ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
+//        return exerciseRepository.save(exercise).getId();
 
-        //  ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
-        return exerciseRepository.save(exercise).getId();
+        // REST
+
+        LOGGER.info("Creating new exercise");
+
+        exercisesRestClient
+                .post()
+                .uri("http://localhost:8081/exercises")
+                .body(createExerciseDTO)
+                .retrieve();
     }
 
     @Override
@@ -57,15 +82,18 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public ExerciseDetailsDTO getExerciseDetails(Long id) {
+        //Thymeleaf
 //        return this.exerciseRepository
 //                .findById(id)
 //                .map(ExerciseServiceImpl::toExerciseDetails)
-//                .orElseThrow(() -> new ObjectNotFoundException("Exercise not found!", id));
+//                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
 
-        return this.exerciseRepository
-                .findById(id)
-                .map(ExerciseServiceImpl::toExerciseDetails)
-                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
+        return exercisesRestClient
+                .get()
+                .uri("http://localhost:8081/exercises/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(ExerciseDetailsDTO.class);
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.todorkrastev.krastevsgym.repository.ExRateRepository;
 import com.todorkrastev.krastevsgym.service.ExRateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -24,7 +25,7 @@ public class ExRateServiceImpl implements ExRateService {
     private final RestClient restClient;
     private final ForexApiConfig forexApiConfig;
 
-    public ExRateServiceImpl(ExRateRepository exRateRepository, RestClient restClient, ForexApiConfig forexApiConfig) {
+    public ExRateServiceImpl(ExRateRepository exRateRepository, @Qualifier("genericRestClient") RestClient restClient, ForexApiConfig forexApiConfig) {
         this.exRateRepository = exRateRepository;
         this.restClient = restClient;
         this.forexApiConfig = forexApiConfig;

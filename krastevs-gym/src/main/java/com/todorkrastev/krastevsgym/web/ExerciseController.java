@@ -32,6 +32,13 @@ public class ExerciseController {
         return EquipmentTypeEnum.values();
     }
 
+    @GetMapping("/all")
+    public String getAllOffers(Model model) {
+        model.addAttribute("allOffers", exerciseService.getAllExercises());
+        //TODO: This is just a demo. Delete after implementing it
+        return "bla-bla";
+    }
+
     @GetMapping("/{id}")
     public String exerciseDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("exerciseDetails", exerciseService.getExerciseDetails(id));
@@ -66,9 +73,13 @@ public class ExerciseController {
 
             return "redirect:/exercises/create";
         }
+        //Thymeleaf
+        //long newExerciseId = exerciseService.createExercise(createExerciseDTO);
+        // return "redirect:/exercises/" + newExerciseId;
 
-        long newExerciseId = exerciseService.createExercise(createExerciseDTO);
+        //REST
+        exerciseService.createExercise(createExerciseDTO);
 
-        return "redirect:/exercises/" + newExerciseId;
+        return "redirect:/exercises/categories";
     }
 }
