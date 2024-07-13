@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class KrastevsGymApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(KrastevsGymApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(KrastevsGymApplication.class, args);
+    }
 }
