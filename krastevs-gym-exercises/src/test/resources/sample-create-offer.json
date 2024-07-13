@@ -1,0 +1,8 @@
+{
+  "name": "Exercise 1",
+  "description": "Description for Exercise 1",
+  "equipmentTypeEnum": "BARBELL",
+  "exerciseCategoryEnum": "BICEPS",
+  "instructions": "Instructions for Exercise 1",
+  "picture": "URL for Exercise 1"
+}
