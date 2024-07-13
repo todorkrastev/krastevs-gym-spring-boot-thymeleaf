@@ -24,23 +24,48 @@
         <img src="/images/logo/logo.png" class="header__logo" alt="Logo"/>
     </a>
     <nav class="header__navigation">
-        <div id="guest">
+        <div id="guest" class="header__buttons_wrapper">
             <th:block sec:authorize="!isAuthenticated()">
-                <a th:href="@{/users/login}" class="sign__in">Sign in</a>
+                <li class="header__btn">
+                    <a th:href="@{/users/login}" th:text="#{nav_bar_login}" class="sign__in">Sign in</a>
+                </li>
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
-                <a th:href="@{/trainer}" class="btn">My Trainer</a>
-                <a th:href="@{/exercises}" class="btn">Exercises</a>
-                <a th:href="@{/workouts}" class="btn">Workouts</a>
-                <a th:href="@{/progress}" class="btn">Progress</a>
-                <a th:href="@{/shop}" class="btn">Shop</a>
-                <a th:href="@{/nutrition}" class="btn">Nutrition</a>
-                <form th:method="post"
-                      th:action="@{/users/logout}">
-                    <button class="icon btn" type="submit">Logout</button>
-                </form>
+                <li class="header__btn">
+                    <a th:href="@{/trainer}" class="btn">My Trainer</a>
+                </li>
+                <li class="header__btn">
+                    <a th:href="@{/exercises}" class="btn">Exercises</a>
+                </li>
+                <li class="header__btn">
+                    <a th:href="@{/workouts}" class="btn">Workouts</a>
+                </li>
+                <li class="header__btn">
+                    <a th:href="@{/progress}" class="btn">Progress</a>
+                </li>
+                <li class="header__btn">
+                    <a th:href="@{/shop}" class="btn">Shop</a>
+                </li>
+                <li class="header__btn">
+                    <a th:href="@{/nutrition}" class="btn">Nutrition</a>
+                </li>
+                <li class="header__btn">
+                    <form th:method="post"
+                          th:action="@{/users/logout}">
+                        <button class="btn" type="submit">Sign out</button>
+                    </form>
+                </li>
             </th:block>
-
+            <li class="header__btn">
+                <form th:method="get">
+                    <select name="lang"
+                            onchange="this.form.submit()"
+                            class="btn">
+                        <option class="header__drop__lang" th:selected="${#locale.toString()} == 'en_US'" value="en_US">US</option>
+                        <option class="header__drop__lang" th:selected="${#locale.toString()} == 'de_DE'" value="de_DE">DE</option>
+                    </select>
+                </form>
+            </li>
         </div>
     </nav>
 </div>
