@@ -3,11 +3,11 @@ package com.todorkrastev.krastevsgymexercises.web;
 import com.todorkrastev.krastevsgymexercises.model.dto.CreateExerciseDTO;
 import com.todorkrastev.krastevsgymexercises.model.dto.ExerciseDetailsDTO;
 import com.todorkrastev.krastevsgymexercises.service.ExerciseService;
-import org.apache.coyote.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -22,14 +22,14 @@ public class ExerciseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExerciseDetailsDTO> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<ExerciseDetailsDTO> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(exerciseService.getOfferById(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ExerciseDetailsDTO> deleteById(@PathVariable("id") Long id) {
         exerciseService.deleteExercise(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
@@ -41,7 +41,13 @@ public class ExerciseController {
     public ResponseEntity<ExerciseDetailsDTO> createExercise(@RequestBody CreateExerciseDTO createExerciseDTO) {
         LOGGER.info("Creating an offer {}", createExerciseDTO);
 
-        exerciseService.createExercise(createExerciseDTO);
-        return ResponseEntity.ok().build();
+        ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.createExercise(createExerciseDTO);
+        return ResponseEntity.created(
+                ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(exerciseDetailsDTO.id())
+                        .toUri()
+        ).body(exerciseDetailsDTO);
     }
 }

@@ -1,0 +1,12 @@
+### Send POST request with json body
+POST http://localhost:8081/exercises
+Content-Type: application/json
+
+{
+  "name": "Exercise 3",
+  "description": "Description for Exercise 3",
+  "equipmentTypeEnum": "CABLE",
+  "exerciseCategoryEnum": "BICEPS",
+  "instructions": "Instructions for Exercise 3",
+  "picture": "URL for Exercise 3"
+}

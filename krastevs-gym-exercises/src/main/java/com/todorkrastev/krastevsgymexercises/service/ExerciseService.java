@@ -6,7 +6,7 @@ import com.todorkrastev.krastevsgymexercises.model.dto.ExerciseDetailsDTO;
 import java.util.List;
 
 public interface ExerciseService {
-    void createExercise(CreateExerciseDTO createExerciseDTO);
+    ExerciseDetailsDTO createExercise(CreateExerciseDTO createExerciseDTO);
 
     void deleteExercise(Long exerciseId);
 

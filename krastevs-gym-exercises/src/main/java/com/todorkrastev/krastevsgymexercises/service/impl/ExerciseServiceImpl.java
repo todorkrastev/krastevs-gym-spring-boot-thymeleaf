@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgymexercises.service.impl;
 
+import com.todorkrastev.krastevsgymexercises.exception.ObjectNotFoundException;
 import com.todorkrastev.krastevsgymexercises.model.dto.CreateExerciseDTO;
 import com.todorkrastev.krastevsgymexercises.model.dto.ExerciseDetailsDTO;
 import com.todorkrastev.krastevsgymexercises.model.entity.ExerciseEntity;
@@ -18,18 +19,28 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public void createExercise(CreateExerciseDTO createExerciseDTO) {
+    public ExerciseDetailsDTO createExercise(CreateExerciseDTO createExerciseDTO) {
         ExerciseEntity exercise = new ExerciseEntity()
                 .setName(createExerciseDTO.name())
                 .setDescription(createExerciseDTO.description())
                 .setEquipmentTypeEnum(createExerciseDTO.equipmentTypeEnum())
-                .setExerciseCategory(createExerciseDTO.exerciseCategoryEnum())
+                .setExerciseCategoryEnum(createExerciseDTO.exerciseCategoryEnum())
                 .setInstructions(createExerciseDTO.instructions())
                 .setPicture(createExerciseDTO.picture());
 
 
         //  ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
-        exerciseRepository.save(exercise);
+        ExerciseEntity exerciseSaved = exerciseRepository.save(exercise);
+
+        return new ExerciseDetailsDTO(
+                exerciseSaved.getId(),
+                exerciseSaved.getName(),
+                exerciseSaved.getDescription(),
+                exerciseSaved.getGifUrl(),
+                exerciseSaved.getMusclesWorkedUrl(),
+                exerciseSaved.getInstructions(),
+                exerciseSaved.getNotes()
+        );
     }
 
     @Override
@@ -45,7 +56,7 @@ public class ExerciseServiceImpl implements ExerciseService {
                                 exerciseEntity.getMusclesWorkedUrl(),
                                 exerciseEntity.getInstructions(),
                                 exerciseEntity.getNotes()))
-                .orElseThrow(() -> new IllegalArgumentException("Not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException());
     }
 
     @Override

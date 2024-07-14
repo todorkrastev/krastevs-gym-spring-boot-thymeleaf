@@ -9,29 +9,29 @@ import jakarta.persistence.*;
 public class ExerciseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "exercise_name", nullable = false, unique = true)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Column
     private String description;
 
-    @Column(name = "gif_url", columnDefinition = "TEXT")
+    @Column(name = "gif_url")
     private String gifUrl;
 
-    @Column(columnDefinition = "TEXT")
+    @Column
     private String musclesWorkedUrl;
 
-    @Column(columnDefinition = "TEXT")
+    @Column
     private String instructions;
 
-    @Column(columnDefinition = "TEXT")
+    @Column
     private String notes;
 
     @Column(name = "exercise_category", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ExerciseCategoryEnum exerciseCategory;
+    private ExerciseCategoryEnum exerciseCategoryEnum;
 
     @Column(name = "equipment_type", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -42,11 +42,11 @@ public class ExerciseEntity {
     public ExerciseEntity() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public ExerciseEntity setId(long id) {
+    public ExerciseEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -105,12 +105,12 @@ public class ExerciseEntity {
         return this;
     }
 
-    public ExerciseCategoryEnum getExerciseCategory() {
-        return exerciseCategory;
+    public ExerciseCategoryEnum getExerciseCategoryEnum() {
+        return exerciseCategoryEnum;
     }
 
-    public ExerciseEntity setExerciseCategory(ExerciseCategoryEnum exerciseCategory) {
-        this.exerciseCategory = exerciseCategory;
+    public ExerciseEntity setExerciseCategoryEnum(ExerciseCategoryEnum exerciseCategoryEnum) {
+        this.exerciseCategoryEnum = exerciseCategoryEnum;
         return this;
     }
 
