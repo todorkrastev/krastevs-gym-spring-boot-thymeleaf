@@ -27,7 +27,7 @@
         <div id="guest" class="header__buttons_wrapper">
             <th:block sec:authorize="!isAuthenticated()">
                 <li class="header__btn">
-                    <a th:href="@{/users/login}" th:text="#{nav_bar_login}" class="sign__in">Sign in</a>
+                    <a th:href="@{/users/login}" th:text="#{nav_bar_login}" class="btn">Sign in</a>
                 </li>
             </th:block>
             <th:block sec:authorize="isAuthenticated()">

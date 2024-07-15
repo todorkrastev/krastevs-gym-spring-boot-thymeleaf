@@ -24,7 +24,7 @@
 
 <main>
     <section id="hero">
-        <img src="/images/hero/hero.jpg" class="img--bg" alt="Background poster"/>
+        <img th:src="${heroImage.getImageURL()}" class="img--bg" alt="Background poster"/>
 
 
         <th:block sec:authorize="isAuthenticated()">
@@ -47,241 +47,28 @@
 
     <div class="divider"></div>
 
-    <section id="weights" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Free Weights</h2>
-            <p class="info__description">
-                If you suffer from acute iron deficiency, you've come to the right place. In the Free Weights Area, you
-                can
-                let off steam on the gym80 Olympia Premium barbells or dumbbells up to 150 kg.
-            </p>
+    <section th:each="activity : ${activities}">
+        <div class="info section">
+            <div class="info__wrapper">
+                <h2 th:text="${activity.getTitle()}" class="info__title">Free Weights</h2>
+                <p th:text="${activity.getDescription()}" class="info__description">
+                    If you suffer from acute iron deficiency, you've come to the right place. In the Free Weights Area,
+                    you
+                    can
+                    let off steam on the gym80 Olympia Premium barbells or dumbbells up to 150 kg.
+                </p>
 
-            <div class="info__buttons" sec:authorize="hasRole('ADMIN')">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/weights.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="machines" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Machines</h2>
-            <p class="info__description">
-                Indestructible, incomparable and incredibly effective: With the ultimate equipment from gym80 "The King
-                of
-                Machines" you train all muscles absolutely precisely thanks to the excellent biomechanics.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/machines.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="cardio" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Cardio Area</h2>
-            <p class="info__description">
-                Take your endurance to the next level with top equipment from Precor and Matrix and look forward to a
-                gigantic
-                selection - in Constance even between 10 meter high trees!
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/cardio.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="box" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Boxing</h2>
-            <p class="info__description">
-                You won't meet Wladimir Klitschko or Alexander Povetkin in our gym, but the fun in our boxing classes is
-                guaranteed.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/boxing.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="coaching" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">PT & Coaching</h2>
-            <p class="info__description">
-                You can't get ahead and always have an excuse? Then it's high time for the best personal training ever!
-                Experience individual 1:1 support, pure motivation, and maximum effectiveness.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/coaching.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="yoga" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Yoga</h2>
-            <p class="info__description">
-                If you are looking for peace of mind and solitude, come and join our yoga classes.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/yoga.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="classes" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">VR Training & More</h2>
-            <p class="info__description">
-                At Krastev's Gym, we offer you two strong fitness class formats: VR Workouts and Live Classes. All
-                classes
-                are free and suitable for all levels.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/vr.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="posing" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Posing Room</h2>
-            <p class="info__description">
-                First pump, then pose. In the fully mirrored room in Constance, that's no problem. Because we have not
-                spared
-                the anabolic light here, you can put your body optimally illuminated in the scene.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
+                <div class="info__buttons" sec:authorize="hasRole('ADMIN')">
+                    <button class="info__button edit">Edit</button>
+                    <button class="info__button delete">Delete</button>
+                </div>
             </div>
 
+            <img th:src="${activity.getImageURL()}" class="info__poster" alt="Section poster"/>
         </div>
 
-        <img class="info__poster" src="/images/home/posing.jpg" alt="Section poster"/>
+        <div class="divider"></div>
     </section>
-
-    <div class="divider"></div>
-
-    <section id="sauna" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Sauna & Recovery</h2>
-            <p class="info__description">
-                If you work hard, you can also relax. Ideally in our separate men's and women's sauna. Time to relax.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/sauna.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="pool" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Swimming Pool</h2>
-            <p class="info__description">
-                Krastev's Gym Fullerton features an outdoor pool and indoor hot tub, open year-round. Swim your way to
-                better
-                health and stay cool in the Constance sun with our unlimited membership.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/pool.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="nutrition" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Krastev's Gym Nutrition</h2>
-            <p class="info__description">
-                When you train, you get your body in top shape. But you also demand a lot from it. Krastev's Gym
-                Nutrition
-                ensures that your body is supplied with everything it needs before, during and after your workout.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/nutrition.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="shop" class="info section">
-        <div class="info__wrapper">
-            <h2 class="info__title">Krastev's Gym Shop</h2>
-            <p class="info__description">
-                At Krastev's Gym you have a wide selection of products specially selected for you by us. Useful fitness
-                accessories, and the perfect clothes for your workout. You can pick up your order in your Krastev's Gym,
-                or
-                have it conveniently delivered to your home.
-            </p>
-
-            <div class="info__buttons">
-                <button class="info__button edit">Edit</button>
-                <button class="info__button delete">Delete</button>
-            </div>
-        </div>
-
-        <img class="info__poster" src="/images/home/shop.jpg" alt="Section poster"/>
-    </section>
-
-    <div class="divider"></div>
 
 </main>
 

@@ -2,10 +2,11 @@ package com.todorkrastev.krastevsgym.service;
 
 import com.todorkrastev.krastevsgym.model.dto.ActivityDTO;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ActivityService {
-    Set<ActivityDTO> findAll();
+    List<ActivityDTO> findAll();
 
     ActivityDTO getActivityById(Long activityId);
 

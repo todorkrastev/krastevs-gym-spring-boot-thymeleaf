@@ -15,8 +15,8 @@ public class ActivityEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    private String image;
+    @Column(name = "image_url", nullable = false)
+    private String imageURL;
 
     public ActivityEntity() {
     }
@@ -48,12 +48,12 @@ public class ActivityEntity {
         return this;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public ActivityEntity setImage(String image) {
-        this.image = image;
+    public ActivityEntity setImageURL(String imageURL) {
+        this.imageURL = imageURL;
         return this;
     }
 }

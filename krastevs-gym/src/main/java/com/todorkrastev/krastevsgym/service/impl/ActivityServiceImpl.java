@@ -8,8 +8,7 @@ import com.todorkrastev.krastevsgym.service.ActivityService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
@@ -22,12 +21,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Set<ActivityDTO> findAll() {
+    public List<ActivityDTO> findAll() {
         return this.activityRepository
-                .findAll()
+                .findAllByOrderByIdAsc()
                 .stream()
                 .map(activity -> this.modelMapper.map(activity, ActivityDTO.class))
-                .collect(Collectors.toSet());
+                .toList();
     }
 
     @Override
@@ -52,9 +51,9 @@ public class ActivityServiceImpl implements ActivityService {
 
         ActivityEntity activity = this.activityRepository.findById(activityId).orElseThrow(() -> new ResourceNotFoundException("Activity", "id", activityId));
 
-        activity.setTitle(activityDTO.title());
-        activity.setDescription(activityDTO.description());
-        activity.setImage(activityDTO.image());
+        activity.setTitle(activityDTO.getTitle());
+        activity.setDescription(activityDTO.getDescription());
+        activity.setImageURL(activityDTO.getImageURL());
 
         ActivityEntity updatedActivity = this.activityRepository.save(activity);
 
