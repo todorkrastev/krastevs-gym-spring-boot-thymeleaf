@@ -13,6 +13,9 @@
       <a href="https://github.com/spring-projects/spring-security" target="_blank">Spring Security</a>
     </li>
     <li>
+      <a href="https://github.com/thymeleaf" target="_blank">Thymeleaf</a>
+    </li>
+    <li>
       <a href="https://github.com/todorkrastev/krastevs-gym-html-css" target="_blank">HTML & CSS</a>
     </li>
     <li>
