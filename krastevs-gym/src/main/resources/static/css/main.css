@@ -67,7 +67,7 @@ body {
     flex-wrap: nowrap;
     align-content: center;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
 }
 
 .header__btn {
@@ -92,6 +92,11 @@ body {
 
 .section {
     padding: 3rem 1rem;
+}
+
+.error__message--form {
+    margin-bottom: 1rem;
+    color: orangered;
 }
 
 #hero {
@@ -395,6 +400,10 @@ body {
         margin-bottom: 2rem;
     }
 
+    .error__message--form {
+        width: 80%;
+    }
+
 }
 
 @media screen and (min-width: 1024px) {
@@ -435,6 +444,10 @@ body {
 
     .footer .info .rights {
         font-size: 0.625rem;
+    }
+
+    .error__message--form {
+        width: 60%;
     }
 }
 
@@ -513,6 +526,10 @@ body {
         cursor: pointer;
         transition: color 250ms ease-in-out;
     }
+
+    .error__message--form {
+        width: 30%;
+    }
 }
 
 @media screen and (min-width: 1440px) {
@@ -525,6 +542,10 @@ body {
     .delete {
         font-size: 16px;
     }
+
+    .error__message--form {
+        width: 25%;
+    }
 }
 
 @media screen and (min-width: 2560px) {
@@ -533,5 +554,9 @@ body {
     .edit,
     .delete {
         font-size: 18px;
+    }
+
+    .error__message--form {
+        width: 20%;
     }
 }

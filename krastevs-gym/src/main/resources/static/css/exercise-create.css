@@ -20,8 +20,8 @@
     height: 5px;
 }
 
-#create__exercise {
-    margin: 6rem 1rem 2rem;
+.section--exercise__create {
+    padding: 6rem 1rem;
 }
 
 
@@ -55,35 +55,35 @@
 
 #create__exercise .hero__create__exercise--submit {
     /* padding: 0.75rem; */
-    background-color: var(--color-primary);
-    color: var(--color-dark-gray);
+    background-color: transparent;
+    color: var(--color-primary);
     padding: 0.25rem 0.75rem;
     text-transform: capitalize;
     font-size: 1rem;
-    border: 2px solid transparent;
+    border: 2px solid var(--color-primary);
 }
 
 @media screen and (min-width: 640px) {}
 
 @media screen and (min-width: 768px) {
-    #create__exercise {
-        margin: 8rem 1rem 3rem;
-    }
-
     .hero__form--create__exercise .hero__form--create__exercise__field {
         width: 80%;
     }
 }
 
 @media screen and (min-width: 1024px) {
+    .section--exercise__create {
+        padding: 7rem 1rem;
+    }
+
     .hero__form--create__exercise .hero__form--create__exercise__field {
         width: 60%;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    #create__exercise {
-        margin: 10rem 1rem 5rem;
+    .section--exercise__create {
+        padding: 8rem 1rem;
     }
 
     .hero__form--create__exercise .hero__form--create__exercise__field {
@@ -92,8 +92,8 @@
 
 
     #create__exercise .hero__form--create__exercise .hero__create__exercise--submit:hover {
-        background-color: transparent;
-        color: var(--color-primary);
+        background-color: var(--color-primary);
+        color: var(--color-dark-gray);
         border: 2px solid var(--color-primary);
         cursor: pointer;
         transition: color 250ms ease-in-out;

@@ -27,6 +27,9 @@
         <div id="guest" class="header__buttons_wrapper">
             <th:block sec:authorize="!isAuthenticated()">
                 <li class="header__btn">
+                    <a th:href="@{/users/register}" class="btn">Sign up</a>
+                </li>
+                <li class="header__btn">
                     <a th:href="@{/users/login}" th:text="#{nav_bar_login}" class="btn">Sign in</a>
                 </li>
             </th:block>
@@ -61,8 +64,12 @@
                     <select name="lang"
                             onchange="this.form.submit()"
                             class="btn">
-                        <option class="header__drop__lang" th:selected="${#locale.toString()} == 'en_US'" value="en_US">US</option>
-                        <option class="header__drop__lang" th:selected="${#locale.toString()} == 'de_DE'" value="de_DE">DE</option>
+                        <option class="header__drop__lang" th:selected="${#locale.toString()} == 'en_US'" value="en_US">
+                            US
+                        </option>
+                        <option class="header__drop__lang" th:selected="${#locale.toString()} == 'de_DE'" value="de_DE">
+                            DE
+                        </option>
                     </select>
                 </form>
             </li>

@@ -2,59 +2,80 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/main.css" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/favicon/site.webmanifest">
-  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#ffc40d">
-  <meta name="theme-color" content="#ffffff">
-  <title>Krastev's Gym</title>
-  <!-- <script src="/src/app.js" type="module"></script> -->
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+    <!-- <script src="/src/app.js" type="module"></script> -->
 </head>
 
 <body>
-  <header class="header">
+<header class="header">
     <div class="header__wrapper">
-      <a th:href="@{/}">
-        <img src="/images/logo/logo.png" class="header__logo" alt="Logo" />
-      </a>
-      <nav class="header__navigation">
-        <div id="guest">
-          <a th:href="@{/users/register}" class="sign__in">Sign up</a>
-        </div>
-      </nav>
+        <a th:href="@{/}">
+            <img src="/images/logo/logo.png" class="header__logo" alt="Logo"/>
+        </a>
+        <nav class="header__navigation">
+            <div id="guest" class="header__buttons_wrapper">
+                <li class="header__btn">
+                    <a th:href="@{/users/register}" class="btn">Sign up</a>
+                </li>
+                <li class="header__btn">
+                    <form th:method="get">
+                        <select name="lang"
+                                onchange="this.form.submit()"
+                                class="btn">
+                            <option class="header__drop__lang" th:selected="${#locale.toString()} == 'en_US'"
+                                    value="en_US">US
+                            </option>
+                            <option class="header__drop__lang" th:selected="${#locale.toString()} == 'de_DE'"
+                                    value="de_DE">DE
+                            </option>
+                        </select>
+                    </form>
+                </li>
+            </div>
+        </nav>
     </div>
 
-  </header>
+</header>
 
-  <main>
+<main>
     <section id="login">
-      <form th:action="@{/users/login}"
-            th:method="post"
-            class="hero__form--login">
-        <h1 class="hero__form--login__title">Sign in</h1>
+        <form th:action="@{/users/login}"
+              th:method="post"
+              th:object="${userLoginDTO}"
+              class="hero__form--login">
+            <h1 class="hero__form--login__title">Sign in</h1>
 
-        <input name="email" class="hero__form--login__field" placeholder="Email" type="text" minlength="1"
-          maxlength="50" required value="">
+            <th:block th:if="${bad_credentials}">
+                <p class="error__message--form">Invalid email or/and password!</p>
+            </th:block>
 
-        <input name="password" class="hero__form--login__field" placeholder="Password" type="password" minlength="6"
-          maxlength="62" required value="">
+            <input th:field="*{email}" name="email" class="hero__form--login__field" placeholder="Email" type="email"
+                   value="">
 
-        <button type="submit" class="hero__login--submit btn">Submit</button>
-      </form>
-      <p class="hero__login--register">New to Krastev's Gym? <a th:href="@{/users/register}">Sign up now.</a></p>
+            <input th:field="*{password}" name="password" class="hero__form--login__field" placeholder="Password"
+                   type="password" value="">
+
+            <button type="submit" class="hero__login--submit btn">Submit</button>
+        </form>
+        <p class="hero__login--register">New to Krastev's Gym? <a th:href="@{/users/register}">Sign up now.</a></p>
     </section>
 
     <div class="divider"></div>
 
-  </main>
+</main>
 
-  <footer th:replace="~{fragments/footer}" class="footer"></footer>
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
 </body>
 
 </html>

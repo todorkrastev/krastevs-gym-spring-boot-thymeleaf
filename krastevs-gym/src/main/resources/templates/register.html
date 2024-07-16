@@ -25,8 +25,24 @@
             <img src="/images/logo/logo.png" class="header__logo" alt="Logo"/>
         </a>
         <nav class="header__navigation">
-            <div id="guest">
-                <a th:href="@{/users/login}" class="sign__in">Sign in</a>
+            <div id="guest" class="header__buttons_wrapper">
+                <li class="header__btn">
+                    <a th:href="@{/users/login}" class="btn">Sign in</a>
+                </li>
+                <li class="header__btn">
+                    <form th:method="get">
+                        <select name="lang"
+                                onchange="this.form.submit()"
+                                class="btn">
+                            <option class="header__drop__lang" th:selected="${#locale.toString()} == 'en_US'"
+                                    value="en_US">US
+                            </option>
+                            <option class="header__drop__lang" th:selected="${#locale.toString()} == 'de_DE'"
+                                    value="de_DE">DE
+                            </option>
+                        </select>
+                    </form>
+                </li>
             </div>
         </nav>
     </div>
@@ -34,7 +50,7 @@
 </header>
 
 <main>
-    <section id="register">
+    <section id="register" class="section--form">
         <form th:object="${userRegisterDTO}"
               th:action="@{/users/register}"
               th:method="post"
@@ -46,6 +62,7 @@
                    type="text"
                    class="hero__form--register__field"
                    placeholder="First Name">
+            <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}" class="error__message--form"></p>
             <input th:field="*{lastName}"
                    id="lastName"
                    name="lastName"
@@ -54,18 +71,21 @@
                    placeholder="Last Name">
             <!--<input name="role" class="hero__form--register__field" placeholder="Role" type="text" minlength="5"
                    maxlength="50" required value="">-->
+            <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" class="error__message--form"></p>
             <input th:field="*{email}"
                    id="email"
                    name="email"
                    type="email"
                    class="hero__form--register__field"
                    placeholder="Email">
+            <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" class="error__message--form"></p>
             <input th:field="*{password}"
                    id="password"
                    name="password"
                    type="password"
                    class="hero__form--register__field"
                    placeholder="Password">
+            <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}" class="error__message--form"></p>
             <button type="submit" class="hero__register--submit btn">Submit</button>
         </form>
         <div class="hero__register--register">
