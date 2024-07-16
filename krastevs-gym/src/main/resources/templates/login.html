@@ -26,7 +26,7 @@
         <nav class="header__navigation">
             <div id="guest" class="header__buttons_wrapper">
                 <li class="header__btn">
-                    <a th:href="@{/users/register}" class="btn">Sign up</a>
+                    <a th:href="@{/users/register}" th:text="#{nav_bar_register}" class="btn">Sign up</a>
                 </li>
                 <li class="header__btn">
                     <form th:method="get">
@@ -54,21 +54,21 @@
               th:method="post"
               th:object="${userLoginDTO}"
               class="hero__form--login">
-            <h1 class="hero__form--login__title">Sign in</h1>
+            <h1 th:text="#{login_form_title}" class="hero__form--login__title">Sign in</h1>
 
             <th:block th:if="${bad_credentials}">
-                <p class="error__message--form">Invalid email or/and password!</p>
+                <p th:text="#{login_form_error_handler}" class="error__message--form">Invalid email or/and password!</p>
             </th:block>
 
-            <input th:field="*{email}" name="email" class="hero__form--login__field" placeholder="Email" type="email"
+            <input th:field="*{email}" th:placeholder="#{login_form_placeholder_email}" name="email" class="hero__form--login__field" placeholder="Email" type="email"
                    value="">
 
-            <input th:field="*{password}" name="password" class="hero__form--login__field" placeholder="Password"
+            <input th:field="*{password}" th:placeholder="#{login_form_placeholder_password}" name="password" class="hero__form--login__field" placeholder="Password"
                    type="password" value="">
 
-            <button type="submit" class="hero__login--submit btn">Submit</button>
+            <button th:text="#{login_form_btn}" type="submit" class="hero__login--submit btn">Submit</button>
         </form>
-        <p class="hero__login--register">New to Krastev's Gym? <a th:href="@{/users/register}">Sign up now.</a></p>
+        <p class="hero__login--register">New to Krastev's Gym? <a th:text="#{login_form_register}" th:href="@{/users/register}">Sign up now.</a></p>
     </section>
 
     <div class="divider"></div>

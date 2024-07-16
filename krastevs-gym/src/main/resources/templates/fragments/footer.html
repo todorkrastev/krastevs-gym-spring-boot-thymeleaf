@@ -6,7 +6,7 @@
             <nav>
                 <ul>
                     <li>
-                        <p>Krastev's Gym is the most iconic gym in the world. Since 1989, no one has stood for fitness and
+                        <p th:text="#{footer_description}">Krastev's Gym is the most iconic gym in the world. Since 1989, no one has stood for fitness and
                             bodybuilding. Become part of our Legacy now!
                         </p>
                     </li>
@@ -16,37 +16,37 @@
 
         <!-- About -->
         <div class="navi-group">
-            <h3 class="navi-group__title">About</h3>
+            <h3 th:text="#{footer_group_title_legal_matters}" class="navi-group__title">Legal matters</h3>
             <nav>
                 <ul>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Terms of Use</a></li>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Data Privacy</a></li>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Legal Notice</a></li>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Cancellation</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_terms_of_use}" class="navi-group__subtitle">Terms of Use</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_data_privacy}" class="navi-group__subtitle">Data Privacy</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_legal_notice}" class="navi-group__subtitle">Legal Notice</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_cancellation}" class="navi-group__subtitle">Cancellation</a></li>
                 </ul>
             </nav>
         </div>
 
         <!-- Help -->
         <div class="navi-group">
-            <h3 class="navi-group__title">Help & Contact</h3>
+            <h3 th:text="#{footer_group_title_help_and_contact}" class="navi-group__title">Help & Contact</h3>
             <nav>
                 <ul>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Self Service</a></li>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Help Center</a></li>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Terminate Membership</a></li>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Gym Usage</a></li>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Franchise</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_self_service}" class="navi-group__subtitle">Self Service</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_help_center}" class="navi-group__subtitle">Help Center</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_terminate_membership}" class="navi-group__subtitle">Terminate Membership</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_gym_usage}" class="navi-group__subtitle">Gym Usage</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_franchise}" class="navi-group__subtitle">Franchise</a></li>
                 </ul>
             </nav>
         </div>
 
         <!-- Careers -->
         <div class="navi-group">
-            <h3 class="navi-group__title">Careers</h3>
+            <h3 th:text="#{footer_group_title_careers}" class="navi-group__title">Careers</h3>
             <nav>
                 <ul>
-                    <li><a th:href="@{/}" class="navi-group__subtitle">Jobs at Krastev's Gym</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer_group_subtitle_jobs}" class="navi-group__subtitle">Jobs at Krastev's Gym</a></li>
                 </ul>
             </nav>
         </div>
@@ -72,6 +72,6 @@
                 <a th:href="@{/}"><i class="fab fa-instagram"></i></a>
             </li>
         </ul>
-        <p class="rights">Copyright © 2024 Krastev & Waller GmbH. All Rights Reserved.</p>
+        <p th:text="#{footer_rights}" class="rights">Copyright © 2024 Krastev & Waller GmbH. All Rights Reserved.</p>
     </div>
 </footer>

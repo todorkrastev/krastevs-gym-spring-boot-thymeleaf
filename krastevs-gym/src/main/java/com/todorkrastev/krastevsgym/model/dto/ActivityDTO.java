@@ -1,6 +1,5 @@
 package com.todorkrastev.krastevsgym.model.dto;
 
-import javax.swing.*;
 
 public class ActivityDTO {
     Long id;

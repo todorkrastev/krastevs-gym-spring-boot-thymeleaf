@@ -80,6 +80,10 @@
     color: var(--color-primary);
 }
 
+.hero__register--terms {
+    margin-bottom: 0.25rem;;
+}
+
 
 @media screen and (min-width: 425px) {
     .section--form {
@@ -112,6 +116,9 @@
         width: 30%;
     }
 
+    .hero__register--register {
+        width: 30%;
+    }
 
     #register .hero__form--register .hero__register--submit:hover {
         background-color: var(--color-primary);
@@ -130,6 +137,10 @@
 
 @media screen and (min-width: 1800px) {
     .hero__form--register .hero__form--register__field {
+        width: 20%;
+    }
+
+    .hero__register--register {
         width: 20%;
     }
 }

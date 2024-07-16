@@ -31,14 +31,14 @@
             <h2 class="hero__subtitle">Hello,
                 <th:block th:text="${welcomeMessage}"></th:block>!
             </h2>
-            <a th:href="@{/workouts}" class="member__btn">
+            <a th:href="@{/workouts}" th:text="#{hero_image_btn_authenticated}" class="member__btn">
                 start a training >
             </a>
         </th:block>
         <th:block sec:authorize="!isAuthenticated()">
-            <h1 class="hero__title">no excuses!</h1>
-            <h2 class="hero__subtitle">get fit now</h2>
-            <a th:href="@{/users/register}" class="member__btn">
+            <h1 th:text="#{hero_image_title}" class="hero__title">no excuses!</h1>
+            <h2 th:text="#{hero_image_subtitle}" class="hero__subtitle">get fit now</h2>
+            <a th:text="#{hero_image_btn}" th:href="@{/users/register}" class="member__btn">
                 get started >
             </a>
         </th:block>

@@ -27,7 +27,7 @@
         <div id="guest" class="header__buttons_wrapper">
             <th:block sec:authorize="!isAuthenticated()">
                 <li class="header__btn">
-                    <a th:href="@{/users/register}" class="btn">Sign up</a>
+                    <a th:href="@{/users/register}" th:text="#{nav_bar_register}" class="btn">Sign up</a>
                 </li>
                 <li class="header__btn">
                     <a th:href="@{/users/login}" th:text="#{nav_bar_login}" class="btn">Sign in</a>
@@ -35,27 +35,27 @@
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
                 <li class="header__btn">
-                    <a th:href="@{/trainer}" class="btn">My Trainer</a>
+                    <a th:href="@{/trainer}" th:text="#{nav_bar_my_trainer}" class="btn">My Trainer</a>
                 </li>
                 <li class="header__btn">
-                    <a th:href="@{/exercises}" class="btn">Exercises</a>
+                    <a th:href="@{/exercises}" th:text="#{nav_bar_exercises}" class="btn">Exercises</a>
                 </li>
                 <li class="header__btn">
-                    <a th:href="@{/workouts}" class="btn">Workouts</a>
+                    <a th:href="@{/workouts}" th:text="#{nav_bar_workouts}" class="btn">Workouts</a>
                 </li>
                 <li class="header__btn">
-                    <a th:href="@{/progress}" class="btn">Progress</a>
+                    <a th:href="@{/progress}" th:text="#{nav_bar_progress}" class="btn">Progress</a>
                 </li>
                 <li class="header__btn">
-                    <a th:href="@{/shop}" class="btn">Shop</a>
+                    <a th:href="@{/shop}" th:text="#{nav_bar_shop}" class="btn">Shop</a>
                 </li>
                 <li class="header__btn">
-                    <a th:href="@{/nutrition}" class="btn">Nutrition</a>
+                    <a th:href="@{/nutrition}" th:text="#{nav_bar_nutrition}" class="btn">Nutrition</a>
                 </li>
                 <li class="header__btn">
                     <form th:method="post"
                           th:action="@{/users/logout}">
-                        <button class="btn" type="submit">Sign out</button>
+                        <button th:text="#{nav_bar_logout}" class="btn" type="submit">Sign out</button>
                     </form>
                 </li>
             </th:block>

@@ -27,7 +27,7 @@
         <nav class="header__navigation">
             <div id="guest" class="header__buttons_wrapper">
                 <li class="header__btn">
-                    <a th:href="@{/users/login}" class="btn">Sign in</a>
+                    <a th:href="@{/users/login}" th:text="#{nav_bar_login}" class="btn">Sign in</a>
                 </li>
                 <li class="header__btn">
                     <form th:method="get">
@@ -55,15 +55,18 @@
               th:action="@{/users/register}"
               th:method="post"
               class="hero__form--register">
-            <h1 class="hero__form--register__title">Sign up</h1>
+            <h1 th:text="#{register_form_title}" class="hero__form--register__title">Sign up</h1>
             <input th:field="*{firstName}"
+                   th:placeholder="#{register_form_placeholder_first_name}"
                    id="firstName"
                    name="firstName"
                    type="text"
                    class="hero__form--register__field"
                    placeholder="First Name">
-            <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}" class="error__message--form"></p>
+            <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}"
+               class="error__message--form"></p>
             <input th:field="*{lastName}"
+                   th:placeholder="#{register_form_placeholder_last_name}"
                    id="lastName"
                    name="lastName"
                    type="text"
@@ -71,27 +74,32 @@
                    placeholder="Last Name">
             <!--<input name="role" class="hero__form--register__field" placeholder="Role" type="text" minlength="5"
                    maxlength="50" required value="">-->
-            <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" class="error__message--form"></p>
+            <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}"
+               class="error__message--form"></p>
             <input th:field="*{email}"
+                   th:placeholder="#{register_form_placeholder_email}"
                    id="email"
                    name="email"
                    type="email"
                    class="hero__form--register__field"
                    placeholder="Email">
-            <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" class="error__message--form"></p>
+            <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"
+               class="error__message--form"></p>
             <input th:field="*{password}"
+                   th:placeholder="#{register_form_placeholder_password}"
                    id="password"
                    name="password"
                    type="password"
                    class="hero__form--register__field"
                    placeholder="Password">
-            <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}" class="error__message--form"></p>
-            <button type="submit" class="hero__register--submit btn">Submit</button>
+            <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}"
+               class="error__message--form"></p>
+            <button th:text="#{register_form_btn}" type="submit" class="hero__register--submit btn">Submit</button>
         </form>
         <div class="hero__register--register">
-            <p class="hero__register--terms">By creating an account you agree to our <a th:href="@{/}">Terms &
+            <p class="hero__register--terms">By creating an account you agree to our <a th:text="#{register_form_terms_and_privacy}" th:href="@{/}">Terms &
                 Privacy.</a></p>
-            <p class="hero__register--login">Already have an account? <a th:href="@{/users/login}">Sign in.</a></p>
+            <p class="hero__register--login">Already have an account? <a th:text="#{register_form_login}" th:href="@{/users/login}">Sign in.</a></p>
         </div>
     </section>
 

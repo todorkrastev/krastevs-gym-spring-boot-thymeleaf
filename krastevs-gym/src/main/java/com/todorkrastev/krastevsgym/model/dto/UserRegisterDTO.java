@@ -3,19 +3,19 @@ package com.todorkrastev.krastevsgym.model.dto;
 import jakarta.validation.constraints.*;
 
 public class UserRegisterDTO {
-    @NotBlank(message = "First name must not be null and must contain at least one non-whitespace character!")
-    @Size(min = 1, message = "First name must have at least 1 character!")
+    @NotBlank(message = "{user.register.dto.first.name.not.blank}")
+    @Size(min = 1, message = "{user.register.dto.first.name.size}")
     private String firstName;
 
-    @NotBlank(message = "Last name must not be null and must contain at least one non-whitespace character!")
-    @Size(min = 1, message = "Last name must have at least 1 character!")
+    @NotBlank(message = "{user.register.dto.last.name.not.blank}")
+    @Size(min = 1, message = "{user.register.dto.last.name.size}")
     private String lastName;
 
-    @Email(regexp = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$", message = "Enter valid email address!")
+    @Email(regexp = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$", message = "{user.register.dto.email}")
     private String email;
 
-    @NotBlank(message = "Password must not be null and must contain at least one non-whitespace character!")
-    @Size(min = 5, message = "Password must have at least 5 character!")
+    @NotBlank(message = "{user.register.dto.password.not.blank}")
+    @Size(min = 5, message = "{user.register.dto.password.size}")
     private String password;
 
     public UserRegisterDTO() {

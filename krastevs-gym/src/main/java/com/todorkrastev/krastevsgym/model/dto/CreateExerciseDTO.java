@@ -7,13 +7,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CreateExerciseDTO(
-        @NotBlank(message = "{create.exercise.name.not.blank}")
-        @Size(min = 1, message = "{create.exercise.name.size}")
+        @NotBlank(message = "{create.exercise.dto.name.not.blank}")
+        @Size(min = 1, message = "{create.exercise.dto.name.size}")
         String name,
         String description,
-        @NotNull(message = "You must select the equipment type!")
+        @NotNull(message = "{create.exercise.dto.equipment.type}")
         EquipmentTypeEnum equipmentTypeEnum,
-        @NotNull(message = "You must select the exercise category!")
+        @NotNull(message = "{create.exercise.dto.exercise.category}")
         ExerciseCategoryEnum exerciseCategoryEnum,
         String instructions,
         String videoUrl
