@@ -10,7 +10,7 @@ import java.util.Set;
 public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -28,11 +28,11 @@ public class PostEntity {
         this.comments = new HashSet<>();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public PostEntity setId(long id) {
+    public PostEntity setId(Long id) {
         this.id = id;
         return this;
     }

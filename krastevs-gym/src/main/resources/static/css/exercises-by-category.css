@@ -46,6 +46,7 @@
 }
 
 .exercise__title--abs {
+    color: var(--color-primary);
     margin-top: 1rem;
     text-transform: capitalize;
 }

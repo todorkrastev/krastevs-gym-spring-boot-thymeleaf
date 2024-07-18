@@ -8,11 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.security.SignedObject;
 
 @RestController
 public class CurrencyController {
-
     private final ExRateService exRateService;
 
     public CurrencyController(ExRateService exRateService) {

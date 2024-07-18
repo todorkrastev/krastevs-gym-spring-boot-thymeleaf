@@ -11,7 +11,7 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String firstName;
 
@@ -35,19 +35,19 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRoleEntity> roles;
 
-    @ManyToMany
-    private Set<ExerciseEntity> exercises;
+//    @ManyToMany
+//    private Set<ExerciseEntity> exercises;
 
     public UserEntity() {
         this.roles = new HashSet<>();
-        this.exercises = new HashSet<>();
+//        this.exercises = new HashSet<>();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public UserEntity setId(long id) {
+    public UserEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -133,12 +133,12 @@ public class UserEntity {
         return this;
     }
 
-    public Set<ExerciseEntity> getExercises() {
-        return exercises;
-    }
-
-    public UserEntity setExercises(Set<ExerciseEntity> exercises) {
-        this.exercises = exercises;
-        return this;
-    }
+    //    public Set<ExerciseEntity> getExercises() {
+//        return exercises;
+//    }
+//
+//    public UserEntity setExercises(Set<ExerciseEntity> exercises) {
+//        this.exercises = exercises;
+//        return this;
+//    }
 }

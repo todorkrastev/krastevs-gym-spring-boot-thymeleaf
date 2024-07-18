@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class ExRateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotEmpty
     @Column(unique = true)
@@ -25,29 +25,29 @@ public class ExRateEntity {
     public ExRateEntity() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public ExRateEntity setId(long id) {
+    public ExRateEntity setId(Long id) {
         this.id = id;
         return this;
     }
 
-    public String getCurrency() {
+    public @NotEmpty String getCurrency() {
         return currency;
     }
 
-    public ExRateEntity setCurrency(String currency) {
+    public ExRateEntity setCurrency(@NotEmpty String currency) {
         this.currency = currency;
         return this;
     }
 
-    public BigDecimal getRate() {
+    public @Positive @NotNull BigDecimal getRate() {
         return rate;
     }
 
-    public ExRateEntity setRate(BigDecimal rate) {
+    public ExRateEntity setRate(@Positive @NotNull BigDecimal rate) {
         this.rate = rate;
         return this;
     }

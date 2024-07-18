@@ -1,8 +1,8 @@
 package com.todorkrastev.krastevsgym.model.dto;
 
 public class UserLoginDTO {
-    String email;
-    String password;
+    private String email;
+    private String password;
 
     public UserLoginDTO() {
     }

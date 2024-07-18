@@ -59,6 +59,9 @@
             <th:block th:if="${bad_credentials}">
                 <p th:text="#{login_form_error_handler}" class="error__message--form">Invalid email or/and password!</p>
             </th:block>
+            <th:block th:if="${user_already_exists}">
+                <p th:text="#{email_already_exists}" class="error__message--form">Email already exists!</p>
+            </th:block>
 
             <input th:field="*{email}" th:placeholder="#{login_form_placeholder_email}" name="email" class="hero__form--login__field" placeholder="Email" type="email"
                    value="">

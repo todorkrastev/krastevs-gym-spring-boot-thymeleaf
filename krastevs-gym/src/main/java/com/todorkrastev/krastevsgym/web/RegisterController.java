@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgym.web;
 
+import com.todorkrastev.krastevsgym.model.dto.UserLoginDTO;
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.service.UserService;
 import jakarta.validation.Valid;
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/users")
 public class RegisterController {
-
     private final UserService userService;
 
     public RegisterController(UserService userService) {
@@ -24,6 +24,11 @@ public class RegisterController {
     @ModelAttribute("userRegisterDTO")
     public UserRegisterDTO userRegisterDTO() {
         return new UserRegisterDTO();
+    }
+
+    @ModelAttribute("userLoginDTO")
+    public UserLoginDTO userLoginDTO() {
+        return new UserLoginDTO();
     }
 
     @GetMapping("/register")
@@ -43,7 +48,14 @@ public class RegisterController {
             return "redirect:/users/register";
         }
 
-        this.userService.registerUser(userRegisterDTO);
+
+        if (userService.doesEmailExists(userRegisterDTO)) {
+            redirectAttributes.addFlashAttribute("userLoginDTO", new UserRegisterDTO().setEmail(userRegisterDTO.getEmail()));
+            redirectAttributes.addFlashAttribute("user_already_exists", true);
+
+        } else {
+            userService.registerUser(userRegisterDTO);
+        }
 
         return "redirect:/users/login";
     }

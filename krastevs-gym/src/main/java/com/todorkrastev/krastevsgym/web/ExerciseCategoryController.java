@@ -15,7 +15,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/exercises")
 public class ExerciseCategoryController {
-
     private final ExerciseCategoryService exerciseCategoryService;
     private final ExerciseService exerciseService;
 
@@ -35,11 +34,9 @@ public class ExerciseCategoryController {
 
     @GetMapping("/categories/{id}")
     public String exercisesByCategoryId(@PathVariable("id") Long id, Model model) {
-        ExerciseCategoryInfoDTO exerciseCategoryInfoDTO = exerciseCategoryService.findById(id);
-        model.addAttribute("exerciseCategoryInfo", exerciseCategoryInfoDTO);
+        List<ExerciseShortInfoDTO> allExercisesByCategory = exerciseService.getExercisesByCategoryId(id);
 
-        List<ExerciseShortInfoDTO> exercisesByCategory = exerciseService.getExercisesByGivenCategory(exerciseCategoryInfoDTO.exerciseCategory());
-        model.addAttribute("exercisesByCategory", exercisesByCategory);
+        model.addAttribute("exercisesByCategory", allExercisesByCategory);
 
         return "exercises-by-category";
     }

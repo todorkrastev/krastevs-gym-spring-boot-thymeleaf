@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class PictureEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String title;
 
@@ -18,16 +18,16 @@ public class PictureEntity {
     private UserEntity author;
 
     @ManyToOne(optional = false)
-    private ExerciseEntity exercise;
+    private ProductEntity product;
 
     public PictureEntity() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public PictureEntity setId(long id) {
+    public PictureEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -59,12 +59,12 @@ public class PictureEntity {
         return this;
     }
 
-    public ExerciseEntity getExercise() {
-        return exercise;
+    public ProductEntity getProduct() {
+        return product;
     }
 
-    public PictureEntity setExercise(ExerciseEntity exercise) {
-        this.exercise = exercise;
+    public PictureEntity setProduct(ProductEntity product) {
+        this.product = product;
         return this;
     }
 }

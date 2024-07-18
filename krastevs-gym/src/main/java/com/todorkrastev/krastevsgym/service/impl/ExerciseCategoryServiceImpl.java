@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
+import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseCategoryInfoDTO;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgym.repository.ExerciseCategoryRepository;
@@ -8,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ExerciseCategoryServiceImpl implements ExerciseCategoryService {
@@ -24,30 +24,18 @@ public class ExerciseCategoryServiceImpl implements ExerciseCategoryService {
 
     @Override
     public List<ExerciseCategoryInfoDTO> getAllCategories() {
-        return exerciseCategoryRepository.findAll().stream().map(this::mapToInfo).toList();
+        return exerciseCategoryRepository
+                .findAll()
+                .stream()
+                .map(exerciseCategoryEntity ->
+                        modelMapper.map(exerciseCategoryEntity, ExerciseCategoryInfoDTO.class))
+                .toList();
     }
 
     @Override
-    public ExerciseCategoryInfoDTO findById(Long id) {
-        Optional<ExerciseCategoryEntity> byId = exerciseCategoryRepository.findById(id);
-
-        //TODO: try catch
-
-        ExerciseCategoryInfoDTO categoryInfoDTO = new ExerciseCategoryInfoDTO(
-                byId.get().id,
-                byId.get().exerciseCategory,
-                byId.get().description,
-                byId.get().gifUrl
-        );
-
-        return categoryInfoDTO;
-    }
-
-    private ExerciseCategoryInfoDTO mapToInfo(ExerciseCategoryEntity category) {
-        return new ExerciseCategoryInfoDTO(
-                category.getId(),
-                category.getExerciseCategory(),
-                category.getDescription(),
-                category.getGifUrl());
+    public ExerciseCategoryEntity findById(Long id) {
+        return exerciseCategoryRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Exercise category", "id", id));
     }
 }

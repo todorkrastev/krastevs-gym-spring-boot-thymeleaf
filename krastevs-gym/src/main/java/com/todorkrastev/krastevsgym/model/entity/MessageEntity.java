@@ -9,7 +9,7 @@ import java.time.Instant;
 public class MessageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    public Long id;
 
     @Column(name = "date_time", nullable = false)
     private Instant dateTime;
@@ -26,11 +26,11 @@ public class MessageEntity {
     public MessageEntity() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public MessageEntity setId(long id) {
+    public MessageEntity setId(Long id) {
         this.id = id;
         return this;
     }

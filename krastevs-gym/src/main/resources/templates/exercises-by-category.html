@@ -26,15 +26,19 @@
     <section id="hero">
         <img src="/images/hero/exercise.jpg" class="img--bg--abs" alt="Background poster"/>
 
-        <div th:object="${exerciseCategoryInfo}"
-             class="hero__abs">
-            <h1 th:text="*{exerciseCategory().name().toLowerCase()}"
+        <div class="hero__abs">
+            <h1 th:text="${exercisesByCategory.iterator().hasNext() ?
+            exercisesByCategory.get(0).getCategory().name().toLowerCase() :
+            'The category is under development'}"
                 class="hero__title__abs">Abs</h1>
             <!--<h2 class="hero__title__abs">Exercises</h2>
             <h2 class="hero__title__abs">Abs</h2>-->
 
             <div class="hero__exercises__subtitles">
-                <p th:text="*{description()}" class="hero__exercises__subtitle">
+                <p th:text="${exercisesByCategory.iterator().hasNext() ?
+                exercisesByCategory.get(0).getCategoryDescription() :
+                'Sorry, you have to select another category'}"
+                   class="hero__exercises__subtitle">
                     Abdominal muscles play a crucial role in posture, support of the spine, balance, stability, and
                     respiratory
                     functions such as breathing.
@@ -49,9 +53,9 @@
 
     <section class="exercises__container--abs section">
         <article th:each="exercise: ${exercisesByCategory}" class="exercise--abs">
-            <a th:href="@{/exercises/{id}(id=${exercise.getId()})}" class="exercise__wrapper--abs">
-                <img th:src="${exercise.getGifUrl()}" class="exercise__poster--abs" alt="Section poster"/>
-                <h6 th:text="${exercise.getName()}" class="exercise__title--abs">Stability ball V-pass</h6>
+            <a th:href="@{/exercises/{id}(id=${exercise.getExerciseId()})}" class="exercise__wrapper--abs">
+                <img th:src="${exercise.getExerciseGifUrl()}" class="exercise__poster--abs" alt="Section poster"/>
+                <h6 th:text="${exercise.getExerciseName()}" class="exercise__title--abs">Stability ball V-pass</h6>
             </a>
         </article>
     </section>

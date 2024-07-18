@@ -20,7 +20,7 @@ public class HeroImageServiceImpl implements HeroImageService {
 
     @Override
     public HeroImageDTO getHeroPageByGivenCategory(HeroImageCategoryEnum heroImageCategoryEnum) {
-        HeroImagesEntity entity = heroPageRepository.findByHeroPageCategory(heroImageCategoryEnum);
+        HeroImagesEntity entity = heroPageRepository.findByCategory(heroImageCategoryEnum);
 
         return modelMapper.map(entity, HeroImageDTO.class);
     }

@@ -2,12 +2,15 @@ package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
+import com.todorkrastev.krastevsgym.model.dto.ExerciseCategoryInfoDTO;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseDetailsDTO;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseShortInfoDTO;
+import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgym.model.entity.PictureEntity;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.repository.ExerciseRepository;
+import com.todorkrastev.krastevsgym.service.ExerciseCategoryService;
 import com.todorkrastev.krastevsgym.service.ExerciseService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -27,11 +30,13 @@ public class ExerciseServiceImpl implements ExerciseService {
     private final RestClient exercisesRestClient;
     private final ExerciseRepository exerciseRepository;
     private final ModelMapper modelMapper;
+    private final ExerciseCategoryService exerciseCategoryService;
 
-    public ExerciseServiceImpl(@Qualifier("exercisesRestClient") RestClient exercisesRestClient, ExerciseRepository exerciseRepository, ModelMapper modelMapper) {
+    public ExerciseServiceImpl(@Qualifier("exercisesRestClient") RestClient exercisesRestClient, ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService) {
         this.exercisesRestClient = exercisesRestClient;
         this.exerciseRepository = exerciseRepository;
         this.modelMapper = modelMapper;
+        this.exerciseCategoryService = exerciseCategoryService;
     }
 
     @Override
@@ -97,10 +102,16 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public List<ExerciseShortInfoDTO> getExercisesByGivenCategory(ExerciseCategoryEnum exerciseCategory) {
-        List<ExerciseEntity> exercisesByCategory = exerciseRepository.findAllByExerciseCategory(exerciseCategory);
+    public List<ExerciseShortInfoDTO> getExercisesByCategoryId(Long id) {
+        //validation if the id exists in the db
+        exerciseCategoryService.findById(id);
 
-        return exercisesByCategory.stream().map(exerciseEntity -> modelMapper.map(exerciseEntity, ExerciseShortInfoDTO.class)).toList();
+        List<ExerciseEntity> allExercisesByCategoryId = exerciseRepository.findAllByCategoryId(id);
+
+        return allExercisesByCategoryId
+                .stream()
+                .map(exercise -> modelMapper.map(exercise, ExerciseShortInfoDTO.class))
+                .toList();
     }
 
     private static ExerciseDetailsDTO toExerciseDetails(ExerciseEntity exerciseEntity) {
@@ -111,14 +122,5 @@ public class ExerciseServiceImpl implements ExerciseService {
                 exerciseEntity.getMusclesWorkedUrl(),
                 exerciseEntity.getInstructions(),
                 exerciseEntity.getNotes());
-    }
-
-    private ExerciseShortInfoDTO mapToInfo(ExerciseEntity exercise) {
-        ExerciseShortInfoDTO dto = modelMapper.map(exercise, ExerciseShortInfoDTO.class);
-
-        Optional<PictureEntity> first = exercise.getPictures().stream().findFirst();
-        first.ifPresent(pictureEntity -> dto.setGifUrl(pictureEntity.getUrl()));
-
-        return dto;
     }
 }

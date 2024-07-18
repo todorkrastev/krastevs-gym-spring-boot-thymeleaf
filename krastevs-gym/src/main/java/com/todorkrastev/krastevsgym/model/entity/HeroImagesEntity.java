@@ -18,7 +18,7 @@ public class HeroImagesEntity {
 
     @Column(name = "hero_page_category", nullable = false)
     @Enumerated(EnumType.STRING)
-    private HeroImageCategoryEnum heroPageCategory;
+    private HeroImageCategoryEnum category;
 
     public HeroImagesEntity() {
     }
@@ -50,12 +50,12 @@ public class HeroImagesEntity {
         return this;
     }
 
-    public HeroImageCategoryEnum getHeroPageCategory() {
-        return heroPageCategory;
+    public HeroImageCategoryEnum getCategory() {
+        return category;
     }
 
-    public HeroImagesEntity setHeroPageCategory(HeroImageCategoryEnum heroPageCategory) {
-        this.heroPageCategory = heroPageCategory;
+    public HeroImagesEntity setCategory(HeroImageCategoryEnum category) {
+        this.category = category;
         return this;
     }
 }

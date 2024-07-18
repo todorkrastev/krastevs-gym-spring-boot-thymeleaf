@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/exercises")
 public class ExerciseController {
-
     private final ExerciseService exerciseService;
 
     public ExerciseController(ExerciseService exerciseService) {
@@ -66,6 +65,8 @@ public class ExerciseController {
     public String createExercise(@Valid CreateExerciseDTO createExerciseDTO,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
+
+        System.out.println(createExerciseDTO);
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("createExerciseDTO", createExerciseDTO);

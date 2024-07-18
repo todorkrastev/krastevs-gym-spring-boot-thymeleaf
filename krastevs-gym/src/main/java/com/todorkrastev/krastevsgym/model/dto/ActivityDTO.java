@@ -2,10 +2,10 @@ package com.todorkrastev.krastevsgym.model.dto;
 
 
 public class ActivityDTO {
-    Long id;
-    String title;
-    String description;
-    String imageURL;
+    private Long id;
+    private String title;
+    private String description;
+    private String imageURL;
 
     public ActivityDTO() {
     }

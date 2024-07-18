@@ -8,18 +8,18 @@ import jakarta.persistence.*;
 public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private UserRoleEnum role;
 
     public UserRoleEntity() {}
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public UserRoleEntity setId(long id) {
+    public UserRoleEntity setId(Long id) {
         this.id = id;
         return this;
     }

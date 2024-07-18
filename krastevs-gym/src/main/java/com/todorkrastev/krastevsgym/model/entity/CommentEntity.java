@@ -9,7 +9,7 @@ import java.time.Instant;
 public class CommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private boolean approved;
@@ -29,11 +29,11 @@ public class CommentEntity {
     public CommentEntity() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public CommentEntity setId(long id) {
+    public CommentEntity setId(Long id) {
         this.id = id;
         return this;
     }

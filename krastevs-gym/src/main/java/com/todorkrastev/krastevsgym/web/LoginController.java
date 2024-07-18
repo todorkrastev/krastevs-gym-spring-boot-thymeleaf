@@ -11,7 +11,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/users")
 public class LoginController {
-
     @ModelAttribute("userLoginDTO")
     public UserLoginDTO userLoginDTO() {
         return new UserLoginDTO();
@@ -25,7 +24,6 @@ public class LoginController {
     @PostMapping("/login-error")
     public String onFailedLogin(@ModelAttribute("email") String email,
             RedirectAttributes redirectAttributes) {
-
         redirectAttributes.addFlashAttribute("userLoginDTO", new UserLoginDTO().setEmail(email));
         redirectAttributes.addFlashAttribute("bad_credentials", true);
 
