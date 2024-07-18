@@ -60,7 +60,6 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
     }
-
 }
 
 @media screen and (min-width: 1024px) {
@@ -80,12 +79,18 @@
         width: 50%;
     }
 
+    .exercises__container {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 @media screen and (min-width: 1200px) {
-
     #hero .hero__products {
         max-width: 1200px;
         margin: 0 auto;
+    }
+
+    .exercises__container {
+        grid-template-columns: repeat(5, 1fr);
     }
 }

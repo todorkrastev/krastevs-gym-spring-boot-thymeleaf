@@ -67,6 +67,10 @@
     #hero .hero__abs {
         width: 80%;
     }
+
+    .exercises__container--abs {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -78,5 +82,9 @@
         grid-template-columns: repeat(4, 1fr);
         max-width: 1200px;
         margin: 0 auto;
+    }
+
+    .exercises__container--abs {
+        grid-template-columns: repeat(5, 1fr);
     }
 }
