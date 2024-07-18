@@ -1,10 +1,7 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
-import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
-import com.todorkrastev.krastevsgym.model.dto.ExerciseCategoryInfoDTO;
-import com.todorkrastev.krastevsgym.model.dto.ExerciseDetailsDTO;
-import com.todorkrastev.krastevsgym.model.dto.ExerciseShortInfoDTO;
+import com.todorkrastev.krastevsgym.model.dto.*;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgym.model.entity.PictureEntity;
@@ -20,6 +17,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import org.thymeleaf.Thymeleaf;
 
 import java.util.List;
 import java.util.Optional;
@@ -77,6 +75,20 @@ public class ExerciseServiceImpl implements ExerciseService {
                 .post()
                 .uri("http://localhost:8081/exercises")
                 .body(createExerciseDTO)
+                .retrieve();
+    }
+
+    @Override
+    public void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long id) {
+//        Thymeleaf
+//        exerciseRepository
+//                .findById(id)
+//                .map(exercise -> exercise.setNotes(createExerciseNotesDTO.getNotes())).ifPresent(exerciseRepository::save);
+
+        exercisesRestClient
+                .post()
+                .uri("http://localhost:8081/exercises/{id}", id)
+                .body(createExerciseNotesDTO)
                 .retrieve();
     }
 

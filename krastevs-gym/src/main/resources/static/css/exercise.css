@@ -41,7 +41,8 @@
     gap: 1rem;
 }
 
-.exercise__instructions__title {
+.exercise__instructions__title,
+.exercise__notes__title {
     color: var(--color-primary);
     font-size: 1.25rem;
     margin: 1rem 0 1rem;
@@ -116,6 +117,10 @@
         text-align: start;
     }
 
+    .exercise__notes__title {
+        text-align: center;
+    }
+
     .exercise__wrapper--notes {
         display: flex;
         justify-content: center;
@@ -126,7 +131,8 @@
     }
 }
 
-@media screen and (min-width: 1024px) {}
+@media screen and (min-width: 1024px) {
+}
 
 @media screen and (min-width: 1200px) {
     .exercise {
@@ -147,6 +153,8 @@
     }
 }
 
-@media screen and (min-width: 1600px) {}
+@media screen and (min-width: 1600px) {
+}
 
-@media screen and (min-width: 1800px) {}
+@media screen and (min-width: 1800px) {
+}

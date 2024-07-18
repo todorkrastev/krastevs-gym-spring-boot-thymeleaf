@@ -10,7 +10,7 @@ public class ExerciseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "exercise_name", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(columnDefinition = "TEXT")
@@ -19,7 +19,7 @@ public class ExerciseEntity {
     @Column(name = "gif_url", columnDefinition = "TEXT")
     private String gifUrl;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "muscles_worked_url",columnDefinition = "TEXT")
     private String musclesWorkedUrl;
 
     @Column(columnDefinition = "TEXT")

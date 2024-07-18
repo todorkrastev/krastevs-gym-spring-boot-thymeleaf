@@ -1,6 +1,7 @@
 package com.todorkrastev.krastevsgym.web;
 
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
+import com.todorkrastev.krastevsgym.model.dto.CreateExerciseNotesDTO;
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.service.ExerciseService;
@@ -10,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 @Controller
 @RequestMapping("/exercises")
@@ -43,6 +43,14 @@ public class ExerciseController {
         model.addAttribute("exerciseDetails", exerciseService.getExerciseDetails(id));
 
         return "exercise";
+    }
+
+    @PostMapping("/{id}")
+    public String createExerciseNotes(@PathVariable("id") Long id,
+                                      @Valid CreateExerciseNotesDTO createExerciseNotesDTO) {
+        exerciseService.createExerciseNotes(createExerciseNotesDTO, id);
+
+        return "redirect:/exercises/" + id;
     }
 
     @DeleteMapping("/{id}")

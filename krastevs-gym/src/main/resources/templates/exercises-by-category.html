@@ -50,15 +50,16 @@
 
     <div class="divider"></div>
 
-
-    <section class="exercises__container--abs section">
-        <article th:each="exercise: ${exercisesByCategory}" class="exercise--abs">
-            <a th:href="@{/exercises/{id}(id=${exercise.getExerciseId()})}" class="exercise__wrapper--abs">
-                <img th:src="${exercise.getExerciseGifUrl()}" class="exercise__poster--abs" alt="Section poster"/>
-                <h6 th:text="${exercise.getExerciseName()}" class="exercise__title--abs">Stability ball V-pass</h6>
-            </a>
-        </article>
-    </section>
+    <th:object th:if="${exercisesByCategory.iterator().hasNext()}">
+        <section class="exercises__container--abs section">
+            <article th:each="exercise: ${exercisesByCategory}" class="exercise--abs">
+                <a th:href="@{/exercises/{id}(id=${exercise.getExerciseId()})}" class="exercise__wrapper--abs">
+                    <img th:src="${exercise.getExerciseGifUrl()}" class="exercise__poster--abs" alt="Section poster"/>
+                    <h6 th:text="${exercise.getExerciseName()}" class="exercise__title--abs">Stability ball V-pass</h6>
+                </a>
+            </article>
+        </section>
+    </th:object>
 
     <div class="divider"></div>
 

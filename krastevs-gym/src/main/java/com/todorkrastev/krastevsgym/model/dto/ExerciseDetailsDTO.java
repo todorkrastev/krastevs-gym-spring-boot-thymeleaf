@@ -4,7 +4,7 @@ public record ExerciseDetailsDTO(
         Long id,
         String name,
         String description,
-        String videoUrl,
+        String gifUrl,
         String musclesWorkedUrl,
         String instructions,
         String notes) {

@@ -1,11 +1,6 @@
 package com.todorkrastev.krastevsgym.service;
 
-import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
-import com.todorkrastev.krastevsgym.model.dto.ExerciseCategoryInfoDTO;
-import com.todorkrastev.krastevsgym.model.dto.ExerciseDetailsDTO;
-import com.todorkrastev.krastevsgym.model.dto.ExerciseShortInfoDTO;
-import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
-import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
+import com.todorkrastev.krastevsgym.model.dto.*;
 
 import java.util.List;
 
@@ -20,4 +15,6 @@ public interface ExerciseService {
     ExerciseDetailsDTO getExerciseDetails(Long id);
 
     List<ExerciseShortInfoDTO> getExercisesByCategoryId(Long id);
+
+    void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long id);
 }
