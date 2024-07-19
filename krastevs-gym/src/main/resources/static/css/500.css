@@ -37,9 +37,9 @@
 
 
 .exception__btn {
-  background-color: var(--color-primary);
-  border: 2px solid transparent;
-  color: var(--color-dark-gray);
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.5rem 2rem;
@@ -80,8 +80,8 @@
 
 @media screen and (min-width: 1200px) {
   #hero--exception .exception__btn:hover {
-    background-color: transparent;
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-black);
     border: 2px solid var(--color-primary);
     cursor: pointer;
     transition: color 250ms ease-in-out;

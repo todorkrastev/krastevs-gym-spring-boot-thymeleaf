@@ -156,9 +156,9 @@ body {
 }
 
 .member__btn {
-    background-color: var(--color-primary);
-    border: 2px solid transparent;
-    color: var(--color-dark-gray);
+    background-color: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
     font-size: 1rem;
     font-weight: 700;
     padding: 0.5rem 2rem;
@@ -510,8 +510,8 @@ body {
     }
 
     #hero .member__btn:hover {
-        background-color: transparent;
-        color: var(--color-primary);
+        background-color: var(--color-primary);
+        color: var(--color-black);
         border: 2px solid var(--color-primary);
         cursor: pointer;
         transition: color 250ms ease-in-out;
