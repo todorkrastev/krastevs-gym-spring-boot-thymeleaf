@@ -22,17 +22,11 @@ public class ExerciseCategoryEntity {
     @Column(name = "gif_url", nullable = false, columnDefinition = "TEXT")
     public String gifUrl;
 
+    @Column(name = "muscles_worked_url",columnDefinition = "TEXT")
+    private String musclesWorkedUrl;
+
     @OneToMany(targetEntity = ExerciseEntity.class, mappedBy = "category")
     private List<ExerciseEntity> exercises;
-
-    //    private ExerciseCategoryDTO mapToInfo(ExerciseEntity exercise) {
-//        ExerciseCategoryDTO dto = modelMapper.map(exercise, ExerciseCategoryDTO.class);
-//
-//        Optional<ExerciseCategoryEntity> first = exercise.getCategories().stream().findFirst();
-//        first.ifPresent(exerciseCategoryEntity -> dto.setExerciseCategory(exerciseCategoryEntity.category()));
-//
-//        return dto;
-//    }
 
     public ExerciseCategoryEntity() {
         this.exercises = new ArrayList<>();
@@ -80,6 +74,15 @@ public class ExerciseCategoryEntity {
 
     public ExerciseCategoryEntity setExercises(List<ExerciseEntity> exercises) {
         this.exercises = exercises;
+        return this;
+    }
+
+    public String getMusclesWorkedUrl() {
+        return musclesWorkedUrl;
+    }
+
+    public ExerciseCategoryEntity setMusclesWorkedUrl(String musclesWorkedUrl) {
+        this.musclesWorkedUrl = musclesWorkedUrl;
         return this;
     }
 }

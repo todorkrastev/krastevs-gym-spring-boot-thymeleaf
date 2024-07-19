@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/styles/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+    <!-- <script src="/src/app.js" type="module"></script> -->
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+    <section id="hero">
+        <img th:src="${heroImage.getImageURL()}" class="img--bg--shop" alt="Background poster"/>
+
+        <div class="hero__products">
+            <h1 class="hero__title__products">Shop</h1>
+
+            <div class="hero__products__subtitles">
+                <p class="hero__products__subtitle">Welcome to our online store!</p>
+                <p class="hero__products__subtitle">Here you have a wide selection of products specially selected for
+                    you by
+                    us.
+                </p>
+                <p class="hero__products__subtitle">Useful fitness accessories, the perfect clothes for your workout and
+                    useful
+                    tips on your
+                    diet.</p>
+                <p class="hero__products__subtitle">You can pick up your order in your Krastev's Gym, or have it
+                    conveniently
+                    delivered to
+                    your home.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+
+    <section id="shop" class="shop section">
+        <div class="shop__wrapper">
+            <a href="./shop-women.html" class="shop__card">
+                <img src="./imgs/shop/shop-women/shop-women.jpg" alt="product" class="shop__poster">
+                <h2 class="shop__title">Women</h2>
+            </a>
+            <a href="./shop-men.html" class="shop__card">
+                <img src="./imgs/shop/shop-men/shop-men.jpg" alt="product" class="shop__poster">
+                <h2 class="shop__title">Men</h2>
+            </a>
+            <!--<div class="shop__card">
+              <img src="./imgs/shop-women.jpg" alt="product" class="shop__poster">
+              <h2 class="shop__title">Women</h2>
+            </div>
+
+            <div class="shop__card">
+              <img src="./imgs/shop-men.jpg" alt="product" class="shop__poster">
+              <h2 class="shop__title">Men</h2>
+            </div>-->
+        </div>
+
+    </section>
+
+    <div class="divider"></div>
+
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+
+</body>
+
+</html>

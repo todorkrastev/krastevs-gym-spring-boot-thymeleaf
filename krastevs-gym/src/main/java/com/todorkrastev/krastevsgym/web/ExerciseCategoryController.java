@@ -2,8 +2,11 @@ package com.todorkrastev.krastevsgym.web;
 
 import com.todorkrastev.krastevsgym.model.dto.ExerciseCategoryInfoDTO;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseShortInfoDTO;
+import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
 import com.todorkrastev.krastevsgym.service.ExerciseCategoryService;
 import com.todorkrastev.krastevsgym.service.ExerciseService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +36,14 @@ public class ExerciseCategoryController {
     }
 
     @GetMapping("/categories/{id}")
-    public String exercisesByCategoryId(@PathVariable("id") Long id, Model model) {
-        List<ExerciseShortInfoDTO> allExercisesByCategory = exerciseService.getExercisesByCategoryId(id);
-        model.addAttribute("exercisesByCategory", allExercisesByCategory);
+    public String exercisesByCategoryId(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+        if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
+            Long userId = krastevsGymUserDetails.getCurrId();
+
+            List<ExerciseShortInfoDTO> allExercisesByCategory = exerciseService.getExercisesByCategoryIdAndUserId(id, userId);
+            model.addAttribute("exercisesByCategory", allExercisesByCategory);
+        }
+
 
         List<ExerciseCategoryInfoDTO> categories = exerciseCategoryService.getAllCategories();
         model.addAttribute("categories", categories);

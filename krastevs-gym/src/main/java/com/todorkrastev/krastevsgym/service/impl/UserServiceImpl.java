@@ -1,6 +1,5 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
-import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 import com.todorkrastev.krastevsgym.repository.UserRepository;
@@ -9,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,11 +29,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerUser(UserRegisterDTO userRegisterDTO) {
-       if (userRepository.findByEmail(userRegisterDTO.getEmail()).isPresent()) {
-           return;
-       }
+        if (userRepository.findByEmail(userRegisterDTO.getEmail()).isPresent()) {
+            return;
+        }
 
         userRepository.save(map(userRegisterDTO));
+    }
+
+    @Override
+    public UserEntity findUserById(Long currUserId) {
+        return userRepository.findById(currUserId).orElse(null);
     }
 
     private UserEntity map(UserRegisterDTO userRegisterDTO) {
@@ -46,3 +49,7 @@ public class UserServiceImpl implements UserService {
         return mappedEntity;
     }
 }
+
+
+
+

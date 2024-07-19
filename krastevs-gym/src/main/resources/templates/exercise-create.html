@@ -44,7 +44,7 @@
                       placeholder="Description"
                       type="text" value=""></textarea>
 
-            <select th:field="*{exerciseCategoryEnum}" name="exerciseCategoryEnum"
+            <select th:field="*{category}" name="exerciseCategoryEnum"
                     class="hero__form--create__exercise__field">
                 <option class="hero__form--create__exercise__drop" th:text="#{exercise_create_form_exercise_category}" value="">--Exercise Category--</option>
                 <option th:each="category: ${allExerciseCategories}"
@@ -53,10 +53,10 @@
                         class="hero__form--create__exercise__drop">ABS
                 </option>
             </select>
-            <p th:if="${#fields.hasErrors('exerciseCategoryEnum')}" th:errorclass="error"
-               th:errors="*{exerciseCategoryEnum}" class="error__message--form"></p>
+            <p th:if="${#fields.hasErrors('category')}" th:errorclass="error"
+               th:errors="*{category}" class="error__message--form"></p>
 
-            <select th:field="*{equipmentTypeEnum}" name="equipmentTypeEnum"
+            <select th:field="*{equipmentType}" name="equipmentTypeEnum"
                     class="hero__form--create__exercise__field">
                 <option class="hero__form--create__exercise__drop" th:text="#{exercise_create_form_equipment_type}"  value="">--Equipment Type--</option>
                 <option th:each="type: ${allEquipmentTypes}"
@@ -65,10 +65,10 @@
                         class="hero__form--create__exercise__drop" value="">BARBELL
                 </option>
             </select>
-            <p th:if="${#fields.hasErrors('equipmentTypeEnum')}" th:errorclass="error" th:errors="*{equipmentTypeEnum}"
+            <p th:if="${#fields.hasErrors('equipmentType')}" th:errorclass="error" th:errors="*{equipmentType}"
                class="error__message--form"></p>
 
-            <input th:field="*{videoUrl}"
+            <input th:field="*{gifUrl}"
                    th:placeholder="#{exercise_create_form_gif_url}"
                    name="videoUrl"
                    class="hero__form--create__exercise__field"

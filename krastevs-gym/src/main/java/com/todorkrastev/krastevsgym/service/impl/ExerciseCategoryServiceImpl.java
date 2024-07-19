@@ -2,6 +2,8 @@ package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseCategoryInfoDTO;
+import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
+import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.repository.ExerciseCategoryRepository;
 import com.todorkrastev.krastevsgym.service.ExerciseCategoryService;
 import org.modelmapper.ModelMapper;
@@ -36,5 +38,11 @@ public class ExerciseCategoryServiceImpl implements ExerciseCategoryService {
         exerciseCategoryRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Exercise category", "id", id));
+    }
+
+    @Override
+    public ExerciseCategoryEntity findByCategory(ExerciseCategoryEnum category) {
+        return exerciseCategoryRepository
+                .findByCategory(category).orElse(null);
     }
 }

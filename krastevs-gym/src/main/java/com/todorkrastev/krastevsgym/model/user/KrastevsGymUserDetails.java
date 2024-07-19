@@ -8,16 +8,19 @@ import java.util.Collection;
 public class KrastevsGymUserDetails extends User {
     private final String firstName;
     private final String lastName;
+    private final Long currId;
 
     public KrastevsGymUserDetails(
             String username,
             String password,
             Collection<? extends GrantedAuthority> authorities,
             String firstName,
-            String lastName) {
+            String lastName,
+            Long currId) {
         super(username, password, authorities);
         this.firstName = firstName;
         this.lastName = lastName;
+        this.currId = currId;
     }
 
     public String getFirstName() {
@@ -40,5 +43,9 @@ public class KrastevsGymUserDetails extends User {
             fullName.append(lastName);
         }
         return fullName.toString();
+    }
+
+    public Long getCurrId() {
+        return currId;
     }
 }

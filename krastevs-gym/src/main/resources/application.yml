@@ -22,6 +22,11 @@ spring:
         format_sql: true
     defer-datasource-initialization: true
 
+app:
+  default:
+    admin:
+      password: ${db_password}
+
 forex:
   api:
     key: ${FOREX_API_KEY:}
@@ -31,6 +36,8 @@ forex:
 exercises:
   api:
     baseUrl: "http://localhost:8081"
+
+
 
 #server:
 #  error:

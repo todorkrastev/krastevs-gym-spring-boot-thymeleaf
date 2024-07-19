@@ -1,95 +1,70 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
+import com.todorkrastev.krastevsgym.exception.CategoryNotFoundException;
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.*;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseEntity;
-import com.todorkrastev.krastevsgym.model.entity.PictureEntity;
-import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
+import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 import com.todorkrastev.krastevsgym.repository.ExerciseRepository;
 import com.todorkrastev.krastevsgym.service.ExerciseCategoryService;
 import com.todorkrastev.krastevsgym.service.ExerciseService;
+import com.todorkrastev.krastevsgym.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
-import org.thymeleaf.Thymeleaf;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
-    private final Logger LOGGER = LoggerFactory.getLogger(ExerciseServiceImpl.class);
-    private final RestClient exercisesRestClient;
+    private static String LOGO = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1721424066/krastevs-gym/imgs/logo/logo_xpwwcv.png";
+    private static Long ADMIN_ID = 1L;
+
+
     private final ExerciseRepository exerciseRepository;
     private final ModelMapper modelMapper;
     private final ExerciseCategoryService exerciseCategoryService;
+    private final UserService userService;
 
-    public ExerciseServiceImpl(@Qualifier("exercisesRestClient") RestClient exercisesRestClient, ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService) {
-        this.exercisesRestClient = exercisesRestClient;
+    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService) {
         this.exerciseRepository = exerciseRepository;
         this.modelMapper = modelMapper;
         this.exerciseCategoryService = exerciseCategoryService;
+        this.userService = userService;
     }
 
     @Override
-    public List<ExerciseDetailsDTO> getAllExercises() {
-        LOGGER.info("Get all exercises");
+    public Long createExercise(CreateExerciseDTO createExerciseDTO) {
+        UserEntity currUser = userService.findUserById(createExerciseDTO.getCurrUserId());
+        if (currUser == null) {
+            throw new ResourceNotFoundException("User", "id", createExerciseDTO.getCurrUserId());
+        }
 
-        //REST
-        return exercisesRestClient
-                .get()
-                .uri("http://localhost:8081/exercises")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>() {
-                });
-    }
+        ExerciseCategoryEntity category = exerciseCategoryService.findByCategory(createExerciseDTO.getCategory());
+        if (category == null) {
+            throw new CategoryNotFoundException("Category", "id", createExerciseDTO.getCategory().toString());
+        }
 
-    @Override
-    public void createExercise(CreateExerciseDTO createExerciseDTO) {
-        // Thymeleaf
+        String gifUrl = createExerciseDTO.getGifUrl();
+        if (gifUrl.isBlank()) {
+            gifUrl = LOGO;
+        }
 
-//        ExerciseEntity exercise = new ExerciseEntity()
-//                .setName(createExerciseDTO.name())
-//                .setDescription(createExerciseDTO.description())
-//                .setEquipmentTypeEnum(createExerciseDTO.equipmentTypeEnum())
-//                .setExerciseCategory(createExerciseDTO.exerciseCategoryEnum())
-//                .setInstructions(createExerciseDTO.instructions())
-//                .setGifUrl(createExerciseDTO.videoUrl());
-//
-//
-//        //  ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
-//        return exerciseRepository.save(exercise).getId();
+        ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
+        exercise
+                .setGifUrl(gifUrl)
+                .setMusclesWorkedUrl(category.getMusclesWorkedUrl())
+                .setCategory(category)
+                .setUser(currUser);
 
-        // REST
-
-        LOGGER.info("Creating new exercise");
-
-        exercisesRestClient
-                .post()
-                .uri("http://localhost:8081/exercises")
-                .body(createExerciseDTO)
-                .retrieve();
+        return exerciseRepository.save(exercise).getId();
     }
 
     @Override
     public void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long id) {
-//        Thymeleaf
-//        exerciseRepository
-//                .findById(id)
-//                .map(exercise -> exercise.setNotes(createExerciseNotesDTO.getNotes())).ifPresent(exerciseRepository::save);
-
-        exercisesRestClient
-                .post()
-                .uri("http://localhost:8081/exercises/{id}", id)
-                .body(createExerciseNotesDTO)
-                .retrieve();
+        exerciseRepository
+                .findById(id)
+                .map(exercise -> exercise.setNotes(createExerciseNotesDTO.getNotes())).ifPresent(exerciseRepository::save);
     }
 
     @Override
@@ -99,26 +74,20 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public ExerciseDetailsDTO getExerciseDetails(Long id) {
-        //Thymeleaf
-//        return this.exerciseRepository
-//                .findById(id)
-//                .map(ExerciseServiceImpl::toExerciseDetails)
-//                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
-
-        return exercisesRestClient
-                .get()
-                .uri("http://localhost:8081/exercises/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(ExerciseDetailsDTO.class);
+        return this.exerciseRepository
+                .findById(id)
+                .map(ExerciseServiceImpl::toExerciseDetails)
+                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
     }
 
     @Override
-    public List<ExerciseShortInfoDTO> getExercisesByCategoryId(Long id) {
+    public List<ExerciseShortInfoDTO> getExercisesByCategoryIdAndUserId(Long categoryId, Long userId) {
         //validation if the id exists in the db
-        exerciseCategoryService.findById(id);
+        exerciseCategoryService.findById(categoryId);
 
-        List<ExerciseEntity> allExercisesByCategoryId = exerciseRepository.findAllByCategoryId(id);
+        List<ExerciseEntity> allExercisesByCategoryId = exerciseRepository.findAllByCategoryIdAndAdminIdAndUserId(categoryId, ADMIN_ID, userId);
+
+        System.out.println();
 
         return allExercisesByCategoryId
                 .stream()
@@ -127,12 +96,13 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     private static ExerciseDetailsDTO toExerciseDetails(ExerciseEntity exerciseEntity) {
-        return new ExerciseDetailsDTO(exerciseEntity.getId(),
-                exerciseEntity.getName(),
-                exerciseEntity.getDescription(),
-                exerciseEntity.getGifUrl(),
-                exerciseEntity.getMusclesWorkedUrl(),
-                exerciseEntity.getInstructions(),
-                exerciseEntity.getNotes());
+        return new ExerciseDetailsDTO()
+                .setId(exerciseEntity.getId())
+                .setName(exerciseEntity.getName())
+                .setDescription(exerciseEntity.getDescription())
+                .setGifUrl(exerciseEntity.getGifUrl())
+                .setMusclesWorkedUrl(exerciseEntity.getMusclesWorkedUrl())
+                .setInstructions(exerciseEntity.getInstructions())
+                .setNotes(exerciseEntity.getNotes());
     }
 }

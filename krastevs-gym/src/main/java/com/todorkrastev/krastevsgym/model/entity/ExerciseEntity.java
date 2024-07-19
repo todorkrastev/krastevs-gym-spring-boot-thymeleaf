@@ -28,16 +28,15 @@ public class ExerciseEntity {
     @Column(columnDefinition = "TEXT")
     private String notes;
 
-//    @Column(name = "exercise_category", nullable = false)
-//    @Enumerated(EnumType.STRING)
-//    private ExerciseCategoryEnum exerciseCategory;
-
     @Column(name = "equipment_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private EquipmentTypeEnum equipmentType;
 
     @ManyToOne(optional = false)
     private ExerciseCategoryEntity category;
+
+    @ManyToOne(optional = false)
+    private UserEntity user;
 
     public ExerciseEntity() {
     }
@@ -120,6 +119,15 @@ public class ExerciseEntity {
 
     public ExerciseEntity setCategory(ExerciseCategoryEntity category) {
         this.category = category;
+        return this;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public ExerciseEntity setUser(UserEntity user) {
+        this.user = user;
         return this;
     }
 }

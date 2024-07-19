@@ -4,13 +4,17 @@ import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseNotesDTO;
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
+import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
 import com.todorkrastev.krastevsgym.service.ExerciseService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 @RequestMapping("/exercises")
@@ -31,13 +35,6 @@ public class ExerciseController {
         return EquipmentTypeEnum.values();
     }
 
-    @GetMapping("/all")
-    public String getAllOffers(Model model) {
-        model.addAttribute("allOffers", exerciseService.getAllExercises());
-        //TODO: This is just a demo. Delete after implementing it
-        return "bla-bla";
-    }
-
     @GetMapping("/{id}")
     public String exerciseDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("exerciseDetails", exerciseService.getExerciseDetails(id));
@@ -47,7 +44,8 @@ public class ExerciseController {
 
     @PostMapping("/{id}")
     public String createExerciseNotes(@PathVariable("id") Long id,
-                                      @Valid CreateExerciseNotesDTO createExerciseNotesDTO) {
+                                      @Valid CreateExerciseNotesDTO createExerciseNotesDTO
+    ) {
         exerciseService.createExerciseNotes(createExerciseNotesDTO, id);
 
         return "redirect:/exercises/" + id;
@@ -63,7 +61,7 @@ public class ExerciseController {
     @GetMapping("/create")
     public String createExercise(Model model) {
         if (!model.containsAttribute("createExerciseDTO")) {
-            model.addAttribute("createExerciseDTO", CreateExerciseDTO.empty());
+            model.addAttribute("createExerciseDTO", new CreateExerciseDTO());
         }
 
         return "exercise-create";
@@ -72,9 +70,12 @@ public class ExerciseController {
     @PostMapping("/create")
     public String createExercise(@Valid CreateExerciseDTO createExerciseDTO,
                                  BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes) {
-
-        System.out.println(createExerciseDTO);
+                                 RedirectAttributes redirectAttributes,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
+            Long currentUserId = krastevsGymUserDetails.getCurrId();
+            createExerciseDTO.setCurrUserId(currentUserId);
+        }
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("createExerciseDTO", createExerciseDTO);
@@ -82,13 +83,8 @@ public class ExerciseController {
 
             return "redirect:/exercises/create";
         }
-        //Thymeleaf
-        //long newExerciseId = exerciseService.createExercise(createExerciseDTO);
-        // return "redirect:/exercises/" + newExerciseId;
 
-        //REST
-        exerciseService.createExercise(createExerciseDTO);
-
-        return "redirect:/exercises/categories";
+        Long newExerciseId = exerciseService.createExercise(createExerciseDTO);
+        return "redirect:/exercises/" + newExerciseId;
     }
 }

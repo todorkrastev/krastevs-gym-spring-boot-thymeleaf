@@ -6,15 +6,14 @@ import java.util.List;
 
 
 public interface ExerciseService {
-    List<ExerciseDetailsDTO> getAllExercises();
 
-    void createExercise(CreateExerciseDTO createExerciseDTO);
+    Long createExercise(CreateExerciseDTO createExerciseDTO);
 
     void deleteExercise(Long id);
 
     ExerciseDetailsDTO getExerciseDetails(Long id);
 
-    List<ExerciseShortInfoDTO> getExercisesByCategoryId(Long id);
+    List<ExerciseShortInfoDTO> getExercisesByCategoryIdAndUserId(Long categoryId, Long userId);
 
     void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long id);
 }

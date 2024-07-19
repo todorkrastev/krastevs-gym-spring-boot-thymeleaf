@@ -1,9 +1,10 @@
 package com.todorkrastev.krastevsgym.model.entity;
 
-import com.todorkrastev.krastevsgym.model.enums.UserLevelEnum;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,18 +30,15 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private UserLevelEnum level;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRoleEntity> roles;
 
-//    @ManyToMany
-//    private Set<ExerciseEntity> exercises;
+    @OneToMany(targetEntity = ExerciseEntity.class, mappedBy = "user")
+    private List<ExerciseEntity> exercises;
 
     public UserEntity() {
         this.roles = new HashSet<>();
-//        this.exercises = new HashSet<>();
+        this.exercises = new ArrayList<>();
     }
 
     public Long getId() {
@@ -115,15 +113,6 @@ public class UserEntity {
         return this;
     }
 
-    public UserLevelEnum getLevel() {
-        return level;
-    }
-
-    public UserEntity setLevel(UserLevelEnum level) {
-        this.level = level;
-        return this;
-    }
-
     public Set<UserRoleEntity> getRoles() {
         return roles;
     }
@@ -133,12 +122,12 @@ public class UserEntity {
         return this;
     }
 
-    //    public Set<ExerciseEntity> getExercises() {
-//        return exercises;
-//    }
-//
-//    public UserEntity setExercises(Set<ExerciseEntity> exercises) {
-//        this.exercises = exercises;
-//        return this;
-//    }
+    public List<ExerciseEntity> getExercises() {
+        return exercises;
+    }
+
+    public UserEntity setExercises(List<ExerciseEntity> exercises) {
+        this.exercises = exercises;
+        return this;
+    }
 }

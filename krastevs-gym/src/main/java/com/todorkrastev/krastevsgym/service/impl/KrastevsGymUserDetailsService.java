@@ -36,7 +36,8 @@ public class KrastevsGymUserDetailsService implements UserDetailsService {
                 userEntity.getPassword(),
                 userEntity.getRoles().stream().map(UserRoleEntity::getRole).map(KrastevsGymUserDetailsService::map).toList(),
                 userEntity.getFirstName(),
-                userEntity.getLastName()
+                userEntity.getLastName(),
+                userEntity.getId()
         );
     }
 
