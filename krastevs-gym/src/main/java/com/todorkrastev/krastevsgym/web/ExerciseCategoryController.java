@@ -35,8 +35,10 @@ public class ExerciseCategoryController {
     @GetMapping("/categories/{id}")
     public String exercisesByCategoryId(@PathVariable("id") Long id, Model model) {
         List<ExerciseShortInfoDTO> allExercisesByCategory = exerciseService.getExercisesByCategoryId(id);
-
         model.addAttribute("exercisesByCategory", allExercisesByCategory);
+
+        List<ExerciseCategoryInfoDTO> categories = exerciseCategoryService.getAllCategories();
+        model.addAttribute("categories", categories);
 
         return "exercises-by-category";
     }

@@ -37,7 +37,7 @@
             <div class="hero__exercises__subtitles">
                 <p th:text="${exercisesByCategory.iterator().hasNext() ?
                 exercisesByCategory.get(0).getCategoryDescription() :
-                'Sorry, you have to select another category'}"
+                'Be the first one to create a new exercise'}"
                    class="hero__exercises__subtitle">
                     Abdominal muscles play a crucial role in posture, support of the spine, balance, stability, and
                     respiratory
@@ -50,16 +50,30 @@
 
     <div class="divider"></div>
 
-    <th:object th:if="${exercisesByCategory.iterator().hasNext()}">
+    <div class="exercises__main__wrapper">
+        <aside class="exercise__categories">
+            <a th:each="category : ${categories}"
+               th:href="@{/exercises/categories/{id}(id=${category.getCategoryId()})}"
+               th:text="${category.getCategory().toLowerCase()}"
+               class="exercise__category__name">Abs</a>
+        </aside>
         <section class="exercises__container--abs section">
             <article th:each="exercise: ${exercisesByCategory}" class="exercise--abs">
                 <a th:href="@{/exercises/{id}(id=${exercise.getExerciseId()})}" class="exercise__wrapper--abs">
-                    <img th:src="${exercise.getExerciseGifUrl()}" class="exercise__poster--abs" alt="Section poster"/>
-                    <h6 th:text="${exercise.getExerciseName()}" class="exercise__title--abs">Stability ball V-pass</h6>
+                    <img th:src="${exercise.getExerciseGifUrl()}" class="exercise__poster--abs"
+                         alt="Section poster"/>
+                    <h6 th:text="${exercise.getExerciseName()}" class="exercise__title--abs">Stability ball
+                        V-pass</h6>
+                </a>
+            </article>
+            <article class="exercise--abs">
+                <a th:href="@{/exercises/create}" class="exercise__wrapper--abs">
+                    <img class="exercise__poster--abs" src="/images/icon/plus.jpg" alt="Section poster" />
+                    <h6 class="exercise__title--abs">Create an exercise</h6>
                 </a>
             </article>
         </section>
-    </th:object>
+    </div>
 
     <div class="divider"></div>
 
