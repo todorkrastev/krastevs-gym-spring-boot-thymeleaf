@@ -1,11 +1,8 @@
 package com.todorkrastev.krastevsgym.web;
 
 import com.todorkrastev.krastevsgym.model.dto.ActivityDTO;
-import com.todorkrastev.krastevsgym.model.dto.HeroImageDTO;
-import com.todorkrastev.krastevsgym.model.enums.HeroImageCategoryEnum;
 import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
 import com.todorkrastev.krastevsgym.service.ActivityService;
-import com.todorkrastev.krastevsgym.service.HeroImageService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,11 +14,9 @@ import java.util.List;
 @Controller
 public class HomeController {
     private final ActivityService activityService;
-    private final HeroImageService heroImageService;
 
-    public HomeController(ActivityService activityService, HeroImageService heroImageService) {
+    public HomeController(ActivityService activityService) {
         this.activityService = activityService;
-        this.heroImageService = heroImageService;
     }
 
     @GetMapping("/")
@@ -34,9 +29,6 @@ public class HomeController {
 
         List<ActivityDTO> activities = activityService.findAll();
         model.addAttribute("activities", activities);
-
-        HeroImageDTO heroImage = heroImageService.getHeroPageByGivenCategory(HeroImageCategoryEnum.HOME);
-        model.addAttribute("heroImage", heroImage);
 
         return "index";
     }
