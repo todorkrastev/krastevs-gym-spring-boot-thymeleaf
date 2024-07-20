@@ -1,7 +1,9 @@
 package com.todorkrastev.krastevsgym.model.dto;
 
+import com.todorkrastev.krastevsgym.model.validation.annotation.PasswordMatch;
 import jakarta.validation.constraints.*;
 
+@PasswordMatch
 public class UserRegisterDTO {
     @NotBlank(message = "{user.register.dto.first.name.not.blank}")
     @Size(min = 1, message = "{user.register.dto.first.name.size}")
@@ -12,11 +14,16 @@ public class UserRegisterDTO {
     private String lastName;
 
     @Email(regexp = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$", message = "{user.register.dto.email}")
+//    @UniqueEmail --> my custom validation
     private String email;
 
     @NotBlank(message = "{user.register.dto.password.not.blank}")
     @Size(min = 5, message = "{user.register.dto.password.size}")
     private String password;
+
+    @NotBlank(message = "{user.register.dto.password.not.blank}")
+    @Size(min = 5, message = "{user.register.dto.password.size}")
+    private String confirmPassword;
 
     public UserRegisterDTO() {
     }
@@ -54,6 +61,15 @@ public class UserRegisterDTO {
 
     public UserRegisterDTO setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public UserRegisterDTO setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
         return this;
     }
 }

@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean doesEmailExists(UserRegisterDTO userRegisterDTO) {
-        return userRepository.findByEmail(userRegisterDTO.getEmail()).isPresent();
+    public boolean doesEmailExist(String email) {
+        return userRepository.findByEmail(email).isPresent();
     }
 
     @Override

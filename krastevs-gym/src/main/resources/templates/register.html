@@ -61,8 +61,7 @@
                    id="firstName"
                    name="firstName"
                    type="text"
-                   class="hero__form--register__field"
-                   placeholder="First Name">
+                   class="hero__form--register__field">
             <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}"
                class="error__message--form"></p>
             <input th:field="*{lastName}"
@@ -70,8 +69,7 @@
                    id="lastName"
                    name="lastName"
                    type="text"
-                   class="hero__form--register__field"
-                   placeholder="Last Name">
+                   class="hero__form--register__field">
             <!--<input name="role" class="hero__form--register__field" placeholder="Role" type="text" minlength="5"
                    maxlength="50" required value="">-->
             <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}"
@@ -81,8 +79,7 @@
                    id="email"
                    name="email"
                    type="email"
-                   class="hero__form--register__field"
-                   placeholder="Email">
+                   class="hero__form--register__field">
             <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"
                class="error__message--form"></p>
             <input th:field="*{password}"
@@ -90,16 +87,25 @@
                    id="password"
                    name="password"
                    type="password"
-                   class="hero__form--register__field"
-                   placeholder="Password">
+                   class="hero__form--register__field">
             <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}"
+               class="error__message--form"></p>
+            <input th:field="*{confirmPassword}"
+                   th:placeholder="#{register_form_placeholder_confirm_password}"
+                   id="confirmPassword"
+                   name="confirmPassword"
+                   type="password"
+                   class="hero__form--register__field">
+            <p th:if="${#fields.hasErrors('confirmPassword')}" th:errorclass="error" th:errors="*{confirmPassword}"
                class="error__message--form"></p>
             <button th:text="#{register_form_btn}" type="submit" class="hero__register--submit btn">Submit</button>
         </form>
         <div class="hero__register--register">
-            <p class="hero__register--terms">By creating an account you agree to our <a th:text="#{register_form_terms_and_privacy}" th:href="@{/}">Terms &
+            <p class="hero__register--terms">By creating an account you agree to our <a
+                    th:text="#{register_form_terms_and_privacy}" th:href="@{/}">Terms &
                 Privacy.</a></p>
-            <p class="hero__register--login">Already have an account? <a th:text="#{register_form_login}" th:href="@{/users/login}">Sign in.</a></p>
+            <p class="hero__register--login">Already have an account? <a th:text="#{register_form_login}"
+                                                                         th:href="@{/users/login}">Sign in.</a></p>
         </div>
     </section>
 

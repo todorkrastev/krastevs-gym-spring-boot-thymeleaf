@@ -48,8 +48,7 @@ public class RegisterController {
             return "redirect:/users/register";
         }
 
-
-        if (userService.doesEmailExists(userRegisterDTO)) {
+        if (userService.doesEmailExist(userRegisterDTO.getEmail())) {
             redirectAttributes.addFlashAttribute("userLoginDTO", new UserRegisterDTO().setEmail(userRegisterDTO.getEmail()));
             redirectAttributes.addFlashAttribute("user_already_exists", true);
 
