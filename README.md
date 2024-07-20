@@ -4,6 +4,9 @@
 <div>
   <ul>
     <li>
+      <a href="https://github.com/spring-projects/spring-framework" target="_blank">Spring Framework</a>
+    </li>
+    <li>
       <a href="https://github.com/spring-projects/spring-boot" target="_blank">Spring Boot</a>
     </li>
     <li>
@@ -11,6 +14,9 @@
     </li>
     <li>
       <a href="https://github.com/spring-projects/spring-security" target="_blank">Spring Security</a>
+    </li>
+    <li>
+      <a href="https://dev.mysql.com/doc/refman/8.4/en/" target="_blank">MySQL</a>
     </li>
     <li>
       <a href="https://github.com/thymeleaf" target="_blank">Thymeleaf</a>
@@ -33,4 +39,5 @@
     <li>
       <a href="" target="_blank">TO DO</a>
     </li>
+  </ul>
 </div>
