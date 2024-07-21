@@ -1,6 +1,6 @@
-package com.todorkrastev.krastevsgym.model.validation.annotation;
+package com.todorkrastev.krastevsgym.validation.annotation;
 
-import com.todorkrastev.krastevsgym.model.validation.validator.PasswordMatchValidator;
+import com.todorkrastev.krastevsgym.validation.validator.PasswordMatchValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

@@ -1,7 +1,7 @@
-package com.todorkrastev.krastevsgym.model.validation.validator;
+package com.todorkrastev.krastevsgym.validation.validator;
 
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
-import com.todorkrastev.krastevsgym.model.validation.annotation.PasswordMatch;
+import com.todorkrastev.krastevsgym.validation.annotation.PasswordMatch;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;

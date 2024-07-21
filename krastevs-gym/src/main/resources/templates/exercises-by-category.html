@@ -28,7 +28,7 @@
 
         <div class="hero__abs">
             <h1 th:text="${exercisesByCategory.iterator().hasNext() ?
-            exercisesByCategory.get(0).getCategory().name().toLowerCase() :
+            exercisesByCategory.get(0).getCategory().name().toLowerCase().replace('_', ' ') :
             'The category is under development'}"
                 class="hero__title__abs">Abs</h1>
             <!--<h2 class="hero__title__abs">Exercises</h2>
@@ -54,7 +54,7 @@
         <aside class="exercise__categories">
             <a th:each="category : ${categories}"
                th:href="@{/exercises/categories/{id}(id=${category.getCategoryId()})}"
-               th:text="${category.getCategory().toLowerCase()}"
+               th:text="${category.getCategory().toLowerCase().replace('_', ' ')}"
                class="exercise__category__name">Abs</a>
         </aside>
         <section class="exercises__container--abs section">
@@ -68,7 +68,7 @@
             </article>
             <article class="exercise--abs">
                 <a th:href="@{/exercises/create}" class="exercise__wrapper--abs">
-                    <img class="exercise__poster--abs" src="/images/icon/plus-plan-c.jpg" alt="Section poster" />
+                    <img class="exercise__poster--abs" src="/images/icon/plus-plan-c.jpg" alt="Section poster"/>
                     <h6 class="exercise__title--abs">Create an exercise</h6>
                 </a>
             </article>

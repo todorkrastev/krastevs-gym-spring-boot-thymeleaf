@@ -56,6 +56,10 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
+        align-content: center;
+        justify-content: center;
+        align-items: baseline;
+        justify-items: center;
     }
 }
 

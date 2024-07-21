@@ -1,5 +1,5 @@
 package com.todorkrastev.krastevsgym.service;
 
-public interface DbService {
+public interface DbServiceInitializer {
     void init();
 }

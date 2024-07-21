@@ -9,6 +9,8 @@ public class ExerciseDetailsDTO {
     private String instructions;
     private String notes;
 
+    private Long creatorId;
+
     public ExerciseDetailsDTO() {
     }
 
@@ -72,6 +74,15 @@ public class ExerciseDetailsDTO {
 
     public ExerciseDetailsDTO setNotes(String notes) {
         this.notes = notes;
+        return this;
+    }
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public ExerciseDetailsDTO setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
         return this;
     }
 }

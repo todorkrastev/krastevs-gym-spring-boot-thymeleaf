@@ -15,15 +15,6 @@ public class ProductEntity {
     @OneToMany(targetEntity = PictureEntity.class, mappedBy = "product")
     private List<PictureEntity> pictures;
 
-//    private ProductShortInfoDTO mapToInfo(ProductEntity product) {
-//        ProductShortInfoDTO dto = modelMapper.map(product, ProductShortInfoDTO.class);
-//
-//        Optional<PictureEntity> first = product.getPictures().stream().findFirst();
-//        first.ifPresent(pictureEntity -> dto.setImage(pictureEntity.getImage()));
-//
-//        return dto;
-//    }
-
     public ProductEntity() {
         this.pictures = new ArrayList<>();
     }

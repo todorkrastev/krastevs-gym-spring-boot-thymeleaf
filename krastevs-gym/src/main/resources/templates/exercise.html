@@ -38,13 +38,16 @@
                         adipisci ut voluptatum esse unde maxime, maiores voluptatem. Explicabo fuga obcaecati numquam.
                         Perspiciatis
                         cum quibusdam ad.</p>
-                    <div class="info__buttons">
-                        <button class="info__button edit">Edit</button>
-                        <form th:method="delete"
-                              th:action="@{/exercises/{id}(id=*{id})}">
-                            <button class="info__button delete">Delete</button>
-                        </form>
-                    </div>
+
+                    <th:block th:if="${isCreator}">
+                        <div class="info__buttons--exercise">
+                            <button class="info__button edit">Edit</button>
+                            <form th:method="delete"
+                                  th:action="@{/exercises/{id}(id=*{id})}">
+                                <button class="info__button delete">Delete</button>
+                            </form>
+                        </div>
+                    </th:block>
                 </div>
                 <img th:src="*{gifUrl}"
                      class="exercise__poster" alt="Section poster"/>
@@ -77,14 +80,17 @@
 
     <div class="divider"></div>
 
-    <div class="exercise__container section--exercise">
+    <div class="exercise__container section--exercise exercise">
         <h3 class="exercise__notes__title">Notes</h3>
         <section class="exercise">
             <form th:action="@{/exercises/{id}(id=${exerciseDetails.getId()})}"
                   th:method="post"
                   class="create__note">
-          <textarea name="notes" class="exercise__notes"
-                    th:placeholder="${exerciseDetails.getNotes()}"  minlength="1"
+          <textarea th:text="${exerciseDetails.getNotes()}"
+                    th:placeholder="#{exercise_placeholder_notes}"
+                    name="notes"
+                    class="exercise__notes"
+                    minlength="1"
                     maxlength="255" required></textarea>
                 <button type="submit" class="create__note--submit">Submit</button>
             </form>

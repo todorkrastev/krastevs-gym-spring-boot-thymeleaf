@@ -12,6 +12,6 @@ import java.util.List;
 public interface ExerciseRepository extends JpaRepository<ExerciseEntity, Long> {
     List<ExerciseEntity> findAllByCategoryId(Long id);
 
-    @Query("select e from ExerciseEntity e join e.user u where e.category.id = ?1 and u.id in (?2, ?3) order by e.id asc")
+    @Query("select e from ExerciseEntity e join e.user u where e.category.id = ?1 and u.id in (?2, ?3) order by e.id asc ")
     List<ExerciseEntity> findAllByCategoryIdAndAdminIdAndUserId(Long categoryId, Long adminId, Long userId);
 }

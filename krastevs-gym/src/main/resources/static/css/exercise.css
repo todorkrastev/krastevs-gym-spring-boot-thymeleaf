@@ -9,7 +9,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
 }
 
 .exercise__poster,
@@ -33,7 +32,6 @@
 }
 
 .exercise__wrapper--detailed__info {
-    margin: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,12 +79,23 @@
     border: 2px solid transparent;
 }
 
+.info__buttons--exercise {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: space-around;
+    flex-direction: row;
+    padding: 0.25rem;
+    gap: 13px;
+}
+
 @media screen and (min-width: 768px) {
     .exercise__wrapper--info {
         flex-direction: row;
         flex-wrap: nowrap;
         align-content: center;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
     }
 
@@ -109,8 +118,8 @@
         flex-direction: row;
         flex-wrap: nowrap;
         align-content: center;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-evenly;
+        align-items: flex-start;;
     }
 
     .exercise__instructions__title {
@@ -132,6 +141,13 @@
 }
 
 @media screen and (min-width: 1024px) {
+    .exercise__wrapper--short__info {
+        width: 33%;
+    }
+
+    .exercise__wrapper--instructions {
+        width: 33%;
+    }
 }
 
 @media screen and (min-width: 1200px) {

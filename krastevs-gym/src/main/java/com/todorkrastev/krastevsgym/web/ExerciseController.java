@@ -2,6 +2,8 @@ package com.todorkrastev.krastevsgym.web;
 
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseNotesDTO;
+import com.todorkrastev.krastevsgym.model.dto.EditExerciseDTO;
+import com.todorkrastev.krastevsgym.model.dto.ExerciseDetailsDTO;
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
@@ -36,17 +38,28 @@ public class ExerciseController {
     }
 
     @GetMapping("/{id}")
-    public String exerciseDetails(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("exerciseDetails", exerciseService.getExerciseDetails(id));
+    public String exerciseDetails(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.getExerciseDetails(id);
+        model.addAttribute("exerciseDetails", exerciseDetailsDTO);
+
+        if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
+            Long currentUserId = krastevsGymUserDetails.getCurrId();
+
+            if (exerciseDetailsDTO.getCreatorId().equals(currentUserId)) {
+                model.addAttribute("isCreator", true);
+            } else {
+                model.addAttribute("isCreator", false);
+            }
+        }
 
         return "exercise";
     }
 
-    @PostMapping("/{id}")
-    public String createExerciseNotes(@PathVariable("id") Long id,
-                                      @Valid CreateExerciseNotesDTO createExerciseNotesDTO
-    ) {
-        exerciseService.createExerciseNotes(createExerciseNotesDTO, id);
+    //TODO: implement the logic in the exercise.html
+    @PutMapping("/{id}")
+    public String editExercise(@PathVariable("id") Long id, @Valid EditExerciseDTO editExerciseDTO, Model model) {
+        ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.editExercise(id, editExerciseDTO);
+        model.addAttribute("exerciseDetails", exerciseDetailsDTO);
 
         return "redirect:/exercises/" + id;
     }
@@ -86,5 +99,13 @@ public class ExerciseController {
 
         Long newExerciseId = exerciseService.createExercise(createExerciseDTO);
         return "redirect:/exercises/" + newExerciseId;
+    }
+
+    @PostMapping("/{id}")
+    public String createExerciseNotes(@PathVariable("id") Long id,
+                                      @Valid CreateExerciseNotesDTO createExerciseNotesDTO) {
+        exerciseService.createExerciseNotes(createExerciseNotesDTO, id);
+
+        return "redirect:/exercises/" + id;
     }
 }

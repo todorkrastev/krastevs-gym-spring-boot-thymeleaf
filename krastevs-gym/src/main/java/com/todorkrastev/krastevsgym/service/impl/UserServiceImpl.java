@@ -2,6 +2,8 @@ package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
+import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
+import com.todorkrastev.krastevsgym.model.enums.UserRoleEnum;
 import com.todorkrastev.krastevsgym.repository.UserRepository;
 import com.todorkrastev.krastevsgym.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -39,6 +41,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findUserById(Long currUserId) {
         return userRepository.findById(currUserId).orElse(null);
+    }
+
+    @Override
+    public Long findAdminId() {
+        return this.userRepository.findAdminByCategory(UserRoleEnum.ADMIN).getId();
+    }
+
+    @Override
+    public UserEntity findUserByExerciseId(Long exerciseId) {
+        return userRepository.findUserByExerciseId(exerciseId);
     }
 
     private UserEntity map(UserRegisterDTO userRegisterDTO) {

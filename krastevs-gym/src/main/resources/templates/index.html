@@ -24,8 +24,7 @@
 
 <main>
     <section id="hero">
-        <img th:src="${heroImage.getImageURL()}" class="img--bg" alt="Background poster"/>
-
+        <img src="/images/hero/hero.jpg" class="img--bg" alt="Background poster"/>
 
         <th:block sec:authorize="isAuthenticated()">
             <h2 class="hero__subtitle">Hello,

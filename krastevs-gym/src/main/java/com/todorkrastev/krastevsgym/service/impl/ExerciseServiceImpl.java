@@ -17,9 +17,8 @@ import java.util.List;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
-    private static String LOGO = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1721424066/krastevs-gym/imgs/logo/logo_xpwwcv.png";
-    private static Long ADMIN_ID = 1L;
-
+    private static final String SAMPLE_EXERCISE_IMAGE = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1721504899/krastevs-gym/imgs/exercise/exercise-sample-plan-c_hr3xgb.jpg";
+private static final String SAMPLE_MUSCLES_WORKED_IMAGE = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1719702627/krastevs-gym/imgs/muscles/view_of_muscles_kfthdn.jpg";
 
     private final ExerciseRepository exerciseRepository;
     private final ModelMapper modelMapper;
@@ -47,13 +46,13 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         String gifUrl = createExerciseDTO.getGifUrl();
         if (gifUrl.isBlank()) {
-            gifUrl = LOGO;
+            gifUrl = SAMPLE_EXERCISE_IMAGE;
         }
 
         ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
         exercise
                 .setGifUrl(gifUrl)
-                .setMusclesWorkedUrl(category.getMusclesWorkedUrl())
+                .setMusclesWorkedUrl(SAMPLE_MUSCLES_WORKED_IMAGE)
                 .setCategory(category)
                 .setUser(currUser);
 
@@ -68,6 +67,31 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public ExerciseDetailsDTO editExercise(Long id, EditExerciseDTO editExerciseDTO) {
+        ExerciseEntity exercise = exerciseRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
+
+        ExerciseCategoryEntity category = exerciseCategoryService.findByCategory(editExerciseDTO.getCategory());
+        if (category == null) {
+            throw new CategoryNotFoundException("Category", "id", editExerciseDTO.getCategory().toString());
+        }
+
+        String gifUrl = editExerciseDTO.getGifUrl();
+        if (gifUrl.isBlank()) {
+            gifUrl = SAMPLE_EXERCISE_IMAGE;
+            modelMapper.map(editExerciseDTO, ExerciseEntity.class);
+            editExerciseDTO.setGifUrl(gifUrl);
+        } else {
+            modelMapper.map(editExerciseDTO, ExerciseEntity.class);
+        }
+
+        exerciseRepository.save(exercise);
+
+        return modelMapper.map(exercise, ExerciseDetailsDTO.class);
+    }
+
+    @Override
     public void deleteExercise(Long id) {
         exerciseRepository.deleteById(id);
     }
@@ -76,7 +100,12 @@ public class ExerciseServiceImpl implements ExerciseService {
     public ExerciseDetailsDTO getExerciseDetails(Long id) {
         return this.exerciseRepository
                 .findById(id)
-                .map(ExerciseServiceImpl::toExerciseDetails)
+                .map(exercise -> {
+                    ExerciseDetailsDTO exerciseDetailsDTO = modelMapper.map(exercise, ExerciseDetailsDTO.class);
+                    exerciseDetailsDTO.setCreatorId(exercise.getUser().getId());
+
+                    return exerciseDetailsDTO;
+                })
                 .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
     }
 
@@ -85,24 +114,12 @@ public class ExerciseServiceImpl implements ExerciseService {
         //validation if the id exists in the db
         exerciseCategoryService.findById(categoryId);
 
-        List<ExerciseEntity> allExercisesByCategoryId = exerciseRepository.findAllByCategoryIdAndAdminIdAndUserId(categoryId, ADMIN_ID, userId);
-
-        System.out.println();
+        Long adminId = userService.findAdminId();
+        List<ExerciseEntity> allExercisesByCategoryId = exerciseRepository.findAllByCategoryIdAndAdminIdAndUserId(categoryId, adminId, userId);
 
         return allExercisesByCategoryId
                 .stream()
                 .map(exercise -> modelMapper.map(exercise, ExerciseShortInfoDTO.class))
                 .toList();
-    }
-
-    private static ExerciseDetailsDTO toExerciseDetails(ExerciseEntity exerciseEntity) {
-        return new ExerciseDetailsDTO()
-                .setId(exerciseEntity.getId())
-                .setName(exerciseEntity.getName())
-                .setDescription(exerciseEntity.getDescription())
-                .setGifUrl(exerciseEntity.getGifUrl())
-                .setMusclesWorkedUrl(exerciseEntity.getMusclesWorkedUrl())
-                .setInstructions(exerciseEntity.getInstructions())
-                .setNotes(exerciseEntity.getNotes());
     }
 }

@@ -1,6 +1,6 @@
 package com.todorkrastev.krastevsgym.model.dto;
 
-import com.todorkrastev.krastevsgym.model.validation.annotation.PasswordMatch;
+import com.todorkrastev.krastevsgym.validation.annotation.PasswordMatch;
 import jakarta.validation.constraints.*;
 
 @PasswordMatch
@@ -21,8 +21,8 @@ public class UserRegisterDTO {
     @Size(min = 5, message = "{user.register.dto.password.size}")
     private String password;
 
-    @NotBlank(message = "{user.register.dto.password.not.blank}")
     @Size(min = 5, message = "{user.register.dto.password.size}")
+    @NotBlank(message = "{user.register.dto.password.not.blank}")
     private String confirmPassword;
 
     public UserRegisterDTO() {

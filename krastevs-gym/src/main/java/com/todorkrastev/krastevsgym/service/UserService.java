@@ -8,4 +8,8 @@ public interface UserService {
     void registerUser(UserRegisterDTO userRegisterDTO);
 
     UserEntity findUserById(Long currUserId);
+
+    Long findAdminId();
+
+    UserEntity findUserByExerciseId(Long exerciseId);
 }
