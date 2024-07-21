@@ -39,7 +39,7 @@ forex:
 
 activity:
   api:
-    base-url: "http://localhost:8081";
+    baseUrl: "http://localhost:8081"
 
 #server:
 #  error:

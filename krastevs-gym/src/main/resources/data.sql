@@ -139,62 +139,62 @@
 
 
 -- activities
-INSERT INTO activities (id, title, description, image_url)
-VALUES (1, 'Free Weights', 'If you suffer from acute iron deficiency, you''ve come to the right place. In the Free Weights Area, you can
-          let off steam on the gym80 Olympia Premium barbells or dumbbells up to 150 kg.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/weights_otkv2w.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (2, 'Machines', 'Indestructible, incomparable and incredibly effective: With the ultimate equipment from gym80 "The King of
-          Machines" you train all muscles absolutely precisely thanks to the excellent biomechanics.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648981/krastevs-gym/imgs/home/machines_r8v6au.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (3, 'Cardio Area', 'Take your endurance to the next level with top equipment from Precor and Matrix and look forward to a gigantic
-          selection - in Constance even between 10 meter high trees!',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/cardio_e8p7uu.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (4, 'Boxing', 'You won''t meet Wladimir Klitschko or Alexander Povetkin in our gym, but the fun in our boxing classes is
-          guaranteed.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/boxing_enbvlj.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (5, 'PT & Coaching', 'You can''t get ahead and always have an excuse? Then it''s high time for the best personal training ever!
-          Experience individual 1:1 support, pure motivation, and maximum effectiveness.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/coaching_wixxkv.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (6, 'Yoga', 'If you are looking for peace of mind and solitude, come and join our yoga classes.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/yoga_j7dugv.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (7, 'VR Training & More', 'At Krastev''s Gym, we offer you two strong fitness class formats: VR Workouts and Live Classes. All classes
-          are free and suitable for all levels.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/vr_t8ozjs.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (8, 'Posing Room', 'First pump, then pose. In the fully mirrored room in Constance, that''s no problem. Because we have not spared
-          the anabolic light here, you can put your body optimally illuminated in the scene.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648984/krastevs-gym/imgs/home/posing_eowtqn.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (9, 'Sauna & Recovery',
-        'If you work hard, you can also relax. Ideally in our separate men''s and women''s sauna. Time to relax.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648985/krastevs-gym/imgs/home/sauna_hldgsa.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (10, 'Swimming Pool', 'Krastev''s Gym Fullerton features an outdoor pool and indoor hot tub, open year-round. Swim your way to better
-          health and stay cool in the Constance sun with our unlimited membership.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648983/krastevs-gym/imgs/home/pool_fzwsxw.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (11, 'Krastev''s Gym Nutrition', 'When you train, you get your body in top shape. But you also demand a lot from it. Krastev''s Gym Nutrition
-          ensures that your body is supplied with everything it needs before, during and after your workout.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648983/krastevs-gym/imgs/home/nutrition_jzewte.jpg');
-
-INSERT INTO activities (id, title, description, image_url)
-VALUES (12, 'Krastev''s Gym Shop', 'At Krastev''s Gym you have a wide selection of products specially selected for you by us. Useful fitness
-          accessories, and the perfect clothes for your workout. You can pick up your order in your Krastev''s Gym, or
-          have it conveniently delivered to your home.',
-        'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648986/krastevs-gym/imgs/home/shop_l5ilbv.jpg');
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (1, 'Free Weights', 'If you suffer from acute iron deficiency, you''ve come to the right place. In the Free Weights Area, you can
+#           let off steam on the gym80 Olympia Premium barbells or dumbbells up to 150 kg.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/weights_otkv2w.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (2, 'Machines', 'Indestructible, incomparable and incredibly effective: With the ultimate equipment from gym80 "The King of
+#           Machines" you train all muscles absolutely precisely thanks to the excellent biomechanics.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648981/krastevs-gym/imgs/home/machines_r8v6au.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (3, 'Cardio Area', 'Take your endurance to the next level with top equipment from Precor and Matrix and look forward to a gigantic
+#           selection - in Constance even between 10 meter high trees!',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/cardio_e8p7uu.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (4, 'Boxing', 'You won''t meet Wladimir Klitschko or Alexander Povetkin in our gym, but the fun in our boxing classes is
+#           guaranteed.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/boxing_enbvlj.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (5, 'PT & Coaching', 'You can''t get ahead and always have an excuse? Then it''s high time for the best personal training ever!
+#           Experience individual 1:1 support, pure motivation, and maximum effectiveness.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/coaching_wixxkv.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (6, 'Yoga', 'If you are looking for peace of mind and solitude, come and join our yoga classes.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/yoga_j7dugv.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (7, 'VR Training & More', 'At Krastev''s Gym, we offer you two strong fitness class formats: VR Workouts and Live Classes. All classes
+#           are free and suitable for all levels.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648980/krastevs-gym/imgs/home/vr_t8ozjs.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (8, 'Posing Room', 'First pump, then pose. In the fully mirrored room in Constance, that''s no problem. Because we have not spared
+#           the anabolic light here, you can put your body optimally illuminated in the scene.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648984/krastevs-gym/imgs/home/posing_eowtqn.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (9, 'Sauna & Recovery',
+#         'If you work hard, you can also relax. Ideally in our separate men''s and women''s sauna. Time to relax.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648985/krastevs-gym/imgs/home/sauna_hldgsa.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (10, 'Swimming Pool', 'Krastev''s Gym Fullerton features an outdoor pool and indoor hot tub, open year-round. Swim your way to better
+#           health and stay cool in the Constance sun with our unlimited membership.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648983/krastevs-gym/imgs/home/pool_fzwsxw.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (11, 'Krastev''s Gym Nutrition', 'When you train, you get your body in top shape. But you also demand a lot from it. Krastev''s Gym Nutrition
+#           ensures that your body is supplied with everything it needs before, during and after your workout.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648983/krastevs-gym/imgs/home/nutrition_jzewte.jpg');
+#
+# INSERT INTO activities (id, title, description, image_url)
+# VALUES (12, 'Krastev''s Gym Shop', 'At Krastev''s Gym you have a wide selection of products specially selected for you by us. Useful fitness
+#           accessories, and the perfect clothes for your workout. You can pick up your order in your Krastev''s Gym, or
+#           have it conveniently delivered to your home.',
+#         'https://res.cloudinary.com/dgtuddxqf/image/upload/v1720648986/krastevs-gym/imgs/home/shop_l5ilbv.jpg');
