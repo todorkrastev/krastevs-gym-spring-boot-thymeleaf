@@ -28,7 +28,8 @@
 
         <th:block sec:authorize="isAuthenticated()">
             <h2 class="hero__subtitle">Hello,
-                <th:block th:text="${welcomeMessage}"></th:block>!
+                <th:block th:text="${welcomeMessage}"></th:block>
+                !
             </h2>
             <a th:href="@{/workouts}" th:text="#{hero_image_btn_authenticated}" class="member__btn">
                 start a training >
@@ -46,28 +47,31 @@
 
     <div class="divider"></div>
 
-    <section th:each="activity : ${activities}">
-        <div class="info section">
-            <div class="info__wrapper">
-                <h2 th:text="${activity.getTitle()}" class="info__title">Free Weights</h2>
-                <p th:text="${activity.getDescription()}" class="info__description">
-                    If you suffer from acute iron deficiency, you've come to the right place. In the Free Weights Area,
-                    you
-                    can
-                    let off steam on the gym80 Olympia Premium barbells or dumbbells up to 150 kg.
-                </p>
+    <th:block th:if="${activities.iterator().hasNext()}">
+        <section th:each="activity : ${activities}">
+            <div class="info section">
+                <div class="info__wrapper">
+                    <h2 th:text="${activity.getTitle()}" class="info__title">Free Weights</h2>
+                    <p th:text="${activity.getDescription()}" class="info__description">
+                        If you suffer from acute iron deficiency, you've come to the right place. In the Free Weights
+                        Area,
+                        you
+                        can
+                        let off steam on the gym80 Olympia Premium barbells or dumbbells up to 150 kg.
+                    </p>
 
-                <div class="info__buttons" sec:authorize="hasRole('ADMIN')">
-                    <button class="info__button edit">Edit</button>
-                    <button class="info__button delete">Delete</button>
+                    <div class="info__buttons" sec:authorize="hasRole('ADMIN')">
+                        <button class="info__button edit">Edit</button>
+                        <button class="info__button delete">Delete</button>
+                    </div>
                 </div>
+
+                <img th:src="${activity.getImageURL()}" class="info__poster" alt="Section poster"/>
             </div>
 
-            <img th:src="${activity.getImageURL()}" class="info__poster" alt="Section poster"/>
-        </div>
-
-        <div class="divider"></div>
-    </section>
+            <div class="divider"></div>
+        </section>
+    </th:block>
 
 </main>
 
