@@ -24,6 +24,7 @@ import java.util.List;
 @Service
 public class DbServiceInitializerImpl implements DbServiceInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DbServiceInitializerImpl.class);
+
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final ExerciseRepository exerciseRepository;

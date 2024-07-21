@@ -13,11 +13,11 @@ public class RestConfig {
         return RestClient.create();
     }
 
-    @Bean("exercisesRestClient")
-    public RestClient exercisesRestClient(ExerciseApiConfig exerciseApiConfig) {
+    @Bean("activityRestClient")
+    public RestClient exercisesRestClient(ActivityApiConfig activityApiConfig) {
         return RestClient
                 .builder()
-                .baseUrl(exerciseApiConfig.getBaseUrl())
+                .baseUrl(activityApiConfig.getBaseUrl())
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }

@@ -5,28 +5,42 @@ import com.todorkrastev.krastevsgym.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgym.model.entity.ActivityEntity;
 import com.todorkrastev.krastevsgym.repository.ActivityRepository;
 import com.todorkrastev.krastevsgym.service.ActivityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 import java.util.List;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
+    private final Logger LOGGER = LoggerFactory.getLogger(ExerciseServiceImpl.class);
+
+    private final RestClient activityRestClient;
     private final ActivityRepository activityRepository;
     private final ModelMapper modelMapper;
 
-    public ActivityServiceImpl(ActivityRepository activityRepository, ModelMapper modelMapper) {
+    public ActivityServiceImpl(@Qualifier("activityRestClient")RestClient activityRestClient, ActivityRepository activityRepository, ModelMapper modelMapper) {
+        this.activityRestClient = activityRestClient;
         this.activityRepository = activityRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
     public List<ActivityDTO> findAll() {
-        return this.activityRepository
-                .findAllByOrderByIdAsc()
-                .stream()
-                .map(activity -> this.modelMapper.map(activity, ActivityDTO.class))
-                .toList();
+        LOGGER.info("----------------GET ALL ACTIVITIES----------------");
+
+        return activityRestClient
+                .get()
+                .uri("http://localhost:8081/activities")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
     }
 
     @Override
