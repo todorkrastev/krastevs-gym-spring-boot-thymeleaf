@@ -46,13 +46,13 @@
     <div class="exercises__main__wrapper">
         <aside class="exercise__categories">
             <a th:each="category : ${categories}"
-               th:href="@{/exercises/categories/{id}(id=${category.getCategoryId()})}"
+               th:href="@{/exercises/exercises-by-category/{id}(id=${category.getCategoryId()})}"
                th:text="${category.getCategory().toLowerCase().replace('_', ' ')}"
                class="exercise__category__name">Abs</a>
         </aside>
         <div class="exercises__container">
             <section th:each="category : ${categories}" class="exercise section">
-                <a th:href="@{/exercises/categories/{id}(id=${category.getCategoryId()})}" class="exercise__wrapper">
+                <a th:href="@{/exercises/exercises-by-category/{id}(id=${category.getCategoryId()})}" class="exercise__wrapper">
                     <img th:src="${category.getCategoryGifUrl()}" class="exercise__poster" alt="Section poster"/>
                     <h2 th:text="${category.getCategory().toLowerCase().replace('_', ' ')}" class="exercise__title">Abs</h2>
                 </a>

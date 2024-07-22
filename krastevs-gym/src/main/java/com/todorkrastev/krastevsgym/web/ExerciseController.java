@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping("/exercises")
+@RequestMapping("/exercises/exercises-by-category/exercise")
 public class ExerciseController {
     private final ExerciseService exerciseService;
 
@@ -61,14 +61,14 @@ public class ExerciseController {
         ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.editExercise(id, editExerciseDTO);
         model.addAttribute("exerciseDetails", exerciseDetailsDTO);
 
-        return "redirect:/exercises/" + id;
+        return "redirect:/exercises/exercises-by-category/exercise/" + id;
     }
 
     @DeleteMapping("/{id}")
     public String deleteExercise(@PathVariable("id") Long id) {
-        exerciseService.deleteExercise(id);
+        Long categoryId = exerciseService.deleteExercise(id);
 
-        return "redirect:/exercises/categories";
+        return "redirect:/exercises/exercises-by-category/" + categoryId;
     }
 
     @GetMapping("/create")
@@ -94,11 +94,11 @@ public class ExerciseController {
             redirectAttributes.addFlashAttribute("createExerciseDTO", createExerciseDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.createExerciseDTO", bindingResult);
 
-            return "redirect:/exercises/create";
+            return "redirect:/exercises/exercises-by-category/exercise/create";
         }
 
         Long newExerciseId = exerciseService.createExercise(createExerciseDTO);
-        return "redirect:/exercises/" + newExerciseId;
+        return "redirect:/exercises/exercises-by-category/exercise/" + newExerciseId;
     }
 
     @PostMapping("/{id}")
@@ -106,6 +106,6 @@ public class ExerciseController {
                                       @Valid CreateExerciseNotesDTO createExerciseNotesDTO) {
         exerciseService.createExerciseNotes(createExerciseNotesDTO, id);
 
-        return "redirect:/exercises/" + id;
+        return "redirect:/exercises/exercises-by-category/exercise/" + id;
     }
 }

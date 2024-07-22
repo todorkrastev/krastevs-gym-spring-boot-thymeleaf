@@ -53,13 +53,13 @@
     <div class="exercises__main__wrapper">
         <aside class="exercise__categories">
             <a th:each="category : ${categories}"
-               th:href="@{/exercises/categories/{id}(id=${category.getCategoryId()})}"
+               th:href="@{/exercises/exercises-by-category/{id}(id=${category.getCategoryId()})}"
                th:text="${category.getCategory().toLowerCase().replace('_', ' ')}"
                class="exercise__category__name">Abs</a>
         </aside>
         <section class="exercises__container--abs section">
             <article th:each="exercise: ${exercisesByCategory}" class="exercise--abs">
-                <a th:href="@{/exercises/{id}(id=${exercise.getExerciseId()})}" class="exercise__wrapper--abs">
+                <a th:href="@{/exercises/exercises-by-category/exercise/{id}(id=${exercise.getExerciseId()})}" class="exercise__wrapper--abs">
                     <img th:src="${exercise.getExerciseGifUrl()}" class="exercise__poster--abs"
                          alt="Section poster"/>
                     <h6 th:text="${exercise.getExerciseName()}" class="exercise__title--abs">Stability ball
@@ -67,7 +67,7 @@
                 </a>
             </article>
             <article class="exercise--abs">
-                <a th:href="@{/exercises/create}" class="exercise__wrapper--abs">
+                <a th:href="@{/exercises/exercises-by-category/exercise/create}" class="exercise__wrapper--abs">
                     <img class="exercise__poster--abs" src="/images/icon/plus-plan-c.jpg" alt="Section poster"/>
                     <h6 class="exercise__title--abs">Create an exercise</h6>
                 </a>

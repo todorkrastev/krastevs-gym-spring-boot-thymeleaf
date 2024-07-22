@@ -14,11 +14,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
     private static final String SAMPLE_EXERCISE_IMAGE = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1721504899/krastevs-gym/imgs/exercise/exercise-sample-plan-c_hr3xgb.jpg";
-private static final String SAMPLE_MUSCLES_WORKED_IMAGE = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1719702627/krastevs-gym/imgs/muscles/view_of_muscles_kfthdn.jpg";
+    private static final String SAMPLE_MUSCLES_WORKED_IMAGE = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1719702627/krastevs-gym/imgs/muscles/view_of_muscles_kfthdn.jpg";
 
     private final ExerciseRepository exerciseRepository;
     private final ModelMapper modelMapper;
@@ -92,8 +93,15 @@ private static final String SAMPLE_MUSCLES_WORKED_IMAGE = "https://res.cloudinar
     }
 
     @Override
-    public void deleteExercise(Long id) {
+    public Long deleteExercise(Long id) {
+        Optional<ExerciseEntity> exerciseEntity = exerciseRepository.findById(id);
+        if (exerciseEntity.isEmpty()) {
+            throw new ResourceNotFoundException("Exercise", "id", id);
+        }
+
         exerciseRepository.deleteById(id);
+
+        return exerciseEntity.get().getCategory().getId();
     }
 
     @Override

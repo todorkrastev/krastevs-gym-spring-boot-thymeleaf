@@ -9,7 +9,7 @@ public interface ExerciseService {
 
     Long createExercise(CreateExerciseDTO createExerciseDTO);
 
-    void deleteExercise(Long id);
+    Long deleteExercise(Long id);
 
     ExerciseDetailsDTO getExerciseDetails(Long id);
 

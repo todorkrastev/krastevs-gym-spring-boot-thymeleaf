@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/exercises")
+@RequestMapping("/exercises/exercises-by-category")
 public class ExerciseCategoryController {
     private final ExerciseCategoryService exerciseCategoryService;
     private final ExerciseService exerciseService;
@@ -26,7 +26,7 @@ public class ExerciseCategoryController {
         this.exerciseService = exerciseService;
     }
 
-    @GetMapping("/categories")
+    @GetMapping
     public String allCategories(Model model) {
         List<ExerciseCategoryInfoDTO> categories = exerciseCategoryService.getAllCategories();
 
@@ -35,7 +35,7 @@ public class ExerciseCategoryController {
         return "exercises";
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     public String exercisesByCategoryId(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
             Long userId = krastevsGymUserDetails.getCurrId();
