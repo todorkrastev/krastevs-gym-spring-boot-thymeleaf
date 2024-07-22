@@ -2,6 +2,9 @@ package com.todorkrastev.krastevsgym.service;
 
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
+import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
+
+import java.util.Optional;
 
 public interface UserService {
     boolean doesEmailExist(String email);
@@ -12,5 +15,6 @@ public interface UserService {
 
     Long findAdminId();
 
-    UserEntity findUserByExerciseId(Long exerciseId);
+    Optional<KrastevsGymUserDetails> getCurrentUser();
+
 }

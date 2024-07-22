@@ -12,7 +12,6 @@ spring:
   #      init:
   #        mode: never
   jpa:
-    #    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     open-in-view: false
@@ -33,13 +32,15 @@ forex:
     url: "https://openexchangerates.org/api/latest.json?app_id={app_id}"
     base: "USD"
 
-#exercises:
-#  api:
-#    baseUrl: "http://localhost:8081"
-
 activity:
   api:
     baseUrl: "http://localhost:8081"
+
+
+# To generate a new secret key, go to util/HmacShaUtil.java and run the main method
+jwt:
+    secret: ${JWT_SECRET:d2aUj+XLQy8SEEE/nCw7LW3OpCKuPcycveYiU0tQsFwp1fDxC1GcTx5Vrgi/BBmlFOyuITNrc5Tt3Zj2Jec/Zw==}
+    expiration: ${JWT_EXPIRATION:86400}
 
 #server:
 #  error:

@@ -1,11 +1,12 @@
 package com.todorkrastev.krastevsgym.model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static org.hibernate.type.SqlTypes.VARCHAR;
+
 
 @Entity
 @Table(name = "users")
@@ -13,6 +14,10 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @UUIDSequence
+    @JdbcTypeCode(VARCHAR)
+    private UUID uuid;
 
     private String firstName;
 
@@ -47,6 +52,15 @@ public class UserEntity {
 
     public UserEntity setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public UserEntity setUuid(UUID uuid) {
+        this.uuid = uuid;
         return this;
     }
 

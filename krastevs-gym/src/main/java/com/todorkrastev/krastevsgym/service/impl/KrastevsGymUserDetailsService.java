@@ -32,6 +32,7 @@ public class KrastevsGymUserDetailsService implements UserDetailsService {
 
     private static UserDetails map(UserEntity userEntity) {
         return new KrastevsGymUserDetails(
+                userEntity.getUuid(),
                 userEntity.getEmail(),
                 userEntity.getPassword(),
                 userEntity.getRoles().stream().map(UserRoleEntity::getRole).map(KrastevsGymUserDetailsService::map).toList(),

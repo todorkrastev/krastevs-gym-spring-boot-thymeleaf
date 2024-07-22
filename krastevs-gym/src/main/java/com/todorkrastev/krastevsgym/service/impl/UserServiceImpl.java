@@ -2,14 +2,18 @@ package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
-import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.model.enums.UserRoleEnum;
+import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
 import com.todorkrastev.krastevsgym.repository.UserRepository;
 import com.todorkrastev.krastevsgym.service.UserService;
 import com.todorkrastev.krastevsgym.web.aop.LogRegisterExecution;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -51,8 +55,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findUserByExerciseId(Long exerciseId) {
-        return userRepository.findUserByExerciseId(exerciseId);
+    public Optional<KrastevsGymUserDetails> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof KrastevsGymUserDetails) {
+            return Optional.of((KrastevsGymUserDetails) authentication.getPrincipal());
+        }
+
+        return Optional.empty();
     }
 
     private UserEntity map(UserRegisterDTO userRegisterDTO) {
