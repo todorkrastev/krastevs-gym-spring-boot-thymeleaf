@@ -72,6 +72,25 @@
             <div class="divider"></div>
         </section>
     </th:block>
+    <th:block th:if="${activities.isEmpty()}">
+        <section class="info section">
+            <div class="info__wrapper">
+                <h2 class="info__title">To load the data from the API, you need to fetch it.</h2>
+                <p class="info__description">
+                    Just go to my repo, clone it and run the project.
+                </p>
+
+                <div class="info__buttons">
+                    <a class="info__button edit" href="https://github.com/todorkrastev/krastevs-gym-spring-boot-rest">my repo</a>
+                </div>
+            </div>
+
+            <img src="/images/github/my-repo.png" class="info__poster" alt="Section poster"/>
+
+        </section>
+        <div class="divider"></div>
+    </th:block>
+
 
 </main>
 
