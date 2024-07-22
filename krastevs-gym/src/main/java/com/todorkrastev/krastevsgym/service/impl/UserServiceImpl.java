@@ -6,6 +6,7 @@ import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.model.enums.UserRoleEnum;
 import com.todorkrastev.krastevsgym.repository.UserRepository;
 import com.todorkrastev.krastevsgym.service.UserService;
+import com.todorkrastev.krastevsgym.web.aop.LogRegisterExecution;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email).isPresent();
     }
 
+    @LogRegisterExecution
     @Override
     public void registerUser(UserRegisterDTO userRegisterDTO) {
         if (userRepository.findByEmail(userRegisterDTO.getEmail()).isPresent()) {

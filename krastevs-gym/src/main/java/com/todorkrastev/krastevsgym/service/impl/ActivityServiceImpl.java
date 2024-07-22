@@ -2,6 +2,7 @@ package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgym.service.ActivityService;
+import com.todorkrastev.krastevsgym.web.aop.LogActivityExecution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,10 +23,9 @@ public class ActivityServiceImpl implements ActivityService {
         this.activityRestClient = activityRestClient;
     }
 
+    @LogActivityExecution
     @Override
     public List<ActivityDTO> findAll() {
-        LOGGER.info("----------------GET ALL ACTIVITIES----------------");
-
         return activityRestClient
                 .get()
                 .uri("http://localhost:8081/api/v1/activities/all")

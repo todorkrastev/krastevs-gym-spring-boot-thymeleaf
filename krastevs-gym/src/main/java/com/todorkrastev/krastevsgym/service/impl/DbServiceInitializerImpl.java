@@ -43,7 +43,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
 
     @Override
     public void init() {
-        LOGGER.info("------------------------Database startup begins------------------------");
+        LOGGER.info("===================Database startup begins===================");
 
         if (userRepository.count() == 0 & userRoleRepository.count() == 0) {
 
@@ -65,11 +65,11 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
             exerciseRepository.saveAll(createExerciseEntities());
         }
 
-        LOGGER.info("------------------------Database startup ends------------------------");
+        LOGGER.info("===================Database startup ends===================");
     }
 
     private List<ExerciseEntity> createExerciseEntities() {
-        LOGGER.info("------------------------Creating exercises------------------------");
+        LOGGER.info("===================Creating exercises===================");
 
         final UserEntity ADMIN = userRepository.findAdminByCategory(UserRoleEnum.ADMIN);
 
@@ -1123,7 +1123,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     }
 
     private static List<ExerciseCategoryEntity> createExerciseCategoryEntities() {
-        LOGGER.info("------------------------Creating exercise categories------------------------");
+        LOGGER.info("===================Creating exercise categories===================");
 
         return List.of(
                 new ExerciseCategoryEntity()
@@ -1202,7 +1202,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     }
 
     private void initUser(List<UserRoleEntity> roles) {
-        LOGGER.info("------------------------Creating user roles------------------------");
+        LOGGER.info("===================Creating user roles===================");
 
         UserEntity chewbacca = new UserEntity()
                 .setFirstName("Chewbacca")
@@ -1267,7 +1267,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     }
 
     private void initModerator(List<UserRoleEntity> roles) {
-        LOGGER.info("------------------------Creating a moderator role------------------------");
+        LOGGER.info("===================Creating a moderator role===================");
         UserEntity moderator = new UserEntity()
                 .setFirstName("Dominique-Shanecé")
                 .setLastName("Waller")
@@ -1282,10 +1282,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     }
 
     private void initAdmin(List<UserRoleEntity> roles) {
-        LOGGER.info("------------------------Creating an admin role-------------------------");
-        LOGGER.info("----------------------email: todorkrastev@web.de-----------------------");
-        LOGGER.info("-------------------------password: V170sh@229O-------------------------");
-        LOGGER.info("-------------Please change the Admin password immediately.-------------");
+        LOGGER.info("===================Creating an admin role===================");
+        LOGGER.info("===================email: todorkrastev@web.de===================");
+        LOGGER.info("===================password: V170sh@229O===================");
+        LOGGER.info("===================Please change the Admin password immediately.===================");
 
 
         UserEntity admin = new UserEntity()

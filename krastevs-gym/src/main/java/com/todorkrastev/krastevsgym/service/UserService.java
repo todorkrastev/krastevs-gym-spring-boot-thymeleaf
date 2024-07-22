@@ -5,6 +5,7 @@ import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 
 public interface UserService {
     boolean doesEmailExist(String email);
+
     void registerUser(UserRegisterDTO userRegisterDTO);
 
     UserEntity findUserById(Long currUserId);
