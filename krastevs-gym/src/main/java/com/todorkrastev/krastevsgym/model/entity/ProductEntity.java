@@ -1,6 +1,5 @@
 package com.todorkrastev.krastevsgym.model.entity;
 
-import com.todorkrastev.krastevsgym.model.enums.PictureCategoryEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -23,8 +22,8 @@ public class ProductEntity {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @Enumerated(EnumType.STRING)
-    private PictureCategoryEnum category;
+    @ManyToOne(optional = false)
+    private ProductCategoryEntity category;
 
     //    @OneToMany(targetEntity = PictureEntity.class, mappedBy = "product")
     @OneToMany(targetEntity = PictureEntity.class, cascade = CascadeType.PERSIST)
@@ -70,11 +69,11 @@ public class ProductEntity {
         return this;
     }
 
-    public PictureCategoryEnum getCategory() {
+    public ProductCategoryEntity getCategory() {
         return category;
     }
 
-    public ProductEntity setCategory(PictureCategoryEnum category) {
+    public ProductEntity setCategory(ProductCategoryEntity category) {
         this.category = category;
         return this;
     }

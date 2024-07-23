@@ -3,7 +3,7 @@ package com.todorkrastev.krastevsgym.service.impl;
 import com.todorkrastev.krastevsgym.model.entity.*;
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
-import com.todorkrastev.krastevsgym.model.enums.PictureCategoryEnum;
+import com.todorkrastev.krastevsgym.model.enums.ProductCategoryEnum;
 import com.todorkrastev.krastevsgym.model.enums.UserRoleEnum;
 import com.todorkrastev.krastevsgym.repository.*;
 import com.todorkrastev.krastevsgym.service.DbServiceInitializer;
@@ -28,16 +28,18 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseCategoryRepository exerciseCategoryRepository;
     private final PictureRepository pictureRepository;
+    private final ProductCategoryRepository productCategoryRepository;
     private final ProductRepository productRepository;
     private final PasswordEncoder passwordEncoder;
     private final String adminPass;
 
-    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, PictureRepository pictureRepository, ProductRepository productRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
+    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, PictureRepository pictureRepository, ProductCategoryRepository productCategoryRepository, ProductRepository productRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.exerciseRepository = exerciseRepository;
         this.exerciseCategoryRepository = exerciseCategoryRepository;
         this.pictureRepository = pictureRepository;
+        this.productCategoryRepository = productCategoryRepository;
         this.productRepository = productRepository;
         this.passwordEncoder = passwordEncoder;
         this.adminPass = adminPass;
@@ -67,6 +69,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
             exerciseRepository.saveAll(createExerciseEntities());
         }
 
+        if (productCategoryRepository.count() == 0) {
+            productCategoryRepository.saveAll(createProductCategoryEntities());
+        }
+
 
         if (pictureRepository.count() == 0 && productRepository.count() == 0) {
             productRepository.saveAll(createProductEntities());
@@ -75,12 +81,26 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
         LOGGER.info("===================Database startup ends===================");
     }
 
+    private List<ProductCategoryEntity> createProductCategoryEntities() {
+        return List.of(
+                new ProductCategoryEntity()
+                        .setCategory(ProductCategoryEnum.MEN),
+                new ProductCategoryEntity()
+                        .setCategory(ProductCategoryEnum.WOMEN)
+        );
+    }
+
     private List<ProductEntity> createProductEntities() {
         LOGGER.info("===================Creating products and pictures===================");
         final UserEntity ADMIN = userRepository.findAdminByCategory(UserRoleEnum.ADMIN);
 
-        PictureCategoryEnum MEN = PictureCategoryEnum.MEN;
-        PictureCategoryEnum WOMEN = PictureCategoryEnum.WOMEN;
+        ProductCategoryEntity MEN =
+                productCategoryRepository
+                        .findByCategory(ProductCategoryEnum.MEN)
+                        .orElseThrow(() -> new IllegalStateException(String.format("Category %s not found", ProductCategoryEnum.MEN)));
+        ProductCategoryEntity WOMEN =
+                productCategoryRepository.findByCategory(ProductCategoryEnum.WOMEN)
+                        .orElseThrow(() -> new IllegalStateException(String.format("Category %s not found", ProductCategoryEnum.MEN)));
 
         return List.of(
                 new ProductEntity()
