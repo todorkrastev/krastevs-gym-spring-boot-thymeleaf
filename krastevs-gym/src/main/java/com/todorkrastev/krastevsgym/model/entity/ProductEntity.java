@@ -1,7 +1,9 @@
 package com.todorkrastev.krastevsgym.model.entity;
 
+import com.todorkrastev.krastevsgym.model.enums.PictureCategoryEnum;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,20 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(targetEntity = PictureEntity.class, mappedBy = "product")
+    @Column(nullable = false)
+    private String name;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private BigDecimal price;
+
+    @Enumerated(EnumType.STRING)
+    private PictureCategoryEnum category;
+
+    //    @OneToMany(targetEntity = PictureEntity.class, mappedBy = "product")
+    @OneToMany(targetEntity = PictureEntity.class, cascade = CascadeType.PERSIST)
     private List<PictureEntity> pictures;
 
     public ProductEntity() {
@@ -25,6 +40,42 @@ public class ProductEntity {
 
     public ProductEntity setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ProductEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public ProductEntity setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public ProductEntity setPrice(BigDecimal price) {
+        this.price = price;
+        return this;
+    }
+
+    public PictureCategoryEnum getCategory() {
+        return category;
+    }
+
+    public ProductEntity setCategory(PictureCategoryEnum category) {
+        this.category = category;
         return this;
     }
 
