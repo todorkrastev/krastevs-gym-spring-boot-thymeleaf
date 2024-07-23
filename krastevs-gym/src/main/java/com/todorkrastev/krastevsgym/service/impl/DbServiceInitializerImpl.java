@@ -1,16 +1,10 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
-import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
-import com.todorkrastev.krastevsgym.model.entity.ExerciseEntity;
-import com.todorkrastev.krastevsgym.model.entity.UserEntity;
-import com.todorkrastev.krastevsgym.model.entity.UserRoleEntity;
+import com.todorkrastev.krastevsgym.model.entity.*;
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
 import com.todorkrastev.krastevsgym.model.enums.UserRoleEnum;
-import com.todorkrastev.krastevsgym.repository.ExerciseCategoryRepository;
-import com.todorkrastev.krastevsgym.repository.ExerciseRepository;
-import com.todorkrastev.krastevsgym.repository.UserRepository;
-import com.todorkrastev.krastevsgym.repository.UserRoleRepository;
+import com.todorkrastev.krastevsgym.repository.*;
 import com.todorkrastev.krastevsgym.service.DbServiceInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,14 +23,16 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     private final UserRoleRepository userRoleRepository;
     private final ExerciseRepository exerciseRepository;
     private final ExerciseCategoryRepository exerciseCategoryRepository;
+    private final PictureRepository pictureRepository;
     private final PasswordEncoder passwordEncoder;
     private final String adminPass;
 
-    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
+    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, PictureRepository pictureRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.exerciseRepository = exerciseRepository;
         this.exerciseCategoryRepository = exerciseCategoryRepository;
+        this.pictureRepository = pictureRepository;
         this.passwordEncoder = passwordEncoder;
         this.adminPass = adminPass;
     }
@@ -65,7 +61,188 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
             exerciseRepository.saveAll(createExerciseEntities());
         }
 
+        if (pictureRepository.count() == 0) {
+            pictureRepository.saveAll(createPictureEntities());
+        }
+
         LOGGER.info("===================Database startup ends===================");
+    }
+
+    private List<PictureEntity> createPictureEntities() {
+        LOGGER.info("===================Creating pictures===================");
+
+        final UserEntity ADMIN = userRepository.findAdminByCategory(UserRoleEnum.ADMIN);
+
+        return List.of(
+                new PictureEntity()
+                        .setName("Pink Top")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724874/krastevs-gym/imgs/shop/shop-women/top-pink_zntgi0.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Grey Top")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724872/krastevs-gym/imgs/shop/shop-women/top-grey_neb6dt.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Green Top")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724871/krastevs-gym/imgs/shop/shop-women/top-green_e4yzmz.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Burgundy Top")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724869/krastevs-gym/imgs/shop/shop-women/top-burgundy_xgpclh.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Brown Top")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724868/krastevs-gym/imgs/shop/shop-women/top-brown_jgnxue.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Black Top")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724865/krastevs-gym/imgs/shop/shop-women/top-black_ftf2tk.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("White Socks")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724865/krastevs-gym/imgs/shop/shop-women/socks-white_wjv0cc.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("White Sneakers")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724862/krastevs-gym/imgs/shop/shop-women/sneakers-white_v80hrc.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Pink Shorts")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724861/krastevs-gym/imgs/shop/shop-women/shorts-pink_msddgt.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Grey Shorts")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724860/krastevs-gym/imgs/shop/shop-women/shorts-grey_w1ynqv.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Green Shorts")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724859/krastevs-gym/imgs/shop/shop-women/shorts-green_jxw63j.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Burgundy Shorts")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724857/krastevs-gym/imgs/shop/shop-women/shorts-burgundy_co1qan.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Brown Shorts")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724856/krastevs-gym/imgs/shop/shop-women/shorts-brown_jp33tp.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Pink Cycling Pants")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724855/krastevs-gym/imgs/shop/shop-women/cycling-pants-pink_ncsgkt.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Grey Cycling Pants")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724854/krastevs-gym/imgs/shop/shop-women/cycling-pants-grey_qc0rlq.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Green Cycling Pants")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724853/krastevs-gym/imgs/shop/shop-women/cycling-pants-green_h7psu4.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Burgundy Cycling Pants")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724852/krastevs-gym/imgs/shop/shop-women/cycling-pants-burgundy_bi4unx.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Brown Cycling Pants")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724852/krastevs-gym/imgs/shop/shop-women/cycling-pants-brown_jaxpdb.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Black Cycling Pants")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721724851/krastevs-gym/imgs/shop/shop-women/cycling-pants-black_mu7wh5.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("T-shirt-with-slogan #2")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728492/krastevs-gym/imgs/shop/shop-men/t-shirt-with-slogan-2_gyrtvb.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("T-shirt-with-slogan #1")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728490/krastevs-gym/imgs/shop/shop-men/t-shirt-with-slogan-1_x4lkzd.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("T-shirt with graffiti #3")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728488/krastevs-gym/imgs/shop/shop-men/t-shirt-with-graffiti-3_gdcqwp.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("T-shirt with graffiti #2")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728486/krastevs-gym/imgs/shop/shop-men/t-shirt-with-graffiti-2_zor5pc.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("T-shirt with graffiti #1")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728485/krastevs-gym/imgs/shop/shop-men/t-shirt-with-graffiti-1_qgwnlp.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("T-shirt with Fresh #3")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728483/krastevs-gym/imgs/shop/shop-men/t-shirt-with-fresh-3_rl4h1z.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("T-shirt with Fresh #2")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728481/krastevs-gym/imgs/shop/shop-men/t-shirt-with-fresh-2_atpca4.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("T-shirt with Fresh #1")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728479/krastevs-gym/imgs/shop/shop-men/t-shirt-with-fresh-1_qup2xw.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Fantasy T-shirt")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728478/krastevs-gym/imgs/shop/shop-men/t-shirt-fantasy_zdtamb.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("White Socks")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728476/krastevs-gym/imgs/shop/shop-men/socks-white_ohlzbx.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("White Sneakers")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728473/krastevs-gym/imgs/shop/shop-men/sneakers-white_b28caq.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Tie Dye Shorts #2")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728472/krastevs-gym/imgs/shop/shop-men/shorts-tie-dye-2_ladjfz.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Tie Dye Shorts #1")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728470/krastevs-gym/imgs/shop/shop-men/shorts-tie-dye-1_wy8eor.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Pink Shorts #3")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728469/krastevs-gym/imgs/shop/shop-men/shorts-pink-3_jab5rg.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Pink Shorts #2")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728467/krastevs-gym/imgs/shop/shop-men/shorts-pink-2_hqrpjl.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Pink Shorts #1")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728467/krastevs-gym/imgs/shop/shop-men/shorts-pink-1_gv4quv.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Grey Shorts #3")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728464/krastevs-gym/imgs/shop/shop-men/shorts-grey-3_schxr9.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Grey Shorts #2")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728463/krastevs-gym/imgs/shop/shop-men/shorts-grey-2_yxiujh.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Grey Shorts #1")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728461/krastevs-gym/imgs/shop/shop-men/shorts-grey-1_zwoguo.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Burgundy Shorts #3")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728460/krastevs-gym/imgs/shop/shop-men/shorts-burgundy-3_nuaiwy.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Burgundy Shorts #2")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728458/krastevs-gym/imgs/shop/shop-men/shorts-burgundy-2_wwq6am.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Burgundy Shorts #1")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728458/krastevs-gym/imgs/shop/shop-men/shorts-burgundy-1_tkzxog.jpg")
+                        .setAuthor(ADMIN),
+                new PictureEntity()
+                        .setName("Black Shorts")
+                        .setUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721728457/krastevs-gym/imgs/shop/shop-men/shorts-black_mb5tkq.jpg")
+                        .setAuthor(ADMIN)
+        );
     }
 
     private List<ExerciseEntity> createExerciseEntities() {
@@ -91,7 +268,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ExerciseEntity()
                         .setName("Vertical Leg Crunch")
                         .setDescription("""
-                                The vertical leg crunch is a bodyweight exercise that targets the rectus abdominis muscle, which is the front layer of your abs. 
+                                The vertical leg crunch is a bodyweight exercise that targets the rectus abdominis muscle, which is the front layer of your abs.
                                 This exercise is similar to the traditional crunch but requires more strength and stability to perform.""")
                         .setGifUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1719701053/krastevs-gym/imgs/abs/gifs/vertical-leg-crunch_wp1su7.gif")
                         .setMusclesWorkedUrl(MUSCLES_WORKED_URL)
@@ -1193,12 +1370,6 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 If you've been skipping your arms day, let's start strengthening your guns!""")
                         .setGifUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1719701058/krastevs-gym/imgs/exercises/gifs/triceps_uf74jh.gif")
         );
-    }
-
-    // write me a regex which removes _ from string and all letters are lowercase
-    // e.g. LOWER_BACK to lower back
-    private static String convertEnumToLowerCase(String enumName) {
-        return enumName.toLowerCase().replace("_", " ");
     }
 
     private void initUser(List<UserRoleEntity> roles) {

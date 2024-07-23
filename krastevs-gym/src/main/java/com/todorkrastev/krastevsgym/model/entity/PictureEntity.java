@@ -9,7 +9,7 @@ public class PictureEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String url;
@@ -17,8 +17,8 @@ public class PictureEntity {
     @ManyToOne(optional = false)
     private UserEntity author;
 
-    @ManyToOne(optional = false)
-    private ProductEntity product;
+//    @ManyToOne(optional = false)
+//    private ProductEntity product;
 
     public PictureEntity() {
     }
@@ -32,12 +32,12 @@ public class PictureEntity {
         return this;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public PictureEntity setTitle(String title) {
-        this.title = title;
+    public PictureEntity setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -59,12 +59,12 @@ public class PictureEntity {
         return this;
     }
 
-    public ProductEntity getProduct() {
-        return product;
-    }
-
-    public PictureEntity setProduct(ProductEntity product) {
-        this.product = product;
-        return this;
-    }
+//    public ProductEntity getProduct() {
+//        return product;
+//    }
+//
+//    public PictureEntity setProduct(ProductEntity product) {
+//        this.product = product;
+//        return this;
+//    }
 }
