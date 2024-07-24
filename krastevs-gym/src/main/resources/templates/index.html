@@ -14,7 +14,6 @@
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
     <title>Krastev's Gym</title>
-    <!-- <script src="/src/app.js" type="module"></script> -->
 </head>
 
 <body>
@@ -28,8 +27,7 @@
 
         <th:block sec:authorize="isAuthenticated()">
             <h2 class="hero__subtitle">Hello,
-                <th:block th:text="${welcomeMessage}"></th:block>
-                !
+                <th:block th:text="${welcomeMessage}"></th:block>!
             </h2>
             <a th:href="@{/workouts}" th:text="#{hero_image_btn_authenticated}" class="member__btn">
                 start a training >

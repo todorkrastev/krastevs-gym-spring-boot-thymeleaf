@@ -27,18 +27,26 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<ActivityDTO> findAll() {
         try {
-            return activityRestClient
+            List<ActivityDTO> response = activityRestClient
                     .get()
                     .uri("http://localhost:8081/api/v1/activities/all")
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .body(new ParameterizedTypeReference<>() {
                     });
+
+            if (response == null) {
+                LOGGER.error("Received null response from activityRestClient");
+                return List.of();
+            }
+
+            return response;
         } catch (Exception e) {
             LOGGER.error("Error occurred while fetching all activities: ", e);
             return List.of();
         }
     }
+
 
     @Override
     public ActivityDTO getActivityById(Long activityId) {

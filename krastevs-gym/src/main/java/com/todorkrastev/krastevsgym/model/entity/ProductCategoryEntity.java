@@ -3,6 +3,7 @@ package com.todorkrastev.krastevsgym.model.entity;
 import com.todorkrastev.krastevsgym.model.enums.ProductCategoryEnum;
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "product_categories")
 public class ProductCategoryEntity {

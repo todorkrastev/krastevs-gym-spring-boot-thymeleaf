@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategoryEntity, Long> {
-    Optional<ProductCategoryEntity> findByCategory(ProductCategoryEnum productCategoryEnum);
+    Optional<ProductCategoryEntity> findByCategory(ProductCategoryEnum category);
 }

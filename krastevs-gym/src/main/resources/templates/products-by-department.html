@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/styles/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+    <div class="main__wrapper__men">
+        <aside class="categories--men">
+            <div class="categories__main__wrapper--men">
+                <h6 class="category__section--men">Categories</h6>
+                <div th:each="category: ${categories}" class="categories__wrapper--men">
+                    <a th:href="@{/shop/products-by-department/{id}(id=${category.getId()})}"
+                       th:text="${category.getCategory().name().toLowerCase()}"
+                       class="category__name--men">Tops</a>
+                </div>
+            </div>
+        </aside>
+        <section id="accessories--men" class="shop--men section--men">
+            <div class="shop__wrapper--men">
+                <div th:each="product: ${products}" class="shop__card--men">
+                    <img th:src="${product.getPictures().get(0).getUrl()}" alt="product" class="shop__poster">
+                    <h4 th:text="${product.getPrice()}" class="shop__price">19.99€</h4>
+                    <h6 th:text="${product.getName()}" class="shop__name">Fitness Gloves</h6>
+                    <p th:text="${product.getDescription()}" class="shop__description">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil saepe deleniti ipsa dignissimos
+                        totam.
+                    </p>
+
+                    <div class="shop__buttons">
+                        <div class="shop__buttons--user">
+                            <button class="shop__button add">Add to Basket</button>
+                        </div>
+                        <div sec:authorize="hasRole('ADMIN')" class="shop__buttons--admin">
+                            <button class="shop__button edit">Edit</button>
+                            <button class="shop__button delete">Delete</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </section>
+    </div>
+    <div class="divider"></div>
+
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+
+</body>
+
+</html>

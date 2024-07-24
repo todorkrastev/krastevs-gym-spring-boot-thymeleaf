@@ -1,5 +1,5 @@
 package com.todorkrastev.krastevsgym.model.enums;
 
 public enum ProductCategoryEnum {
-    MEN, WOMEN
+    TOPS, SHORTS, SHOES, ACCESSORIES
 }

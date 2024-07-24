@@ -22,11 +22,13 @@ public class ProductEntity {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(targetEntity = ProductCategoryEntity.class, optional = false)
     private ProductCategoryEntity category;
 
-    //    @OneToMany(targetEntity = PictureEntity.class, mappedBy = "product")
-    @OneToMany(targetEntity = PictureEntity.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = DepartmentCategoryEntity.class, optional = false)
+    private DepartmentCategoryEntity departmentCategory;
+
+    @OneToMany(targetEntity = PictureEntity.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<PictureEntity> pictures;
 
     public ProductEntity() {
@@ -75,6 +77,15 @@ public class ProductEntity {
 
     public ProductEntity setCategory(ProductCategoryEntity category) {
         this.category = category;
+        return this;
+    }
+
+    public DepartmentCategoryEntity getDepartmentCategory() {
+        return departmentCategory;
+    }
+
+    public ProductEntity setDepartmentCategory(DepartmentCategoryEntity departmentCategory) {
+        this.departmentCategory = departmentCategory;
         return this;
     }
 

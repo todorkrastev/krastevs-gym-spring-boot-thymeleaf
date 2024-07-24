@@ -14,7 +14,6 @@
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
     <title>Krastev's Gym</title>
-    <!-- <script src="/src/app.js" type="module"></script> -->
 </head>
 
 <body>
@@ -24,7 +23,7 @@
 
 <main>
     <section id="hero">
-        <img th:src="${heroImage.getImageURL()}" class="img--bg--shop" alt="Background poster"/>
+        <img src="/images/hero/shop.jpg" class="img--bg--shop" alt="Background poster"/>
 
         <div class="hero__products">
             <h1 class="hero__title__products">Shop</h1>
@@ -51,24 +50,11 @@
 
 
     <section id="shop" class="shop section">
-        <div class="shop__wrapper">
-            <a href="./shop-women.html" class="shop__card">
-                <img src="./imgs/shop/shop-women/shop-women.jpg" alt="product" class="shop__poster">
-                <h2 class="shop__title">Women</h2>
+        <div th:each="category : ${categories}" class="shop__wrapper">
+            <a th:href="@{/shop/products-by-department/{id}(id=${category.getId()})}" class="shop__card">
+                <img th:src="${category.getImageURL()}" alt="product" class="shop__poster">
+                <h2 th:text="${category.getCategory().name().toLowerCase()}" class="shop__title">Men</h2>
             </a>
-            <a href="./shop-men.html" class="shop__card">
-                <img src="./imgs/shop/shop-men/shop-men.jpg" alt="product" class="shop__poster">
-                <h2 class="shop__title">Men</h2>
-            </a>
-            <!--<div class="shop__card">
-              <img src="./imgs/shop-women.jpg" alt="product" class="shop__poster">
-              <h2 class="shop__title">Women</h2>
-            </div>
-
-            <div class="shop__card">
-              <img src="./imgs/shop-men.jpg" alt="product" class="shop__poster">
-              <h2 class="shop__title">Men</h2>
-            </div>-->
         </div>
 
     </section>

@@ -14,7 +14,6 @@
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
     <title>Krastev's Gym</title>
-    <!-- <script src="/src/app.js" type="module"></script> -->
 </head>
 
 <body>
@@ -31,8 +30,6 @@
             exercisesByCategory.get(0).getCategory().name().toLowerCase().replace('_', ' ') :
             'The category is under development'}"
                 class="hero__title__abs">Abs</h1>
-            <!--<h2 class="hero__title__abs">Exercises</h2>
-            <h2 class="hero__title__abs">Abs</h2>-->
 
             <div class="hero__exercises__subtitles">
                 <p th:text="${exercisesByCategory.iterator().hasNext() ?
