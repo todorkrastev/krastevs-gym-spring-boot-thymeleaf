@@ -25,16 +25,13 @@
 .shop--men .shop__description,
 .shop--men .shop__price,
 .shop--men .shop__name {
-    text-align: center;
-    padding: 1rem;
+    text-align: start;
+    padding: 0.125rem;
+    font-size: 0.625rem;
 }
 
-.shop--men .shop__name {
-    min-height: 5rem;
-}
-
-.shop--men .shop__description {
-    min-height: 5.625rem;
+.shop--men .shop__price {
+    margin-bottom: 0.75rem;
 }
 
 .shop__buttons {
@@ -88,20 +85,23 @@
         text-decoration: none;
         margin-bottom: 0.50rem;
         text-transform: capitalize;
+        padding-left: 1rem;
+        font-size: 0.75rem;
     }
 
     .category__section--men {
         margin-bottom: 0.675rem;
         text-transform: capitalize;
         color: var(--color-primary);
-        text-align: center;
+        text-align: start;
+        font-size: 0.75rem;
     }
 
     .categories__wrapper--men {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        align-content: center;
+        align-content: flex-start;
         justify-content: center;
         align-items: flex-start;
     }
@@ -109,6 +109,7 @@
     .categories--men {
         visibility: visible;
         padding: 5rem 0 3rem;
+        width: 19%;
     }
 
     .category__name--men:hover {
@@ -178,6 +179,10 @@
         width: 80%;
         padding: 4rem 0;
     }
+
+    .categories--men {
+        width: 16%;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -199,11 +204,6 @@
 
 
     .btn {
-        /*
-        padding: 0.25rem 0.875rem;
-        background-color: var(--color-primary);
-        color: var(--color-dark-gray);
-        */
         padding: 0.25rem 0.875rem;
         border: 2px solid transparent;
     }
@@ -213,6 +213,16 @@
         border: 2px solid var(--color-primary);
         cursor: pointer;
         transition: color 250ms ease-in-out;
+    }
+
+    .categories--men {
+        width: 17%;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .categories--men {
+        width: 16%;
     }
 }
 

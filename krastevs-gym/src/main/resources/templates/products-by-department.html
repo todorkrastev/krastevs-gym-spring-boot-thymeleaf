@@ -25,11 +25,27 @@
     <div class="main__wrapper__men">
         <aside class="categories--men">
             <div class="categories__main__wrapper--men">
+                <h6 class="category__section--men">Department</h6>
+                <div th:each="departmenCategory: ${departmentCategories}" class="categories__wrapper--men">
+                    <a th:href="@{/shop/products-by-department/{id}(id=${departmenCategory.getId()})}"
+                       th:text="${departmenCategory.getCategory().name().toLowerCase()}"
+                       class="category__name--men">Women</a>
+                </div>
+            </div>
+            <div class="categories__main__wrapper--men">
                 <h6 class="category__section--men">Categories</h6>
                 <div th:each="category: ${categories}" class="categories__wrapper--men">
-                    <a th:href="@{/shop/products-by-department/{id}(id=${category.getId()})}"
+                    <a th:href="@{/shop/products-by-department/{id}/products-by-category/{categoryId}(id=${products.get(0).getDepartmentCategory().getId()}, categoryId=${category.getId()})}"
                        th:text="${category.getCategory().name().toLowerCase()}"
                        class="category__name--men">Tops</a>
+                </div>
+            </div>
+            <div class="categories__main__wrapper--men">
+                <h6 class="category__section--men">Price</h6>
+                <div th:each="priceFilter: ${priceFilters}" class="categories__wrapper--men">
+                    <a th:href="@{/shop/products-by-department/{id}/products-by-price-range/{fromTo}(id=${products.get(0).getDepartmentCategory().getId()}, fromTo=${priceFilter.getFilter().toString().toLowerCase().replaceAll('_', '-')})}"
+                       th:text="${priceFilter.getFilter().name().toLowerCase().replace('_', ' ')}"
+                       class="category__name--men">0 to 10</a>
                 </div>
             </div>
         </aside>
@@ -37,22 +53,19 @@
             <div class="shop__wrapper--men">
                 <div th:each="product: ${products}" class="shop__card--men">
                     <img th:src="${product.getPictures().get(0).getUrl()}" alt="product" class="shop__poster">
-                    <h4 th:text="${product.getPrice()}" class="shop__price">19.99€</h4>
                     <h6 th:text="${product.getName()}" class="shop__name">Fitness Gloves</h6>
-                    <p th:text="${product.getDescription()}" class="shop__description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil saepe deleniti ipsa dignissimos
-                        totam.
-                    </p>
+                    <h6 th:text="${product.getPrice()}" class="shop__price">19.99€</h6>
 
                     <div class="shop__buttons">
                         <div class="shop__buttons--user">
                             <button class="shop__button add">Add to Basket</button>
                         </div>
-                        <div sec:authorize="hasRole('ADMIN')" class="shop__buttons--admin">
-                            <button class="shop__button edit">Edit</button>
-                            <button class="shop__button delete">Delete</button>
-                        </div>
-
+                        <th:block sec:authorize="hasRole('ADMIN')">
+                            <div class="shop__buttons--admin">
+                                <button class="shop__button edit">Edit</button>
+                                <button class="shop__button delete">Delete</button>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
 

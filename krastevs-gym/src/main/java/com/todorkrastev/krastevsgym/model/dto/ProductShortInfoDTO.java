@@ -8,9 +8,9 @@ import java.util.List;
 public class ProductShortInfoDTO {
     private Long id;
     private String name;
-    private String description;
     private List<PictureEntity> pictures;
     private BigDecimal price;
+    private DepartmentCategoryDTO departmentCategory;
 
     public ProductShortInfoDTO() {
     }
@@ -33,15 +33,6 @@ public class ProductShortInfoDTO {
         return this;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public ProductShortInfoDTO setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
     public List<PictureEntity> getPictures() {
         return pictures;
     }
@@ -57,6 +48,15 @@ public class ProductShortInfoDTO {
 
     public ProductShortInfoDTO setPrice(BigDecimal price) {
         this.price = price;
+        return this;
+    }
+
+    public DepartmentCategoryDTO getDepartmentCategory() {
+        return departmentCategory;
+    }
+
+    public ProductShortInfoDTO setDepartmentCategory(DepartmentCategoryDTO departmentCategory) {
+        this.departmentCategory = departmentCategory;
         return this;
     }
 }

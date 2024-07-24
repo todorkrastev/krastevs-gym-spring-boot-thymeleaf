@@ -17,9 +17,6 @@ public class PictureEntity {
     @ManyToOne(optional = false)
     private UserEntity author;
 
-//    @ManyToOne(optional = false)
-//    private ProductEntity product;
-
     public PictureEntity() {
     }
 
@@ -58,13 +55,4 @@ public class PictureEntity {
         this.author = author;
         return this;
     }
-
-//    public ProductEntity getProduct() {
-//        return product;
-//    }
-//
-//    public PictureEntity setProduct(ProductEntity product) {
-//        this.product = product;
-//        return this;
-//    }
 }

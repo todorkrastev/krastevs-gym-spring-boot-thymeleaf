@@ -2,9 +2,11 @@ package com.todorkrastev.krastevsgym.web;
 
 
 import com.todorkrastev.krastevsgym.model.dto.DepartmentCategoryDTO;
+import com.todorkrastev.krastevsgym.model.dto.PriceFilterDTO;
 import com.todorkrastev.krastevsgym.model.dto.ProductCategoryDTO;
 import com.todorkrastev.krastevsgym.model.dto.ProductShortInfoDTO;
 import com.todorkrastev.krastevsgym.service.DepartmentCategoryService;
+import com.todorkrastev.krastevsgym.service.PriceFilterService;
 import com.todorkrastev.krastevsgym.service.ProductCategoryService;
 import com.todorkrastev.krastevsgym.service.ProductService;
 import org.springframework.stereotype.Controller;
@@ -22,11 +24,13 @@ public class ShopController {
     private final DepartmentCategoryService departmentCategoryService;
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
+    private final PriceFilterService priceFilterService;
 
-    public ShopController(DepartmentCategoryService departmentCategoryService, ProductService productService, ProductCategoryService productCategoryService) {
+    public ShopController(DepartmentCategoryService departmentCategoryService, ProductService productService, ProductCategoryService productCategoryService, PriceFilterService priceFilterService) {
         this.departmentCategoryService = departmentCategoryService;
         this.productService = productService;
         this.productCategoryService = productCategoryService;
+        this.priceFilterService = priceFilterService;
     }
 
     @GetMapping
@@ -39,11 +43,51 @@ public class ShopController {
 
     @GetMapping("/products-by-department/{id}")
     public String productsByDepartment(@PathVariable("id") Long id, Model model) {
+        List<DepartmentCategoryDTO> departmentCategories = departmentCategoryService.findAll();
+        model.addAttribute("departmentCategories", departmentCategories);
+
         List<ProductShortInfoDTO> products = productService.findAllByDepartmentId(id);
         model.addAttribute("products", products);
 
         List<ProductCategoryDTO> categories = productCategoryService.findAll();
         model.addAttribute("categories", categories);
+
+        List<PriceFilterDTO> priceFilters = priceFilterService.findAll();
+        model.addAttribute("priceFilters", priceFilters);
+
+        return "products-by-department";
+    }
+
+    @GetMapping("/products-by-department/{id}/products-by-category/{categoryId}")
+    public String productsByCategory(@PathVariable("id") Long departmentId, @PathVariable("categoryId") Long categoryId, Model model) {
+        List<DepartmentCategoryDTO> departmentCategories = departmentCategoryService.findAll();
+        model.addAttribute("departmentCategories", departmentCategories);
+
+        List<ProductShortInfoDTO> products = productService.findAllByCategoryId(departmentId, categoryId);
+        model.addAttribute("products", products);
+
+        List<ProductCategoryDTO> categories = productCategoryService.findAll();
+        model.addAttribute("categories", categories);
+
+        List<PriceFilterDTO> priceFilters = priceFilterService.findAll();
+        model.addAttribute("priceFilters", priceFilters);
+
+        return "products-by-department";
+    }
+
+    @GetMapping("/products-by-department/{id}/products-by-price-range/{fromTo}")
+    public String productsByPriceRange(@PathVariable("id") Long departmentId, @PathVariable("fromTo") String fromTo, Model model) {
+        List<DepartmentCategoryDTO> departmentCategories = departmentCategoryService.findAll();
+        model.addAttribute("departmentCategories", departmentCategories);
+
+        List<ProductShortInfoDTO> products = productService.findByPriceRange(departmentId, fromTo);
+        model.addAttribute("products", products);
+
+        List<ProductCategoryDTO> categories = productCategoryService.findAll();
+        model.addAttribute("categories", categories);
+
+        List<PriceFilterDTO> priceFilters = priceFilterService.findAll();
+        model.addAttribute("priceFilters", priceFilters);
 
         return "products-by-department";
     }

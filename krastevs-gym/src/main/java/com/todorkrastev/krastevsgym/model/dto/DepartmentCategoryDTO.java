@@ -1,6 +1,9 @@
 package com.todorkrastev.krastevsgym.model.dto;
 
+import com.todorkrastev.krastevsgym.model.entity.ProductEntity;
 import com.todorkrastev.krastevsgym.model.enums.DepartmentCategoryEnum;
+
+import java.util.List;
 
 public class DepartmentCategoryDTO {
     private Long id;

@@ -28,6 +28,9 @@ public class ProductEntity {
     @ManyToOne(targetEntity = DepartmentCategoryEntity.class, optional = false)
     private DepartmentCategoryEntity departmentCategory;
 
+    @ManyToOne(targetEntity = PriceFilterEntity.class, optional = false)
+    private PriceFilterEntity priceFilter;
+
     @OneToMany(targetEntity = PictureEntity.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<PictureEntity> pictures;
 
@@ -86,6 +89,15 @@ public class ProductEntity {
 
     public ProductEntity setDepartmentCategory(DepartmentCategoryEntity departmentCategory) {
         this.departmentCategory = departmentCategory;
+        return this;
+    }
+
+    public PriceFilterEntity getPriceFilter() {
+        return priceFilter;
+    }
+
+    public ProductEntity setPriceFilter(PriceFilterEntity priceFilter) {
+        this.priceFilter = priceFilter;
         return this;
     }
 

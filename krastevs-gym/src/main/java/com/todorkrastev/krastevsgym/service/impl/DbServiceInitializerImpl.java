@@ -28,10 +28,11 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     private final ProductCategoryRepository productCategoryRepository;
     private final DepartmentCategoryRepository departmentCategoryRepository;
     private final ProductRepository productRepository;
+    private final PriceFilterRepository priceFilterRepository;
     private final PasswordEncoder passwordEncoder;
     private final String adminPass;
 
-    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, PictureRepository pictureRepository, ProductCategoryRepository productCategoryRepository, DepartmentCategoryRepository departmentCategoryRepository, ProductRepository productRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
+    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, PictureRepository pictureRepository, ProductCategoryRepository productCategoryRepository, DepartmentCategoryRepository departmentCategoryRepository, ProductRepository productRepository, PriceFilterRepository priceFilterRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.exerciseRepository = exerciseRepository;
@@ -40,6 +41,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
         this.productCategoryRepository = productCategoryRepository;
         this.departmentCategoryRepository = departmentCategoryRepository;
         this.productRepository = productRepository;
+        this.priceFilterRepository = priceFilterRepository;
         this.passwordEncoder = passwordEncoder;
         this.adminPass = adminPass;
     }
@@ -76,12 +78,30 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
             departmentCategoryRepository.saveAll(createDepartmentCategoryEntities());
         }
 
+        if (priceFilterRepository.count() == 0) {
+            priceFilterRepository.saveAll(createPriceFilterEntities());
+        }
 
         if (pictureRepository.count() == 0 && productRepository.count() == 0) {
             productRepository.saveAll(createProductEntities());
         }
 
         LOGGER.info("===================Database startup ends===================");
+    }
+
+    private List<PriceFilterEntity> createPriceFilterEntities() {
+        return List.of(
+                new PriceFilterEntity()
+                        .setFilter(PriceFilterEnum.FROM_0_TO_10),
+                new PriceFilterEntity()
+                        .setFilter(PriceFilterEnum.FROM_10_TO_20),
+                new PriceFilterEntity()
+                        .setFilter(PriceFilterEnum.FROM_20_TO_50),
+                new PriceFilterEntity()
+                        .setFilter(PriceFilterEnum.FROM_50_TO_100),
+                new PriceFilterEntity()
+                        .setFilter(PriceFilterEnum.FROM_100_TO_200)
+        );
     }
 
     private List<ProductCategoryEntity> createProductCategoryEntities() {
@@ -139,13 +159,39 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                         .findByCategory(ProductCategoryEnum.ACCESSORIES)
                         .orElseThrow(() -> new IllegalStateException(String.format("Category %s not found", ProductCategoryEnum.ACCESSORIES)));
 
+        final PriceFilterEntity FROM_0_TO_10 =
+                priceFilterRepository
+                        .findByFilter(PriceFilterEnum.FROM_0_TO_10)
+                        .orElseThrow(() -> new IllegalStateException(String.format("Filter %s not found", PriceFilterEnum.FROM_0_TO_10)));
+
+        final PriceFilterEntity FROM_10_TO_20 =
+                priceFilterRepository
+                        .findByFilter(PriceFilterEnum.FROM_10_TO_20)
+                        .orElseThrow(() -> new IllegalStateException(String.format("Filter %s not found", PriceFilterEnum.FROM_10_TO_20)));
+
+        final PriceFilterEntity FROM_20_TO_50 =
+                priceFilterRepository
+                        .findByFilter(PriceFilterEnum.FROM_20_TO_50)
+                        .orElseThrow(() -> new IllegalStateException(String.format("Filter %s not found", PriceFilterEnum.FROM_20_TO_50)));
+
+        final PriceFilterEntity FROM_50_TO_100 =
+                priceFilterRepository
+                        .findByFilter(PriceFilterEnum.FROM_50_TO_100)
+                        .orElseThrow(() -> new IllegalStateException(String.format("Filter %s not found", PriceFilterEnum.FROM_50_TO_100)));
+
+        final PriceFilterEntity FROM_100_200 =
+                priceFilterRepository
+                        .findByFilter(PriceFilterEnum.FROM_100_TO_200)
+                        .orElseThrow(() -> new IllegalStateException(String.format("Filter %s not found", PriceFilterEnum.FROM_100_TO_200)));
+
         return List.of(
                 new ProductEntity()
                         .setName("Pink Top")
                         .setDescription("Fitted sleeveless stretch crop top with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(15.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_10_TO_20)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Pink Top")
@@ -155,9 +201,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Grey Top")
                         .setDescription("Fitted sleeveless stretch crop top with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(15.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_10_TO_20)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Grey Top")
@@ -167,9 +214,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Green Top")
                         .setDescription("Fitted sleeveless stretch crop top with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(15.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_10_TO_20)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Green Top")
@@ -179,9 +227,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Burgundy Top")
                         .setDescription("Fitted sleeveless stretch crop top with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(15.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_10_TO_20)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Burgundy Top")
@@ -191,9 +240,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Brown Top")
                         .setDescription("Fitted sleeveless stretch crop top with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(15.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_10_TO_20)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Brown Top")
@@ -203,9 +253,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Black Top")
                         .setDescription("Fitted sleeveless stretch crop top with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(15.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_10_TO_20)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Black Top")
@@ -218,6 +269,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                         .setPrice(BigDecimal.valueOf(5.99))
                         .setCategory(ACCESSORIES)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_0_TO_10)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("White Sports Socks")
@@ -230,6 +282,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                         .setPrice(BigDecimal.valueOf(179.99))
                         .setCategory(SHOES)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_100_200)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("White Sneakers")
@@ -239,9 +292,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Pink Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(29.99))
+                        .setPrice(BigDecimal.valueOf(39.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Pink Shorts")
@@ -251,9 +305,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Grey Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(29.99))
+                        .setPrice(BigDecimal.valueOf(39.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Grey Shorts")
@@ -263,9 +318,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Green Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(29.99))
+                        .setPrice(BigDecimal.valueOf(39.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Green Shorts")
@@ -275,9 +331,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Burgundy Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(29.99))
+                        .setPrice(BigDecimal.valueOf(39.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Burgundy Shorts")
@@ -287,9 +344,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Brown Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(29.99))
+                        .setPrice(BigDecimal.valueOf(39.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Brown Shorts")
@@ -299,9 +357,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Pink Cycling Pants")
                         .setDescription("High-waist cycling pants.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Pink Cycling Pants")
@@ -311,9 +370,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Grey Cycling Pants")
                         .setDescription("High-waist cycling pants.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Grey Cycling Pants")
@@ -323,9 +383,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Green Cycling Pants")
                         .setDescription("High-waist cycling pants.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Green Cycling Pants")
@@ -335,9 +396,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Burgundy Cycling Pants")
                         .setDescription("High-waist cycling pants.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Burgundy Cycling Pants")
@@ -347,9 +409,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Brown Cycling Pants")
                         .setDescription("High-waist cycling pants.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Brown Cycling Pants")
@@ -359,9 +422,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Black Cycling Pants")
                         .setDescription("High-waist cycling pants.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(WOMEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Black Cycling Pants")
@@ -371,9 +435,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("T-shirt with slogan")
                         .setDescription("Short sleeve T-shirt with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(25.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("T-shirt with slogan #1")
@@ -387,9 +452,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("T-shirt with graffiti")
                         .setDescription("Short sleeve T-shirt with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(25.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("T-shirt with graffiti #1")
@@ -407,9 +473,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("T-shirt with Fresh")
                         .setDescription("Short sleeve T-shirt with a round neckline.")
-                        .setPrice(BigDecimal.valueOf(25.99))
+                        .setPrice(BigDecimal.valueOf(19.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("T-shirt with Fresh #1")
@@ -430,6 +497,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                         .setPrice(BigDecimal.valueOf(25.99))
                         .setCategory(TOPS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_20_TO_50)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Fantasy T-shirt")
@@ -439,9 +507,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("White Sports Socks")
                         .setDescription("Elastic knit socks with ribbed elastic trims.")
-                        .setPrice(BigDecimal.valueOf(8.99))
+                        .setPrice(BigDecimal.valueOf(9.99))
                         .setCategory(ACCESSORIES)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_0_TO_10)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("White Sports Socks")
@@ -454,6 +523,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                         .setPrice(BigDecimal.valueOf(199.99))
                         .setCategory(SHOES)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_100_200)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("White Sports Sneakers")
@@ -463,9 +533,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Tie Dye Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_50_TO_100)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Tie Dye Shorts #1")
@@ -479,9 +550,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Pink Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_50_TO_100)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Pink Shorts #1")
@@ -499,9 +571,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Grey Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_50_TO_100)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Grey Shorts #1")
@@ -519,9 +592,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Burgundy Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_50_TO_100)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Burgundy Shorts #1")
@@ -539,9 +613,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                 new ProductEntity()
                         .setName("Black Shorts")
                         .setDescription("Mid-rise shorts with an adjustable inner drawstring.")
-                        .setPrice(BigDecimal.valueOf(39.99))
+                        .setPrice(BigDecimal.valueOf(59.99))
                         .setCategory(SHORTS)
                         .setDepartmentCategory(MEN)
+                        .setPriceFilter(FROM_50_TO_100)
                         .setPictures(List.of(
                                 new PictureEntity()
                                         .setName("Black Shorts")
