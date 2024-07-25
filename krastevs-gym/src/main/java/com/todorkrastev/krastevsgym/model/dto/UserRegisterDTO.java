@@ -3,6 +3,7 @@ package com.todorkrastev.krastevsgym.model.dto;
 import com.todorkrastev.krastevsgym.validation.annotation.PasswordMatch;
 import jakarta.validation.constraints.*;
 
+
 @PasswordMatch
 public class UserRegisterDTO {
     @NotBlank(message = "{user.register.dto.first.name.not.blank}")
