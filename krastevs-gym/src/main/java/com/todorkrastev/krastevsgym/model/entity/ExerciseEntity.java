@@ -1,6 +1,5 @@
 package com.todorkrastev.krastevsgym.model.entity;
 
-import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,7 +18,7 @@ public class ExerciseEntity {
     @Column(name = "gif_url", columnDefinition = "TEXT")
     private String gifUrl;
 
-    @Column(name = "muscles_worked_url",columnDefinition = "TEXT")
+    @Column(name = "muscles_worked_url", columnDefinition = "TEXT")
     private String musclesWorkedUrl;
 
     @Column(columnDefinition = "TEXT")
@@ -28,9 +27,8 @@ public class ExerciseEntity {
     @Column(columnDefinition = "TEXT")
     private String notes;
 
-    @Column(name = "equipment_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EquipmentTypeEnum equipmentType;
+    @ManyToOne(optional = false)
+    private EquipmentTypeEntity equipmentType;
 
     @ManyToOne(optional = false)
     private ExerciseCategoryEntity category;
@@ -104,11 +102,11 @@ public class ExerciseEntity {
         return this;
     }
 
-    public EquipmentTypeEnum getEquipmentType() {
+    public EquipmentTypeEntity getEquipmentType() {
         return equipmentType;
     }
 
-    public ExerciseEntity setEquipmentType(EquipmentTypeEnum equipmentType) {
+    public ExerciseEntity setEquipmentType(EquipmentTypeEntity equipmentType) {
         this.equipmentType = equipmentType;
         return this;
     }

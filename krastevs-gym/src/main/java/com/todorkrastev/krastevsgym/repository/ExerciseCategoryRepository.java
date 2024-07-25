@@ -14,5 +14,5 @@ public interface ExerciseCategoryRepository extends JpaRepository<ExerciseCatego
     Optional<ExerciseCategoryEntity> findByCategory(ExerciseCategoryEnum category);
 
     @Query("SELECT e FROM ExerciseCategoryEntity e WHERE e.category = :category")
-    ExerciseCategoryEntity findByCategoryDBInit(ExerciseCategoryEnum category);
+    Optional<ExerciseCategoryEntity> findByCategoryDBInit(ExerciseCategoryEnum category);
 }

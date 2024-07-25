@@ -26,15 +26,15 @@
         <img src="/images/hero/exercise.jpg" class="img--bg--abs" alt="Background poster"/>
 
         <div class="hero__abs">
-            <h1 th:text="${exercisesByCategory.iterator().hasNext() ?
-            exercisesByCategory.get(0).getCategory().name().toLowerCase().replace('_', ' ') :
-            'The category is under development'}"
+            <h1 th:text="${exercises.isEmpty() ?
+            'The category is under development' :
+            exercises.get(0).getCategory().name().toLowerCase().replace('_', ' ')}"
                 class="hero__title__abs">Abs</h1>
 
             <div class="hero__exercises__subtitles">
-                <p th:text="${exercisesByCategory.iterator().hasNext() ?
-                exercisesByCategory.get(0).getCategoryDescription() :
-                'Be the first one to create a new exercise'}"
+                <p th:text="${exercises.isEmpty() ?
+                'Be the first one to create a new exercise' :
+                exercises.get(0).getCategoryDescription()}"
                    class="hero__exercises__subtitle">
                     Abdominal muscles play a crucial role in posture, support of the spine, balance, stability, and
                     respiratory
@@ -50,14 +50,22 @@
     <div class="exercises__main__wrapper">
         <aside class="exercise__categories--abs">
             <h6 class="exercise__categories__title">Categories</h6>
-            <a th:each="category : ${categories}"
-               th:href="@{/exercises/exercises-by-category/{id}(id=${category.getCategoryId()})}"
-               th:text="${category.getCategory().toLowerCase().replace('_', ' ')}"
-               class="exercise__category__name">Abs</a>
+            <th:block th:each="category : ${categories}">
+                <a th:href="@{/exercises/exercises-by-category/{id}(id=${category.getCategoryId()})}"
+                   th:text="${category.getCategory().toLowerCase().replace('_', ' ')}"
+                   class="exercise__category__name">Abs</a>
+            </th:block>
+            <h6 class="exercise__categories__title">Type</h6>
+            <th:block th:each="type : ${types}">
+                <a th:href="@{/exercises/exercises-by-category/{categoryId}/exercises-by-type/{typeId}(categoryId=${exercises.getFirst().getCategoryId()},typeId=${type.getId()})}"
+                   th:text="${type.getType().name().toLowerCase().replace('_', ' ')}"
+                   class="exercise__category__name">Barbell</a>
+            </th:block>
         </aside>
         <section class="exercises__container--abs section">
-            <article th:each="exercise: ${exercisesByCategory}" class="exercise--abs">
-                <a th:href="@{/exercises/exercises-by-category/exercise/{id}(id=${exercise.getExerciseId()})}" class="exercise__wrapper--abs">
+            <article th:each="exercise: ${exercises}" class="exercise--abs">
+                <a th:href="@{/exercises/exercises-by-category/exercise/{id}(id=${exercise.getExerciseId()})}"
+                   class="exercise__wrapper--abs">
                     <img th:src="${exercise.getExerciseGifUrl()}" class="exercise__poster--abs"
                          alt="Section poster"/>
                     <h6 th:text="${exercise.getExerciseName()}" class="exercise__title--abs">Stability ball

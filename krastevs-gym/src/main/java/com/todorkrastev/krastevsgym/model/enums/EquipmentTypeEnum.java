@@ -1,5 +1,5 @@
 package com.todorkrastev.krastevsgym.model.enums;
 
 public enum EquipmentTypeEnum {
-    BARBELL, BODYWEIGHT, CABLE, DUMBBELLS, MACHINES
+    BARBELL, BODY_WEIGHT, CABLE, DUMBBELL, EXERCISE_BALL, KETTLEBELL, MACHINE, PLATE
 }

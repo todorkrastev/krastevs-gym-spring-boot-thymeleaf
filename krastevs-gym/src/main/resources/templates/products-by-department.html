@@ -51,6 +51,17 @@
         </aside>
         <section id="accessories--men" class="shop--men section--men">
             <div class="shop__wrapper--men">
+                <!--                <div th:each="product: ${products}" class="shop__card&#45;&#45;men">-->
+                <!--                    <div class="slideshow-container">-->
+                <!--                        <div th:each="picture: ${product.getPictures()}" class="mySlides fade">-->
+                <!--                            <img th:src="${picture.getUrl()}" alt="product" class="shop__poster" style="width: 100%">-->
+                <!--                        </div>-->
+
+                <!--                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
+                <!--                        <a class="next" onclick="plusSlides(1)">&#10095;</a>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
                 <div th:each="product: ${products}" class="shop__card--men">
                     <img th:src="${product.getPictures().get(0).getUrl()}" alt="product" class="shop__poster">
                     <h6 th:text="${product.getName()}" class="shop__name">Fitness Gloves</h6>
@@ -68,10 +79,6 @@
                         </th:block>
                     </div>
                 </div>
-
-
-            </div>
-
         </section>
     </div>
     <div class="divider"></div>
@@ -81,6 +88,6 @@
 
 <footer th:replace="~{fragments/footer}" class="footer"></footer>
 
+<script src="/js/slideshow.js"></script>
 </body>
-
 </html>

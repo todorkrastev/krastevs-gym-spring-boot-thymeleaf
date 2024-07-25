@@ -24,6 +24,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     private final UserRoleRepository userRoleRepository;
     private final ExerciseRepository exerciseRepository;
     private final ExerciseCategoryRepository exerciseCategoryRepository;
+    private final EquipmentTypeRepository equipmentTypeRepository;
     private final PictureRepository pictureRepository;
     private final ProductCategoryRepository productCategoryRepository;
     private final DepartmentCategoryRepository departmentCategoryRepository;
@@ -32,11 +33,12 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     private final PasswordEncoder passwordEncoder;
     private final String adminPass;
 
-    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, PictureRepository pictureRepository, ProductCategoryRepository productCategoryRepository, DepartmentCategoryRepository departmentCategoryRepository, ProductRepository productRepository, PriceFilterRepository priceFilterRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
+    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, EquipmentTypeRepository equipmentTypeRepository, PictureRepository pictureRepository, ProductCategoryRepository productCategoryRepository, DepartmentCategoryRepository departmentCategoryRepository, ProductRepository productRepository, PriceFilterRepository priceFilterRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.exerciseRepository = exerciseRepository;
         this.exerciseCategoryRepository = exerciseCategoryRepository;
+        this.equipmentTypeRepository = equipmentTypeRepository;
         this.pictureRepository = pictureRepository;
         this.productCategoryRepository = productCategoryRepository;
         this.departmentCategoryRepository = departmentCategoryRepository;
@@ -65,6 +67,10 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
             initUser(List.of(savedUserRole));
         }
 
+        if (equipmentTypeRepository.count() == 0) {
+            equipmentTypeRepository.saveAll(createEquipmentTypeEntities());
+        }
+
         if (exerciseCategoryRepository.count() == 0 & exerciseRepository.count() == 0) {
             exerciseCategoryRepository.saveAll(createExerciseCategoryEntities());
             exerciseRepository.saveAll(createExerciseEntities());
@@ -87,6 +93,27 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
         }
 
         LOGGER.info("===================Database startup ends===================");
+    }
+
+    private List<EquipmentTypeEntity> createEquipmentTypeEntities() {
+        return List.of(
+                new EquipmentTypeEntity()
+                        .setType(EquipmentTypeEnum.BARBELL),
+                new EquipmentTypeEntity()
+                        .setType(EquipmentTypeEnum.BODY_WEIGHT),
+                new EquipmentTypeEntity()
+                        .setType(EquipmentTypeEnum.CABLE),
+                new EquipmentTypeEntity()
+                        .setType(EquipmentTypeEnum.DUMBBELL),
+                new EquipmentTypeEntity()
+                        .setType(EquipmentTypeEnum.EXERCISE_BALL),
+                new EquipmentTypeEntity()
+                        .setType(EquipmentTypeEnum.KETTLEBELL),
+                new EquipmentTypeEntity()
+                        .setType(EquipmentTypeEnum.MACHINE),
+                new EquipmentTypeEntity()
+                        .setType(EquipmentTypeEnum.PLATE)
+        );
     }
 
     private List<PriceFilterEntity> createPriceFilterEntities() {
@@ -630,18 +657,27 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
 
         final UserEntity ADMIN = userRepository.findAdminByCategory(UserRoleEnum.ADMIN);
 
-        final ExerciseCategoryEntity ABS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.ABS);
-        final ExerciseCategoryEntity BICEPS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.BICEPS);
-        final ExerciseCategoryEntity CHEST = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.CHEST);
-        final ExerciseCategoryEntity FOREARMS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.FOREARMS);
-        final ExerciseCategoryEntity LATS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.LATS);
-        final ExerciseCategoryEntity LEGS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.LEGS);
-        final ExerciseCategoryEntity LOWER_BACK = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.LOWER_BACK);
-        final ExerciseCategoryEntity SHOULDERS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.SHOULDERS);
-        final ExerciseCategoryEntity TRAPS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.TRAPS);
-        final ExerciseCategoryEntity TRICEPS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.TRICEPS);
+        final ExerciseCategoryEntity ABS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.ABS).orElseThrow(() -> new IllegalStateException("Category ABS not found"));
+        final ExerciseCategoryEntity BICEPS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.BICEPS).orElseThrow(() -> new IllegalStateException("Category BICEPS not found"));
+        final ExerciseCategoryEntity CHEST = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.CHEST).orElseThrow(() -> new IllegalStateException("Category CHEST not found"));
+        final ExerciseCategoryEntity FOREARMS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.FOREARMS).orElseThrow(() -> new IllegalStateException("Category FOREARMS not found"));
+        final ExerciseCategoryEntity LATS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.LATS).orElseThrow(() -> new IllegalStateException("Category LATS not found"));
+        final ExerciseCategoryEntity LEGS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.LEGS).orElseThrow(() -> new IllegalStateException("Category LEGS not found"));
+        final ExerciseCategoryEntity LOWER_BACK = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.LOWER_BACK).orElseThrow(() -> new IllegalStateException("Category LOWER_BACK not found"));
+        final ExerciseCategoryEntity SHOULDERS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.SHOULDERS).orElseThrow(() -> new IllegalStateException("Category SHOULDERS not found"));
+        final ExerciseCategoryEntity TRAPS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.TRAPS).orElseThrow(() -> new IllegalStateException("Category TRAPS not found"));
+        final ExerciseCategoryEntity TRICEPS = exerciseCategoryRepository.findByCategoryDBInit(ExerciseCategoryEnum.TRICEPS).orElseThrow(() -> new IllegalStateException("Category TRICEPS not found"));
 
         final String MUSCLES_WORKED_URL = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1719702627/krastevs-gym/imgs/muscles/view_of_muscles_kfthdn.jpg";
+
+        final EquipmentTypeEntity BARBELL = equipmentTypeRepository.findByType(EquipmentTypeEnum.BARBELL).orElseThrow(() -> new IllegalStateException("Equipment type BARBELL not found"));
+        final EquipmentTypeEntity BODY_WEIGHT = equipmentTypeRepository.findByType(EquipmentTypeEnum.BODY_WEIGHT).orElseThrow(() -> new IllegalStateException("Equipment type BODY_WEIGHT not found"));
+        final EquipmentTypeEntity CABLE = equipmentTypeRepository.findByType(EquipmentTypeEnum.CABLE).orElseThrow(() -> new IllegalStateException("Equipment type CABLE not found"));
+        final EquipmentTypeEntity DUMBBELL = equipmentTypeRepository.findByType(EquipmentTypeEnum.DUMBBELL).orElseThrow(() -> new IllegalStateException("Equipment type DUMBBELL not found"));
+        final EquipmentTypeEntity EXERCISE_BALL = equipmentTypeRepository.findByType(EquipmentTypeEnum.EXERCISE_BALL).orElseThrow(() -> new IllegalStateException("Equipment type EXERCISE_BALL not found"));
+        final EquipmentTypeEntity KETTLEBELL = equipmentTypeRepository.findByType(EquipmentTypeEnum.KETTLEBELL).orElseThrow(() -> new IllegalStateException("Equipment type KETTLEBELL not found"));
+        final EquipmentTypeEntity MACHINE = equipmentTypeRepository.findByType(EquipmentTypeEnum.MACHINE).orElseThrow(() -> new IllegalStateException("Equipment type MACHINE not found"));
+        final EquipmentTypeEntity PLATE = equipmentTypeRepository.findByType(EquipmentTypeEnum.PLATE).orElseThrow(() -> new IllegalStateException("Equipment type NONE not found"));
 
 
         return List.of(
@@ -658,7 +694,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 3. Bring your knees in towards your chest with your feet together.
                                 4. Use your abs to curl your hips off the floor and towards your chest.
                                 5. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -672,7 +708,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Lie flat on the floor with your legs straight and your arms extended overhead.
                                 2. In one movement, lift your legs and torso off the floor, reaching your hands toward your feet.
                                 3. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -687,7 +723,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Place your hands behind your head.
                                 3. Use your abs to curl your torso off the floor and towards your knees.
                                 4. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -702,7 +738,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Hold a stability ball between your feet.
                                 3. In one movement, lift your legs and torso off the floor, passing the ball from your feet to your hands.
                                 4. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(EXERCISE_BALL)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -717,7 +753,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Place your forearms on the ball and roll it forward until your body is in a straight line.
                                 3. Use your abs to pull the ball back towards you.
                                 4. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(EXERCISE_BALL)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -732,7 +768,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Hold a stability ball between your feet.
                                 3. In one movement, lift your legs and torso off the floor, bringing the ball towards your hands.
                                 4. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(EXERCISE_BALL)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -747,7 +783,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Place your hands behind your head.
                                 3. Use your abs to curl your torso off the floor and towards your knees.
                                 4. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -762,7 +798,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Place your hands behind your head.
                                 3. Use your abs to curl your torso off the floor and towards your knees.
                                 4. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -777,7 +813,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Place your hands behind your head.
                                 3. Use your abs to curl your torso off the floor and towards your knees.
                                 4. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -792,7 +828,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Place your hands behind your head.
                                 3. Use your abs to curl your torso off the floor and towards your knees.
                                 4. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -806,7 +842,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Lie flat on the floor with your legs straight and your arms extended overhead.
                                 2. In one movement, lift your legs off the floor, keeping them straight.
                                 3. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -820,7 +856,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Lie flat on the floor with your legs straight and your arms extended overhead.
                                 2. In one movement, lift your legs and torso off the floor, reaching your hands toward your feet.
                                 3. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -834,7 +870,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Lie flat on the floor with your legs straight and your arms extended overhead.
                                 2. In one movement, lift your legs and torso off the floor, reaching your hands toward your feet.
                                 3. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -848,7 +884,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Lie flat on the floor with your legs straight and your arms extended overhead.
                                 2. In one movement, lift your legs and torso off the floor, reaching your hands toward your feet.
                                 3. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -863,7 +899,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Place your arm on the bench pad with your palm facing up.
                                 3. Curl the dumbbell towards your shoulder, keeping your upper arm stationary.
                                 4. Slowly lower the dumbbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -877,7 +913,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold an EZ bar with an overhand grip.
                                 2. Curl the bar towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the bar back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -891,7 +927,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold an EZ bar with an underhand grip.
                                 2. Curl the bar towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the bar back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -905,7 +941,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a dumbbell in each hand.
                                 2. Curl the dumbbells towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -919,7 +955,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a cable attachment in each hand.
                                 2. Curl the cable attachment towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the cable attachment back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -934,7 +970,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Place your arms on the bench pad with your palms facing each other.
                                 3. Curl the dumbbells towards your shoulders, keeping your upper arms stationary.
                                 4. Slowly lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -948,7 +984,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a dumbbell in each hand.
                                 2. Curl the dumbbells towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -962,7 +998,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold an EZ bar with an underhand grip.
                                 2. Curl the bar towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the bar back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -976,7 +1012,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell with an overhand grip.
                                 2. Curl the bar towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the bar back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -990,7 +1026,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Place your hands on a stability ball and assume a push-up position.
                                 2. Lower your chest towards the ball, keeping your body in a straight line.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(EXERCISE_BALL)
                         .setCategory(CHEST)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1004,7 +1040,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Place your feet on a stability ball and assume a push-up position.
                                 2. Lower your chest towards the floor, keeping your body in a straight line.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(EXERCISE_BALL)
                         .setCategory(CHEST)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1018,7 +1054,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Assume a push-up position with one leg lifted off the ground.
                                 2. Lower your chest towards the floor, keeping your body in a straight line.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(CHEST)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1033,7 +1069,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Hold a dumbbell with an overhand grip.
                                 3. Curl the dumbbell towards your body, keeping your forearm stationary.
                                 4. Slowly lower the dumbbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(FOREARMS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1048,7 +1084,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Hold a barbell with an overhand grip.
                                 3. Curl the barbell towards your body, keeping your forearms stationary.
                                 4. Slowly lower the barbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(FOREARMS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1062,7 +1098,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell behind your back with an overhand grip.
                                 2. Curl the barbell towards your body, keeping your forearms stationary.
                                 3. Slowly lower the barbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(FOREARMS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1077,7 +1113,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Bend at the waist and lower your torso until it's almost parallel to the floor.
                                 3. Pull the dumbbells towards your body, keeping your elbows close to your sides.
                                 4. Slowly lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(LATS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1091,7 +1127,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Lie face down on an incline bench with a barbell in your hands.
                                 2. Pull the barbell towards your body, keeping your elbows close to your sides.
                                 3. Slowly lower the barbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LATS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1105,7 +1141,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell with an underhand grip.
                                 2. Pull the barbell towards your body, keeping your elbows close to your sides.
                                 3. Slowly lower the barbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LATS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1119,7 +1155,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell in the crook of your elbows.
                                 2. Squat down until your thighs are parallel to the ground.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1133,7 +1169,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a dumbbell in each hand.
                                 2. Bend at the waist and lower the dumbbells towards the ground.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1147,7 +1183,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell across your upper back.
                                 2. Step to the side with one leg and lower your body into a lunge position.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1161,7 +1197,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell across your upper back.
                                 2. Step back with one leg and lower your body into a lunge position.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1175,7 +1211,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a dumbbell in each hand.
                                 2. Step back with one leg and lower your body into a lunge position.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1189,7 +1225,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Sit on the ground with your upper back against a bench and a barbell across your hips.
                                 2. Push your hips towards the ceiling, squeezing your glutes at the top.
                                 3. Lower your hips back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1203,7 +1239,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand inside a trap bar with your feet shoulder-width apart.
                                 2. Bend at the waist and lower the bar towards the ground.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1217,7 +1253,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Attach an ankle strap to a cable machine and secure it around your ankle.
                                 2. Stand sideways to the machine and lift your leg out to the side.
                                 3. Slowly lower your leg back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.CABLE)
+                        .setEquipmentType(CABLE)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1231,7 +1267,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with a stability ball between your lower back and a wall.
                                 2. Squat down until your thighs are parallel to the ground.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(EXERCISE_BALL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1245,7 +1281,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell across your upper back.
                                 2. Step forward with one leg and lower your body into a lunge position.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1259,7 +1295,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell across your upper back.
                                 2. Squat down until your thighs are parallel to the ground.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1273,7 +1309,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell across your upper chest.
                                 2. Squat down until your thighs are parallel to the ground.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(LEGS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1287,7 +1323,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Sit on a back extension machine with your feet secured under the pads.
                                 2. Lower your upper body towards the ground.
                                 3. Raise your upper body back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.MACHINES)
+                        .setEquipmentType(MACHINE)
                         .setCategory(LOWER_BACK)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1301,7 +1337,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Sit on a bench with a dumbbell in each hand.
                                 2. Press the dumbbells overhead until your arms are fully extended.
                                 3. Lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1315,7 +1351,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a dumbbell in each hand.
                                 2. Raise the dumbbells in front of you until your arms are parallel to the ground.
                                 3. Slowly lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(PLATE)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1329,7 +1365,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Lie on your side with a dumbbell in your top hand.
                                 2. Raise the dumbbell towards the ceiling until your arm is parallel to the ground.
                                 3. Slowly lower the dumbbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1344,7 +1380,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Bend at the waist and lower your torso until it's almost parallel to the ground.
                                 3. Raise the dumbbells out to the side until your arms are parallel to the ground.
                                 4. Slowly lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1359,7 +1395,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Raise one dumbbell in front of you until your arm is parallel to the ground.
                                 3. Lower the dumbbell back down to the starting position.
                                 4. Repeat with the other arm.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1374,7 +1410,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Raise the dumbbells in front of you until your arms are parallel to the ground.
                                 3. Push the dumbbells out to the sides until they form a 'W' shape.
                                 4. Slowly lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1389,7 +1425,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Bend at the waist and lower your torso until it's almost parallel to the ground.
                                 3. Raise the dumbbell out to the side until your arm is parallel to the ground.
                                 4. Slowly lower the dumbbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1403,7 +1439,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Kneel on the ground with a kettlebell in one hand.
                                 2. Press the kettlebell overhead until your arm is fully extended.
                                 3. Lower the kettlebell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(KETTLEBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1417,7 +1453,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell across your upper back.
                                 2. Press the barbell overhead until your arms are fully extended.
                                 3. Lower the barbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1431,7 +1467,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a dumbbell in each hand.
                                 2. Press the dumbbells overhead while rotating your palms to face forward.
                                 3. Lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1445,7 +1481,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand sideways to a cable machine with the handle in one hand.
                                 2. Pull the handle towards your body until your arm is parallel to the ground.
                                 3. Slowly lower the handle back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.CABLE)
+                        .setEquipmentType(CABLE)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1459,7 +1495,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell with a wide grip.
                                 2. Pull the barbell towards your body until your arms are parallel to the ground.
                                 3. Slowly lower the barbell back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1473,7 +1509,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand sideways to a cable machine with the handle in one hand.
                                 2. Raise the handle in front of you until your arm is parallel to the ground.
                                 3. Slowly lower the handle back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.CABLE)
+                        .setEquipmentType(CABLE)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1487,7 +1523,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand sideways to a cable machine with the handle in one hand.
                                 2. Raise the handle in front of you until your arm is parallel to the ground.
                                 3. Slowly lower the handle back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.CABLE)
+                        .setEquipmentType(CABLE)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1502,7 +1538,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Raise one dumbbell in front of you until your arm is parallel to the ground.
                                 3. Lower the dumbbell back down to the starting position.
                                 4. Repeat with the other arm.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(SHOULDERS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1516,7 +1552,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a barbell in front of you.
                                 2. Shrug your shoulders towards your ears.
                                 3. Slowly lower your shoulders back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(TRAPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1530,7 +1566,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a dumbbell in each hand.
                                 2. Shrug your shoulders towards your ears.
                                 3. Slowly lower your shoulders back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(TRAPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1544,7 +1580,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand in front of a cable machine with a rope attachment.
                                 2. Pull the rope down towards your thighs until your arms are fully extended.
                                 3. Slowly raise the rope back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.CABLE)
+                        .setEquipmentType(CABLE)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1558,7 +1594,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand in front of a cable machine with a rope attachment.
                                 2. Pull the rope down towards your thighs until your arms are fully extended.
                                 3. Slowly raise the rope back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.CABLE)
+                        .setEquipmentType(CABLE)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1572,7 +1608,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand in front of a cable machine with a rope attachment.
                                 2. Pull the rope down towards your thighs until your arms are fully extended.
                                 3. Slowly raise the rope back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.CABLE)
+                        .setEquipmentType(CABLE)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1586,7 +1622,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Sit on a bench with your hands on the edge.
                                 2. Lower your body towards the ground by bending your elbows.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1601,7 +1637,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Bend at the waist and lower your torso until it's almost parallel to the ground.
                                 3. Extend your arms behind you until they're fully extended.
                                 4. Slowly lower the dumbbells back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1616,7 +1652,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Extend your arms towards the ceiling.
                                 3. Lower the barbell towards your forehead.
                                 4. Push the barbell back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1630,7 +1666,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Sit on a bench with your hands on the edge.
                                 2. Lower your body towards the ground by bending your elbows.
                                 3. Push yourself back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BODYWEIGHT)
+                        .setEquipmentType(BODY_WEIGHT)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1645,7 +1681,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 2. Extend your arms towards the ceiling.
                                 3. Lower the dumbbells behind your head.
                                 4. Push the dumbbells back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.DUMBBELLS)
+                        .setEquipmentType(DUMBBELL)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1659,7 +1695,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold an EZ bar overhead.
                                 2. Lower the EZ bar behind your head.
                                 3. Push the EZ bar back up to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.BARBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1673,7 +1709,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand in front of a cable machine with a handle in one hand.
                                 2. Extend your arm behind you until it's fully extended.
                                 3. Slowly lower your arm back down to the starting position.""")
-                        .setEquipmentType(EquipmentTypeEnum.CABLE)
+                        .setEquipmentType(CABLE)
                         .setCategory(TRICEPS)
                         .setUser(ADMIN)
         );

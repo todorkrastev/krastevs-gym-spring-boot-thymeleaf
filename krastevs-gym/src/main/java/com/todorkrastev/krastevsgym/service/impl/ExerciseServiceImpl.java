@@ -3,10 +3,12 @@ package com.todorkrastev.krastevsgym.service.impl;
 import com.todorkrastev.krastevsgym.exception.CategoryNotFoundException;
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.*;
+import com.todorkrastev.krastevsgym.model.entity.EquipmentTypeEntity;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 import com.todorkrastev.krastevsgym.repository.ExerciseRepository;
+import com.todorkrastev.krastevsgym.service.EquipmentTypeService;
 import com.todorkrastev.krastevsgym.service.ExerciseCategoryService;
 import com.todorkrastev.krastevsgym.service.ExerciseService;
 import com.todorkrastev.krastevsgym.service.UserService;
@@ -25,12 +27,14 @@ public class ExerciseServiceImpl implements ExerciseService {
     private final ModelMapper modelMapper;
     private final ExerciseCategoryService exerciseCategoryService;
     private final UserService userService;
+    private final EquipmentTypeService equipmentTypeService;
 
-    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService) {
+    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService, EquipmentTypeService equipmentTypeService) {
         this.exerciseRepository = exerciseRepository;
         this.modelMapper = modelMapper;
         this.exerciseCategoryService = exerciseCategoryService;
         this.userService = userService;
+        this.equipmentTypeService = equipmentTypeService;
     }
 
     @Override
@@ -51,27 +55,19 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
 
         ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
-        exercise
-                .setGifUrl(gifUrl)
-                .setMusclesWorkedUrl(SAMPLE_MUSCLES_WORKED_IMAGE)
-                .setCategory(category)
-                .setUser(currUser);
+        exercise.setGifUrl(gifUrl).setMusclesWorkedUrl(SAMPLE_MUSCLES_WORKED_IMAGE).setCategory(category).setUser(currUser);
 
         return exerciseRepository.save(exercise).getId();
     }
 
     @Override
     public void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long id) {
-        exerciseRepository
-                .findById(id)
-                .map(exercise -> exercise.setNotes(createExerciseNotesDTO.getNotes())).ifPresent(exerciseRepository::save);
+        exerciseRepository.findById(id).map(exercise -> exercise.setNotes(createExerciseNotesDTO.getNotes())).ifPresent(exerciseRepository::save);
     }
 
     @Override
     public ExerciseDetailsDTO editExercise(Long id, EditExerciseDTO editExerciseDTO) {
-        ExerciseEntity exercise = exerciseRepository
-                .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
+        ExerciseEntity exercise = exerciseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
 
         ExerciseCategoryEntity category = exerciseCategoryService.findByCategory(editExerciseDTO.getCategory());
         if (category == null) {
@@ -93,6 +89,24 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public List<ExerciseShortInfoDTO> getExercisesByTypeAndUserId(Long typeId, Long userId, Long categoryId) {
+        equipmentTypeService.findById(typeId);
+
+        Long adminId = userService.findAdminId();
+        List<ExerciseEntity> allExercisesByType = exerciseRepository.findAllByTypeIdAndAdminIdAndUserIdAndCategoryId(typeId, adminId, userId, categoryId);
+
+        if ((long) allExercisesByType.size() == 0) {
+            throw new ResourceNotFoundException("Exercises", "equipment type id", typeId);
+        }
+
+        return allExercisesByType.stream().map(exercise -> {
+            ExerciseShortInfoDTO dto = modelMapper.map(exercise, ExerciseShortInfoDTO.class);
+            dto.setExerciseName(truncateString(dto.getExerciseName()));
+            return dto;
+        }).toList();
+    }
+
+    @Override
     public Long deleteExercise(Long id) {
         Optional<ExerciseEntity> exerciseEntity = exerciseRepository.findById(id);
         if (exerciseEntity.isEmpty()) {
@@ -106,15 +120,12 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public ExerciseDetailsDTO getExerciseDetails(Long id) {
-        return this.exerciseRepository
-                .findById(id)
-                .map(exercise -> {
-                    ExerciseDetailsDTO exerciseDetailsDTO = modelMapper.map(exercise, ExerciseDetailsDTO.class);
-                    exerciseDetailsDTO.setCreatorId(exercise.getUser().getId());
+        return this.exerciseRepository.findById(id).map(exercise -> {
+            ExerciseDetailsDTO exerciseDetailsDTO = modelMapper.map(exercise, ExerciseDetailsDTO.class);
+            exerciseDetailsDTO.setCreatorId(exercise.getUser().getId());
 
-                    return exerciseDetailsDTO;
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
+            return exerciseDetailsDTO;
+        }).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
     }
 
     @Override
@@ -124,19 +135,20 @@ public class ExerciseServiceImpl implements ExerciseService {
         Long adminId = userService.findAdminId();
         List<ExerciseEntity> allExercisesByCategoryId = exerciseRepository.findAllByCategoryIdAndAdminIdAndUserId(categoryId, adminId, userId);
 
-        return allExercisesByCategoryId
-                .stream()
-                .map(exercise -> {
-                    ExerciseShortInfoDTO dto = modelMapper.map(exercise, ExerciseShortInfoDTO.class);
-                    dto.setExerciseName(truncateString(dto.getExerciseName(), 19));
-                    return dto;
-                })
-                .toList();
+        if ((long) allExercisesByCategoryId.size() == 0) {
+            throw new ResourceNotFoundException("Exercises", "category id", categoryId);
+        }
+
+        return allExercisesByCategoryId.stream().map(exercise -> {
+            ExerciseShortInfoDTO dto = modelMapper.map(exercise, ExerciseShortInfoDTO.class);
+            dto.setExerciseName(truncateString(dto.getExerciseName()));
+            return dto;
+        }).toList();
     }
 
-    private String truncateString(String input, int maxLength) {
-        if (input.length() > maxLength) {
-            return input.substring(0, maxLength) + "...";
+    private String truncateString(String input) {
+        if (input.length() > 19) {
+            return input.substring(0, 19) + "...";
         } else {
             return input;
         }
