@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
                 .toList();
 
         if (products.isEmpty()) {
-            throw new DepartmentIdNotFoundException(departmentId);
+            throw new PriceRangeNotFoundException(fromTo);
         }
 
         return products;
