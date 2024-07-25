@@ -48,7 +48,8 @@
     <div class="divider"></div>
 
     <div class="exercises__main__wrapper">
-        <aside class="exercise__categories">
+        <aside class="exercise__categories--abs">
+            <h6 class="exercise__categories__title">Categories</h6>
             <a th:each="category : ${categories}"
                th:href="@{/exercises/exercises-by-category/{id}(id=${category.getCategoryId()})}"
                th:text="${category.getCategory().toLowerCase().replace('_', ' ')}"

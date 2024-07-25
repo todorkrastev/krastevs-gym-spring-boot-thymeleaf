@@ -41,6 +41,7 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    padding: 0 0.125rem 0 0.125rem;
 }
 
 .exercise__poster {
@@ -49,13 +50,17 @@
 }
 
 .exercise__title {
-    font-size: 1.4rem;
+    font-size: 0.875rem;
     margin-top: 1rem;
     font-weight: 700;
 }
 
 .exercise__categories {
     display: none;
+}
+
+.exercises__by__category {
+    padding: 3rem 1rem 3rem 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -82,12 +87,23 @@
         align-content: center;
         justify-content: center;
         align-items: flex-start;
+        width: 25%;
+    }
+
+    .exercise__categories__title {
+        margin-bottom: 0.675rem;
+        text-transform: capitalize;
+        color: var(--color-primary);
+        text-align: start;
+        font-size: 0.75rem;
     }
 
     .exercise__category__name {
         text-decoration: none;
         margin-bottom: 0.50rem;
         text-transform: capitalize;
+        padding-left: 1rem;
+        font-size: 0.75rem;
     }
 }
 
@@ -111,6 +127,10 @@
     .exercises__container {
         grid-template-columns: repeat(4, 1fr);
     }
+
+    .exercise__categories {
+        width: 21%;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -133,5 +153,15 @@
         width: 95%;
         max-width: 1200px;
         margin: 0 auto;
+    }
+
+    .exercise__categories {
+        width: 17%;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .exercise__categories {
+        width: 16%;
     }
 }

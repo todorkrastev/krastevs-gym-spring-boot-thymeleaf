@@ -119,7 +119,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public List<ExerciseShortInfoDTO> getExercisesByCategoryIdAndUserId(Long categoryId, Long userId) {
-        //validation if the id exists in the db
         exerciseCategoryService.findById(categoryId);
 
         Long adminId = userService.findAdminId();
@@ -127,7 +126,21 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         return allExercisesByCategoryId
                 .stream()
-                .map(exercise -> modelMapper.map(exercise, ExerciseShortInfoDTO.class))
+                .map(exercise -> {
+                    ExerciseShortInfoDTO dto = modelMapper.map(exercise, ExerciseShortInfoDTO.class);
+                    dto.setExerciseName(truncateString(dto.getExerciseName(), 19));
+                    return dto;
+                })
                 .toList();
     }
+
+    private String truncateString(String input, int maxLength) {
+        if (input.length() > maxLength) {
+            return input.substring(0, maxLength) + "...";
+        } else {
+            return input;
+        }
+    }
 }
+
+
