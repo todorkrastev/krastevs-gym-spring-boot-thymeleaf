@@ -94,7 +94,6 @@
 }
 
 .shop--men .shop__wrapper--men {
-    margin: 2rem 0;
     justify-content: center;
     width: 95%;
     max-width: 1200px;
@@ -161,8 +160,6 @@
         align-content: center;
         justify-content: center;
         align-items: flex-start;
-        margin: 2rem 0;
-        justify-content: center;
         width: 95%;
         max-width: 1200px;
         margin: 0 auto;

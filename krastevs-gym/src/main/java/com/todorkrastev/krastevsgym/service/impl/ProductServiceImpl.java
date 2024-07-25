@@ -1,7 +1,6 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.exception.PriceRangeNotFoundException;
-import com.todorkrastev.krastevsgym.exception.DepartmentIdNotFoundException;
 import com.todorkrastev.krastevsgym.exception.ProductByCategoryIdAndDepartmentIdNotFoundException;
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.ProductShortInfoDTO;

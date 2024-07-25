@@ -203,7 +203,6 @@ body {
 .add,
 .edit,
 .delete {
-    padding: 2px 4px;
     text-decoration: none;
     font-size: 9px;
     padding: 0.25rem 0.5rem;
@@ -220,7 +219,7 @@ body {
 
 .footer {
     padding: 3rem 1rem;
-    background-color: var(--color-gray-dark);
+    background-color: var(--color-grey);
 }
 
 .footer .navi .navi-group {

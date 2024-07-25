@@ -3,7 +3,6 @@ package com.todorkrastev.krastevsgym.service.impl;
 import com.todorkrastev.krastevsgym.exception.CategoryNotFoundException;
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.*;
-import com.todorkrastev.krastevsgym.model.entity.EquipmentTypeEntity;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
 import com.todorkrastev.krastevsgym.model.entity.ExerciseEntity;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
