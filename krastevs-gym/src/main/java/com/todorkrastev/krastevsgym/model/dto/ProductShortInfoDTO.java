@@ -3,6 +3,7 @@ package com.todorkrastev.krastevsgym.model.dto;
 import com.todorkrastev.krastevsgym.model.entity.PictureEntity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductShortInfoDTO {
@@ -11,8 +12,10 @@ public class ProductShortInfoDTO {
     private List<PictureEntity> pictures;
     private BigDecimal price;
     private DepartmentCategoryDTO departmentCategory;
+    private List<String> currencies;
 
     public ProductShortInfoDTO() {
+        this.currencies = new ArrayList<>();
     }
 
     public Long getId() {
@@ -57,6 +60,15 @@ public class ProductShortInfoDTO {
 
     public ProductShortInfoDTO setDepartmentCategory(DepartmentCategoryDTO departmentCategory) {
         this.departmentCategory = departmentCategory;
+        return this;
+    }
+
+    public List<String> getCurrencies() {
+        return currencies;
+    }
+
+    public ProductShortInfoDTO setCurrencies(List<String> currencies) {
+        this.currencies = currencies;
         return this;
     }
 }

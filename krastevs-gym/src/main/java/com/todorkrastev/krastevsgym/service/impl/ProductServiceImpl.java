@@ -5,6 +5,7 @@ import com.todorkrastev.krastevsgym.exception.ProductByCategoryIdAndDepartmentId
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.ProductShortInfoDTO;
 import com.todorkrastev.krastevsgym.repository.ProductRepository;
+import com.todorkrastev.krastevsgym.service.ExRateService;
 import com.todorkrastev.krastevsgym.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -14,22 +15,34 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.todorkrastev.krastevsgym.util.AppConstants.EUR;
+import static com.todorkrastev.krastevsgym.util.AppConstants.USD;
+import static com.todorkrastev.krastevsgym.util.AppConstants.CHF;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
+    private final ExRateService exRateService;
 
-    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, ExRateService exRateService) {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
+        this.exRateService = exRateService;
     }
 
     @Override
     public List<ProductShortInfoDTO> findAllByDepartmentId(Long categoryId) {
         List<ProductShortInfoDTO> products = productRepository.findAllByDepartmentCategory_Id(categoryId)
                 .stream()
-                .map(productEntity -> modelMapper.map(productEntity, ProductShortInfoDTO.class))
+                .map(productEntity -> {
+                    ProductShortInfoDTO dto = modelMapper.map(productEntity, ProductShortInfoDTO.class);
+                    List<String> currencies = exRateService.getEURAndCHFAndUSDCurrencies(EUR, CHF, USD);
+                    dto.setCurrencies(currencies);
+
+                    return dto;
+                })
                 .toList();
 
         if (products.isEmpty()) {
@@ -48,7 +61,13 @@ public class ProductServiceImpl implements ProductService {
         List<ProductShortInfoDTO> products = productRepository
                 .findAllByPriceBetweenAndDepartmentCategory_Id(BigDecimal.valueOf(from), BigDecimal.valueOf(to), departmentId)
                 .stream()
-                .map(productEntity -> modelMapper.map(productEntity, ProductShortInfoDTO.class))
+                .map(productEntity -> {
+                    ProductShortInfoDTO dto = modelMapper.map(productEntity, ProductShortInfoDTO.class);
+                    List<String> currencies = exRateService.getEURAndCHFAndUSDCurrencies(EUR, CHF, USD);
+                    dto.setCurrencies(currencies);
+
+                    return dto;
+                })
                 .toList();
 
         if (products.isEmpty()) {
@@ -63,7 +82,13 @@ public class ProductServiceImpl implements ProductService {
         List<ProductShortInfoDTO> products = productRepository
                 .findAllByDepartmentCategory_IdAndCategory_Id(departmentId, categoryId)
                 .stream()
-                .map(productEntity -> modelMapper.map(productEntity, ProductShortInfoDTO.class))
+                .map(productEntity -> {
+                    ProductShortInfoDTO dto = modelMapper.map(productEntity, ProductShortInfoDTO.class);
+                    List<String> currencies = exRateService.getEURAndCHFAndUSDCurrencies(EUR, CHF, USD);
+                    dto.setCurrencies(currencies);
+
+                    return dto;
+                })
                 .toList();
 
         if (products.isEmpty()) {

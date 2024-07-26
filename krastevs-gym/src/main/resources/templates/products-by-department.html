@@ -65,7 +65,17 @@
                 <div th:each="product: ${products}" class="shop__card--men">
                     <img th:src="${product.getPictures().get(0).getUrl()}" alt="product" class="shop__poster">
                     <h6 th:text="${product.getName()}" class="shop__name">Fitness Gloves</h6>
-                    <h6 th:text="${product.getPrice()}" class="shop__price">19.99€</h6>
+                    <h6 class="shop__price"><span th:text="${product.getPrice()}" id="price"></span></h6>
+
+                    <select id="currency" style="color: black" name="exerciseCategoryEnum"
+                            class="hero__form--create__exercise__field">
+                        <option th:each="currency : ${product.getCurrencies()}"
+                                th:value="${currency}"
+                                th:selected="${currency} == 'EUR'"
+                                th:text="${currency}"
+                                class="hero__form--create__exercise__drop">EUR
+                        </option>
+                    </select>
 
                     <div class="shop__buttons">
                         <div class="shop__buttons--user">
@@ -78,6 +88,7 @@
                             </div>
                         </th:block>
                     </div>
+                    <input type="hidden" id="priceInEUR" th:value="${product.getPrice()}">
                 </div>
             </div>
         </section>
@@ -90,5 +101,6 @@
 <footer th:replace="~{fragments/footer}" class="footer"></footer>
 
 <!--<script src="/js/slideshow.js"></script>-->
+<script th:src="@{/js/currency.js}"></script>
 </body>
 </html>

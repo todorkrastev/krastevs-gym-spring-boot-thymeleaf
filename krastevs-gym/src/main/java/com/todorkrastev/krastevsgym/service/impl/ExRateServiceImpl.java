@@ -15,6 +15,7 @@ import org.springframework.web.client.RestClient;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -101,5 +102,17 @@ public class ExRateServiceImpl implements ExRateService {
         return findExRate(from, to)
                 .orElseThrow(() -> new ApiObjectNotFoundException("Conversion from " + from + " to " + to + " not possible!", from + "~" + to))
                 .multiply(amount);
+    }
+
+    @Override
+    public List<String> getEURAndCHFAndUSDCurrencies(String EUR, String CHF, String USD) {
+        List<ExRateEntity> allByCurrencyIn = exRateRepository.findAllByCurrencyIn(List.of(EUR, CHF, USD));
+
+        List<String> list = allByCurrencyIn
+                .stream()
+                .map(ExRateEntity::getCurrency)
+                .toList();
+
+        return list;
     }
 }
