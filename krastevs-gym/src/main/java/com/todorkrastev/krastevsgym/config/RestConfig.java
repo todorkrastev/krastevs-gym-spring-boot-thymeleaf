@@ -36,14 +36,16 @@ public class RestConfig {
             userService
                     .getCurrentUser()
                     .ifPresent(userDetails -> {
-                        String bearerToken = jwtService.generateToken(userDetails.getUuid().toString(),
+                        String bearerToken = jwtService.generateToken(
+                                userDetails.getUuid().toString(),
                                 Map.of(
                                         "roles",
-                                        userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList(),
-                                        "user",
-                                        userDetails.getUuid().toString()
+                                        userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList()
                                 )
                         );
+
+                        System.out.println("Bearer token: " + bearerToken);
+
                         request.getHeaders().setBearerAuth(bearerToken);
                     });
             return execution.execute(request, body);

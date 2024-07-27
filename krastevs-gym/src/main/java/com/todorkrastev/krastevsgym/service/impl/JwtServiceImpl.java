@@ -24,10 +24,11 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(String userId, Map<String, Object> claims) {
         var now = new Date();
+
         JwtBuilder jwtBuilder = Jwts
                 .builder()
-                .setSubject(userId)
                 .setClaims(claims)
+                .setSubject(userId)
                 .setIssuedAt(now)
                 .setNotBefore(now)
                 .setExpiration(new Date(now.getTime() + jwtConfig.getExpiration()))

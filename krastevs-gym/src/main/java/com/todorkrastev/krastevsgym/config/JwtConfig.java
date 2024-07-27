@@ -10,6 +10,9 @@ public class JwtConfig {
     private String secret;
     private long expiration;
 
+    public JwtConfig() {
+    }
+
     public String getSecret() {
         return secret;
     }
