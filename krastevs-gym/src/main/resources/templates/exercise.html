@@ -81,19 +81,37 @@
 
     <div class="exercise__container section--exercise exercise">
         <h3 class="exercise__notes__title">Notes</h3>
-        <section class="exercise">
-            <form th:action="@{/exercises/exercises-by-category/exercise/{id}(id=${exerciseDetails.getId()})}"
-                  th:method="post"
-                  class="create__note">
-          <textarea th:text="${exerciseDetails.getNotes()}"
+        <th:block th:if="${exerciseDetails.getNotes().isEmpty()}">
+            <section class="exercise">
+                <form th:action="@{/exercises/exercises-by-category/exercise/{id}/exercise-notes/create(id=${exerciseDetails.getId()})}"
+                      th:method="post"
+                      class="create__note">
+          <textarea th:text="${exerciseDetails.notes}"
                     th:placeholder="#{exercise_placeholder_notes}"
                     name="notes"
-                    class="exercise__notes"
-                    minlength="1"
-                    maxlength="255" required></textarea>
-                <button type="submit" class="create__note--submit">Submit</button>
-            </form>
-        </section>
+                    class="exercise__notes">
+          </textarea>
+                    <button type="submit" class="create__note--submit">Submit</button>
+                </form>
+            </section>
+        </th:block>
+        <th:block th:if="${!exerciseDetails.getNotes().isEmpty()}">
+            <section class="exercise">
+                <form th:action="@{/exercises/exercises-by-category/exercise/{id}/exercise-notes/edit(id=${exerciseDetails.getId()})}"
+                      th:method="put"
+                      class="create__note">
+          <textarea th:text="${exerciseDetails.notes}"
+                    th:placeholder="#{exercise_placeholder_notes}"
+                    name="notes"
+                    class="exercise__notes">
+          </textarea>
+                    <button type="submit" class="create__note--submit">Submit</button>
+                </form>
+            </section>
+        </th:block>
+
+
+
     </div>
 
     <div class="divider"></div>

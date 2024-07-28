@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface ExerciseCategoryRepository extends JpaRepository<ExerciseCategoryEntity, Long> {
+    @Query("SELECT e FROM ExerciseCategoryEntity e WHERE e.category = :category ORDER BY e.category ASC")
     Optional<ExerciseCategoryEntity> findByCategory(ExerciseCategoryEnum category);
 
     @Query("SELECT e FROM ExerciseCategoryEntity e WHERE e.category = :category")

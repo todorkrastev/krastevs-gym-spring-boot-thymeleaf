@@ -17,7 +17,9 @@
 @import url("./400.css");
 @import url("./403.css");
 @import url("./404.css");
+@import url("./405.css");
 @import url("./500.css");
+@import url("./error.css");
 @import url("./resource-not-found.css");
 @import url("./department-id-not-found.css");
 @import url("./price-range-not-found.css");

@@ -2,12 +2,15 @@ package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.EquipmentTypeDTO;
+import com.todorkrastev.krastevsgym.model.entity.EquipmentTypeEntity;
+import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.repository.EquipmentTypeRepository;
 import com.todorkrastev.krastevsgym.service.EquipmentTypeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EquipmentTypeServiceImpl implements EquipmentTypeService {
@@ -34,5 +37,12 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
         equipmentTypeRepository
                 .findById(typeId)
                 .orElseThrow(() -> new ResourceNotFoundException("EquipmentType", "id", typeId));
+    }
+
+    @Override
+    public EquipmentTypeEntity findByCategory(EquipmentTypeEnum type) {
+        return equipmentTypeRepository
+                .findByType(type)
+                .orElse(null);
     }
 }

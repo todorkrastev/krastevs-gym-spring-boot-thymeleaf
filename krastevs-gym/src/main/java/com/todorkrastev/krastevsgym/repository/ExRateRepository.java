@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface ExRateRepository extends JpaRepository<ExRateEntity, Long> {
-    Optional<ExRateEntity> findByCurrency(@NotEmpty String currency);
 
+    Optional<ExRateEntity> findByCurrency(@NotEmpty String currency);
 
     List<ExRateEntity> findAllByCurrencyIn(List<String> eur);
 }

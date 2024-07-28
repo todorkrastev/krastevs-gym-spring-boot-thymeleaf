@@ -39,11 +39,11 @@ public class ExerciseController {
 
     @GetMapping("/{id}")
     public String exerciseDetails(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.getExerciseDetails(id);
-        model.addAttribute("exerciseDetails", exerciseDetailsDTO);
-
         if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
             Long currentUserId = krastevsGymUserDetails.getCurrId();
+
+            ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.getExerciseDetails(id, currentUserId);
+            model.addAttribute("exerciseDetails", exerciseDetailsDTO);
 
             if (exerciseDetailsDTO.getCreatorId().equals(currentUserId)) {
                 model.addAttribute("isCreator", true);
@@ -101,11 +101,26 @@ public class ExerciseController {
         return "redirect:/exercises/exercises-by-category/exercise/" + newExerciseId;
     }
 
-    @PostMapping("/{id}")
-    public String createExerciseNotes(@PathVariable("id") Long id,
-                                      @Valid CreateExerciseNotesDTO createExerciseNotesDTO) {
-        exerciseService.createExerciseNotes(createExerciseNotesDTO, id);
+    @PostMapping("/{id}/exercise-notes/create")
+    public String createExerciseNotes(@PathVariable("id") Long exerciseId,
+                                      @Valid CreateExerciseNotesDTO createExerciseNotesDTO,
+                                      @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
+            Long currentUserId = krastevsGymUserDetails.getCurrId();
+            exerciseService.createExerciseNotes(createExerciseNotesDTO, exerciseId, currentUserId);
+        }
+        return "redirect:/exercises/exercises-by-category/exercise/" + exerciseId;
+    }
 
-        return "redirect:/exercises/exercises-by-category/exercise/" + id;
+    @PutMapping("/{id}/exercise-notes/edit")
+    public String editExerciseNotes(@PathVariable("id") Long exerciseId,
+                                    @Valid CreateExerciseNotesDTO createExerciseNotesDTO,
+                                    @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
+            Long currentUserId = krastevsGymUserDetails.getCurrId();
+            exerciseService.editExerciseNotes(createExerciseNotesDTO, exerciseId, currentUserId);
+        }
+
+        return "redirect:/exercises/exercises-by-category/exercise/" + exerciseId;
     }
 }

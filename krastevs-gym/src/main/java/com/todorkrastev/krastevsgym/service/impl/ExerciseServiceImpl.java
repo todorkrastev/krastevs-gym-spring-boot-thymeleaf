@@ -1,39 +1,42 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
 import com.todorkrastev.krastevsgym.exception.CategoryNotFoundException;
+import com.todorkrastev.krastevsgym.exception.DepartmentNotFoundException;
+import com.todorkrastev.krastevsgym.exception.NoteFoundException;
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgym.model.dto.*;
-import com.todorkrastev.krastevsgym.model.entity.ExerciseCategoryEntity;
-import com.todorkrastev.krastevsgym.model.entity.ExerciseEntity;
-import com.todorkrastev.krastevsgym.model.entity.UserEntity;
+import com.todorkrastev.krastevsgym.model.entity.*;
+import com.todorkrastev.krastevsgym.repository.ExerciseNoteRepository;
 import com.todorkrastev.krastevsgym.repository.ExerciseRepository;
-import com.todorkrastev.krastevsgym.service.EquipmentTypeService;
-import com.todorkrastev.krastevsgym.service.ExerciseCategoryService;
-import com.todorkrastev.krastevsgym.service.ExerciseService;
-import com.todorkrastev.krastevsgym.service.UserService;
+import com.todorkrastev.krastevsgym.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+import static com.todorkrastev.krastevsgym.util.AppConstants.SAMPLE_EXERCISE_IMAGE;
+import static com.todorkrastev.krastevsgym.util.AppConstants.SAMPLE_MUSCLES_WORKED_IMAGE;
+
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
-    private static final String SAMPLE_EXERCISE_IMAGE = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1721504899/krastevs-gym/imgs/exercise/exercise-sample-plan-c_hr3xgb.jpg";
-    private static final String SAMPLE_MUSCLES_WORKED_IMAGE = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1719702627/krastevs-gym/imgs/muscles/view_of_muscles_kfthdn.jpg";
-
     private final ExerciseRepository exerciseRepository;
     private final ModelMapper modelMapper;
     private final ExerciseCategoryService exerciseCategoryService;
     private final UserService userService;
     private final EquipmentTypeService equipmentTypeService;
+    private final ExerciseNoteService exerciseNoteService;
+    private final ExerciseNoteRepository exerciseNoteRepository;
 
-    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService, EquipmentTypeService equipmentTypeService) {
+    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService, EquipmentTypeService equipmentTypeService, ExerciseNoteService exerciseNoteService, ExerciseNoteRepository exerciseNoteRepository) {
         this.exerciseRepository = exerciseRepository;
         this.modelMapper = modelMapper;
         this.exerciseCategoryService = exerciseCategoryService;
         this.userService = userService;
         this.equipmentTypeService = equipmentTypeService;
+        this.exerciseNoteService = exerciseNoteService;
+        this.exerciseNoteRepository = exerciseNoteRepository;
     }
 
     @Override
@@ -48,20 +51,44 @@ public class ExerciseServiceImpl implements ExerciseService {
             throw new CategoryNotFoundException("Category", "id", createExerciseDTO.getCategory().toString());
         }
 
+        EquipmentTypeEntity equipmentType = equipmentTypeService.findByCategory(createExerciseDTO.getEquipmentType());
+        if (equipmentType == null) {
+            throw new DepartmentNotFoundException("Equipment type", "id", createExerciseDTO.getEquipmentType().toString());
+        }
+
         String gifUrl = createExerciseDTO.getGifUrl();
         if (gifUrl.isBlank()) {
             gifUrl = SAMPLE_EXERCISE_IMAGE;
         }
 
         ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
+        exercise.setId(null);
         exercise.setGifUrl(gifUrl).setMusclesWorkedUrl(SAMPLE_MUSCLES_WORKED_IMAGE).setCategory(category).setUser(currUser);
+        exercise.setEquipmentType(equipmentType);
 
-        return exerciseRepository.save(exercise).getId();
+        ExerciseEntity saved = exerciseRepository.save(exercise);
+
+        return saved.getId();
     }
 
     @Override
-    public void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long id) {
-        exerciseRepository.findById(id).map(exercise -> exercise.setNotes(createExerciseNotesDTO.getNotes())).ifPresent(exerciseRepository::save);
+    public void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long exerciseId, Long currentUserId) {
+        ExerciseEntity exercise = exerciseRepository.findById(exerciseId).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", exerciseId));
+
+        UserEntity author = userService.findUserById(currentUserId);
+        if (author == null) {
+            throw new ResourceNotFoundException("User", "id", currentUserId);
+        }
+
+        ExerciseNoteEntity notes = new ExerciseNoteEntity();
+        modelMapper.map(createExerciseNotesDTO, notes);
+        notes
+                .setExercise(exercise)
+                .setAuthor(author);
+
+        exercise.setNotes(List.of(notes));
+
+        exerciseNoteRepository.save(notes);
     }
 
     @Override
@@ -106,6 +133,17 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public void editExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long exerciseId, Long authorId) {
+        ExerciseNoteEntity note = exerciseNoteService.findByExerciseIdAndAuthorId(exerciseId, authorId);
+        if (note == null) {
+            throw new NoteFoundException(exerciseId, authorId);
+        }
+
+        modelMapper.map(createExerciseNotesDTO, note);
+        exerciseNoteRepository.save(note);
+    }
+
+    @Override
     public Long deleteExercise(Long id) {
         Optional<ExerciseEntity> exerciseEntity = exerciseRepository.findById(id);
         if (exerciseEntity.isEmpty()) {
@@ -118,13 +156,23 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public ExerciseDetailsDTO getExerciseDetails(Long id) {
-        return this.exerciseRepository.findById(id).map(exercise -> {
-            ExerciseDetailsDTO exerciseDetailsDTO = modelMapper.map(exercise, ExerciseDetailsDTO.class);
-            exerciseDetailsDTO.setCreatorId(exercise.getUser().getId());
+    @Transactional
+    public ExerciseDetailsDTO getExerciseDetails(Long exerciseId, Long currentUserId) {
+        return this.exerciseRepository
+                .findById(exerciseId)
+                .map(exercise -> {
+                    ExerciseDetailsDTO exerciseDetailsDTO = modelMapper.map(exercise, ExerciseDetailsDTO.class);
+                    exerciseDetailsDTO.setCreatorId(exercise.getUser().getId());
+                    ExerciseNoteEntity note = exerciseNoteService.findByExerciseIdAndAuthorId(exerciseId, currentUserId);
+                    if (note != null) {
+                        exerciseDetailsDTO.setNotes(note.getNotes());
+                    } else {
+                        exerciseDetailsDTO.setNotes("");
+                    }
 
-            return exerciseDetailsDTO;
-        }).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
+                    return exerciseDetailsDTO;
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", exerciseId));
     }
 
     @Override

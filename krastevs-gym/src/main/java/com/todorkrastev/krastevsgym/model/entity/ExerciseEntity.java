@@ -2,6 +2,10 @@ package com.todorkrastev.krastevsgym.model.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "exercises")
 public class ExerciseEntity {
@@ -24,8 +28,8 @@ public class ExerciseEntity {
     @Column(columnDefinition = "TEXT")
     private String instructions;
 
-    @Column(columnDefinition = "TEXT")
-    private String notes;
+    @OneToMany(targetEntity = ExerciseNoteEntity.class, mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExerciseNoteEntity> notes;
 
     @ManyToOne(optional = false)
     private EquipmentTypeEntity equipmentType;
@@ -36,7 +40,16 @@ public class ExerciseEntity {
     @ManyToOne(optional = false)
     private UserEntity user;
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
     public ExerciseEntity() {
+        this.notes = new ArrayList<>();
     }
 
     public Long getId() {
@@ -93,11 +106,11 @@ public class ExerciseEntity {
         return this;
     }
 
-    public String getNotes() {
+    public List<ExerciseNoteEntity> getNotes() {
         return notes;
     }
 
-    public ExerciseEntity setNotes(String notes) {
+    public ExerciseEntity setNotes(List<ExerciseNoteEntity> notes) {
         this.notes = notes;
         return this;
     }
@@ -126,6 +139,15 @@ public class ExerciseEntity {
 
     public ExerciseEntity setUser(UserEntity user) {
         this.user = user;
+        return this;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public ExerciseEntity setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 }
