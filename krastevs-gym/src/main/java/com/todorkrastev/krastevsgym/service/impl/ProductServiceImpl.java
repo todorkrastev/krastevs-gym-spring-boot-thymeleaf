@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductShortInfoDTO> findAllByDepartmentId(Long categoryId) {
-        List<ProductShortInfoDTO> products = productRepository.findAllByDepartmentCategory_Id(categoryId)
+        List<ProductShortInfoDTO> products = productRepository.findAllByDepartmentCategory_IdOrderByCreatedAtDesc(categoryId)
                 .stream()
                 .map(productEntity -> {
                     ProductShortInfoDTO dto = modelMapper.map(productEntity, ProductShortInfoDTO.class);
@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
         int to = values[1];
 
         List<ProductShortInfoDTO> products = productRepository
-                .findAllByPriceBetweenAndDepartmentCategory_Id(BigDecimal.valueOf(from), BigDecimal.valueOf(to), departmentId)
+                .findAllByPriceBetweenAndDepartmentCategory_IdOrderByCreatedAtDesc(BigDecimal.valueOf(from), BigDecimal.valueOf(to), departmentId)
                 .stream()
                 .map(productEntity -> {
                     ProductShortInfoDTO dto = modelMapper.map(productEntity, ProductShortInfoDTO.class);
@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductShortInfoDTO> findAllByCategoryId(Long departmentId, Long categoryId) {
         List<ProductShortInfoDTO> products = productRepository
-                .findAllByDepartmentCategory_IdAndCategory_Id(departmentId, categoryId)
+                .findAllByDepartmentCategory_IdAndCategory_IdOrderByCreatedAtDesc(departmentId, categoryId)
                 .stream()
                 .map(productEntity -> {
                     ProductShortInfoDTO dto = modelMapper.map(productEntity, ProductShortInfoDTO.class);

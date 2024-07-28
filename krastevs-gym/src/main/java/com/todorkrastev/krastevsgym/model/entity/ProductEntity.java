@@ -3,6 +3,7 @@ package com.todorkrastev.krastevsgym.model.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,14 @@ public class ProductEntity {
 
     @OneToMany(targetEntity = PictureEntity.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<PictureEntity> pictures;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public ProductEntity() {
         this.pictures = new ArrayList<>();
@@ -107,6 +116,15 @@ public class ProductEntity {
 
     public ProductEntity setPictures(List<PictureEntity> pictures) {
         this.pictures = pictures;
+        return this;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public ProductEntity setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 }

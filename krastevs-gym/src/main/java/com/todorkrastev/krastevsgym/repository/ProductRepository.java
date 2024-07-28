@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
-    List<ProductEntity> findAllByDepartmentCategory_Id(Long departmentCategoryId);
+    List<ProductEntity> findAllByDepartmentCategory_IdOrderByCreatedAtDesc(Long departmentCategoryId);
 
-    List<ProductEntity> findAllByPriceBetweenAndDepartmentCategory_Id(BigDecimal from, BigDecimal to, Long departmentId);
+    List<ProductEntity> findAllByPriceBetweenAndDepartmentCategory_IdOrderByCreatedAtDesc(BigDecimal from, BigDecimal to, Long departmentId);
 
-    List<ProductEntity> findAllByDepartmentCategory_IdAndCategory_Id(Long departmentId, Long categoryId);
+    List<ProductEntity> findAllByDepartmentCategory_IdAndCategory_IdOrderByCreatedAtDesc(Long departmentId, Long categoryId);
 }
