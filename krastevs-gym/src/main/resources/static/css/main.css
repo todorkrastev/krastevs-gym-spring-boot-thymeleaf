@@ -22,6 +22,7 @@
 @import url("./department-id-not-found.css");
 @import url("./price-range-not-found.css");
 @import url("./product-by-category-id-and-department-id-not-found.css");
+@import url("./product.css");
 
 :root {
     --color-primary: #ffdd4d;

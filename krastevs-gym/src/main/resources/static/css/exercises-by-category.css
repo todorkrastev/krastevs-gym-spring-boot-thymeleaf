@@ -52,6 +52,10 @@
     font-size: 0.75rem;
 }
 
+.exercise__categories--abs {
+    display: none;
+}
+
 @media screen and (min-width: 768px) {
     #hero .hero__abs {
         width: 50%;

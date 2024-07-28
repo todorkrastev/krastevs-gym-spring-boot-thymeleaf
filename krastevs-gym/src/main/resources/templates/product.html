@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+    <section class="product">
+        <div class="slideshow__container product__wrapper--picture">
+            <div th:each="picture: ${product.getPictures()}" class="slides fade">
+                <img th:src="${picture.getUrl()}" alt="Product image">
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="dots">
+                <span th:each="picture, iterStat : ${product.getPictures()}" class="dot" th:onclick="'currentSlide(' + ${iterStat.index + 1} + ')'"></span>
+            </div>
+        </div>
+
+        <div th:object="${product}" class="product__wrapper__info">
+            <div class="product__wrapper--short__info">
+                <h2 th:text="*{name}" class="product__title">Cycling Pants Black</h2>
+                <div class="product__price__currency__wrapper">
+                    <p class="product__price"><span th:text="${product.getPrice()}" id="price"></span></p>
+                    <select id="currency" class="product__currency" name="currency">
+                        <option th:each="currency : *{currencies}"
+                                th:value="${currency}"
+                                th:selected="${currency} == 'EUR'"
+                                th:text="${currency}"
+                                class="product__currency__drop" value="EUR">EUR</option>
+                    </select>
+                </div>
+                <p th:text="*{description}" class="product__description">The cycling pants are made of a high-quality material that is breathable
+                    and
+                    moisture-wicking. The pants are perfect for cycling, running, and other sports activities. The pants
+                    are
+                    available in black and white.</p>
+            </div>
+
+            <div class="product__warpper--form">
+                <form class="product__form" action="/shop.html" method="post">
+                    <select class="product__size" name="size">
+                        <option class="product__size__drop" value="" disabled selected>Select Size</option>
+                        <option class="product__size__drop" value="xs">XS</option>
+                        <option class="product__size__drop" value="s">S</option>
+                        <option class="product__size__drop" value="m">M</option>
+                        <option class="product__size__drop" value="l">L</option>
+                        <option class="product__size__drop" value="xl">XL</option>
+                    </select>
+                    <button type="submit" class="btn--product">Add to Cart</button>
+                </form>
+                <th:block sec:authorize="hasRole('ADMIN')">
+                    <div class="product__buttons--admin">
+                        <button class="product__button edit">Edit</button>
+                        <form th:method="delete"
+                              th:action="@{/shop/product/{id}(id=*{id})}">
+                            <button class="product__button delete">Delete</button>
+                        </form>
+                    </div>
+                </th:block>
+            </div>
+            <input type="hidden" id="priceInEUR" th:value="${product.getPrice()}">
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+
+<script th:src="@{/js/slideshow.js}"></script>
+<script th:src="@{/js/currency.js}"></script>
+
+</body>
+
+</html>

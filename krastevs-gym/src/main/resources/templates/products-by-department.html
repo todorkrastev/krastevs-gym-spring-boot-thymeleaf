@@ -51,31 +51,12 @@
         </aside>
         <section id="accessories--men" class="shop--men section--men">
             <div class="shop__wrapper--men">
-                <!--                <div th:each="product: ${products}" class="shop__card&#45;&#45;men">-->
-                <!--                    <div class="slideshow-container">-->
-                <!--                        <div th:each="picture: ${product.getPictures()}" class="mySlides fade">-->
-                <!--                            <img th:src="${picture.getUrl()}" alt="product" class="shop__poster" style="width: 100%">-->
-                <!--                        </div>-->
-
-                <!--                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
-                <!--                        <a class="next" onclick="plusSlides(1)">&#10095;</a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
                 <div th:each="product: ${products}" class="shop__card--men">
-                    <img th:src="${product.getPictures().get(0).getUrl()}" alt="product" class="shop__poster">
+                    <a th:href="@{/shop/product/{id}(id=${product.getId()})}">
+                        <img th:src="${product.getPictures().get(0).getUrl()}" alt="product" class="shop__poster">
+                    </a>
                     <h6 th:text="${product.getName()}" class="shop__name">Fitness Gloves</h6>
-                    <h6 class="shop__price"><span th:text="${product.getPrice()}" id="price"></span></h6>
-
-                    <select id="currency" style="color: black" name="exerciseCategoryEnum"
-                            class="hero__form--create__exercise__field">
-                        <option th:each="currency : ${product.getCurrencies()}"
-                                th:value="${currency}"
-                                th:selected="${currency} == 'EUR'"
-                                th:text="${currency}"
-                                class="hero__form--create__exercise__drop">EUR
-                        </option>
-                    </select>
+                    <h6 th:text="${product.getPrice() + ' EUR'}" class="shop__price"></h6>
 
                     <div class="shop__buttons">
                         <div class="shop__buttons--user">
@@ -84,11 +65,13 @@
                         <th:block sec:authorize="hasRole('ADMIN')">
                             <div class="shop__buttons--admin">
                                 <button class="shop__button edit">Edit</button>
-                                <button class="shop__button delete">Delete</button>
+                                <form th:method="delete"
+                                      th:action="@{/shop/product/{id}(id=${product.getId()})}">
+                                    <button class="shop__button delete">Delete</button>
+                                </form>
                             </div>
                         </th:block>
                     </div>
-                    <input type="hidden" id="priceInEUR" th:value="${product.getPrice()}">
                 </div>
             </div>
         </section>
@@ -100,7 +83,5 @@
 
 <footer th:replace="~{fragments/footer}" class="footer"></footer>
 
-<!--<script src="/js/slideshow.js"></script>-->
-<script th:src="@{/js/currency.js}"></script>
 </body>
 </html>

@@ -3,7 +3,9 @@ package com.todorkrastev.krastevsgym.service.impl;
 import com.todorkrastev.krastevsgym.exception.PriceRangeNotFoundException;
 import com.todorkrastev.krastevsgym.exception.ProductByCategoryIdAndDepartmentIdNotFoundException;
 import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
+import com.todorkrastev.krastevsgym.model.dto.ProductDetailsDTO;
 import com.todorkrastev.krastevsgym.model.dto.ProductShortInfoDTO;
+import com.todorkrastev.krastevsgym.model.entity.ProductEntity;
 import com.todorkrastev.krastevsgym.repository.ProductRepository;
 import com.todorkrastev.krastevsgym.service.ExRateService;
 import com.todorkrastev.krastevsgym.service.ProductService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,6 +99,31 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return products;
+    }
+
+    @Override
+    public ProductDetailsDTO findById(Long id) {
+        return productRepository.findById(id)
+                .map(productEntity -> {
+                    ProductDetailsDTO dto = modelMapper.map(productEntity, ProductDetailsDTO.class);
+                    List<String> currencies = exRateService.getEURAndCHFAndUSDCurrencies(EUR, CHF, USD);
+                    dto.setCurrencies(currencies);
+
+                    return dto;
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Product", "id", id));
+    }
+
+    @Override
+    public Long deleteById(Long id) {
+        Optional<ProductEntity> product = productRepository.findById(id);
+        if (product.isEmpty()) {
+            throw new ResourceNotFoundException("Product", "id", id);
+        }
+
+        productRepository.deleteById(id);
+
+        return product.get().getDepartmentCategory().getId();
     }
 
     private int[] extractFirstAndSecondValues(String input) {

@@ -3,6 +3,7 @@ package com.todorkrastev.krastevsgym.service.impl;
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 import com.todorkrastev.krastevsgym.repository.UserRepository;
+import com.todorkrastev.krastevsgym.service.UserRoleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,12 +31,16 @@ class UserServiceImplTest {
     @Mock
     private PasswordEncoder mockPasswordEncoder;
 
+    @Mock
+    private UserRoleService mockUserRoleService;
+
     @BeforeEach
     void setUp() {
         toTest = new UserServiceImpl(
                 new ModelMapper(),
                 mockPasswordEncoder,
-                mockRepository
+                mockRepository,
+                mockUserRoleService
         );
     }
 

@@ -1,16 +1,14 @@
 package com.todorkrastev.krastevsgym.web;
 
 
-import com.todorkrastev.krastevsgym.model.dto.DepartmentCategoryDTO;
-import com.todorkrastev.krastevsgym.model.dto.PriceFilterDTO;
-import com.todorkrastev.krastevsgym.model.dto.ProductCategoryDTO;
-import com.todorkrastev.krastevsgym.model.dto.ProductShortInfoDTO;
+import com.todorkrastev.krastevsgym.model.dto.*;
 import com.todorkrastev.krastevsgym.service.DepartmentCategoryService;
 import com.todorkrastev.krastevsgym.service.PriceFilterService;
 import com.todorkrastev.krastevsgym.service.ProductCategoryService;
 import com.todorkrastev.krastevsgym.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,5 +88,20 @@ public class ShopController {
         model.addAttribute("priceFilters", priceFilters);
 
         return "products-by-department";
+    }
+
+    @GetMapping("/product/{id}")
+    public String product(@PathVariable("id") Long id, Model model) {
+        ProductDetailsDTO product = productService.findById(id);
+        model.addAttribute("product", product);
+
+        return "product";
+    }
+
+    @DeleteMapping("/product/{id}")
+    public String deleteProduct(@PathVariable("id") Long id) {
+        Long departmentId = productService.deleteById(id);
+
+        return "redirect:/shop/products-by-department/" + departmentId;
     }
 }
