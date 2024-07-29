@@ -3,7 +3,6 @@ package com.todorkrastev.krastevsgym.web;
 import com.todorkrastev.krastevsgym.exception.UnauthorizedException;
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseNotesDTO;
-import com.todorkrastev.krastevsgym.model.dto.EditExerciseDTO;
 import com.todorkrastev.krastevsgym.model.dto.ExerciseDetailsDTO;
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
@@ -17,8 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Objects;
 
 
 @Controller
@@ -89,7 +86,7 @@ public class ExerciseController {
             redirectAttributes.addFlashAttribute("exerciseDetailsDTO", exerciseDetailsDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.exerciseDetailsDTO", bindingResult);
 
-            return "redirect:/exercises/exercises-by-category/exercise/" + id + "/edit/error";
+            return "redirect:/exercises/exercises-by-category/exercise/edit/error";
         }
 
         if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
@@ -102,9 +99,8 @@ public class ExerciseController {
         return "redirect:/exercises/exercises-by-category/exercise/" + id;
     }
 
-    @GetMapping("/{id}/edit/error")
-    public String editExerciseError(@PathVariable("id") Long id,
-                                    Model model) {
+    @GetMapping("/edit/error")
+    public String editExerciseError(Model model) {
         if (!model.containsAttribute("exerciseDetailsDTO")) {
             model.addAttribute("exerciseDetailsDTO", new ExerciseDetailsDTO());
         }
