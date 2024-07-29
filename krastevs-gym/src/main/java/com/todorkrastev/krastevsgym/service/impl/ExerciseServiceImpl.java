@@ -27,14 +27,14 @@ public class ExerciseServiceImpl implements ExerciseService {
     private final ExerciseNoteService exerciseNoteService;
     private final ExerciseNoteRepository exerciseNoteRepository;
 
-    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService, EquipmentTypeService equipmentTypeService, ExerciseNoteService exerciseNoteService, ExerciseNoteRepository exerciseNoteRepository, ExerciseNoteRepository exerciseNoteRepository1) {
+    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService, EquipmentTypeService equipmentTypeService, ExerciseNoteService exerciseNoteService, ExerciseNoteRepository exerciseNoteRepository) {
         this.exerciseRepository = exerciseRepository;
         this.modelMapper = modelMapper;
         this.exerciseCategoryService = exerciseCategoryService;
         this.userService = userService;
         this.equipmentTypeService = equipmentTypeService;
         this.exerciseNoteService = exerciseNoteService;
-        this.exerciseNoteRepository = exerciseNoteRepository1;
+        this.exerciseNoteRepository = exerciseNoteRepository;
     }
 
     @Override
@@ -72,6 +72,14 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long exerciseId, Long currentUserId) {
         ExerciseEntity exercise = exerciseRepository.findById(exerciseId).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", exerciseId));
+
+        Long admin = userService.findAdminId();
+
+        if (!exercise.getUser().getId().equals(admin)) {
+            if (!exercise.getUser().getId().equals(currentUserId)) {
+                throw new UnauthorizedException("You are not authorized to add notes to this exercise.");
+            }
+        }
 
         UserEntity author = userService.findUserById(currentUserId);
         if (author == null) {
