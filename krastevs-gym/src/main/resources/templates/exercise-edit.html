@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+    <section id="edit__exercise" class="section--exercise__create">
+        <form th:action="@{/exercises/exercises-by-category/exercise/{id}/edit(id=${exercises.id})}"
+              th:method="put"
+              th:object="${exercises}"
+              class="hero__form--edit__exercise">
+            <h1 class="hero__form--edit__exercise__title">Edit Exercise</h1>
+
+            <input th:field="*{name}"
+                   th:placeholder="#{exercise_edit_form_name}"
+                   name="name" class="hero__form--edit__exercise__field" placeholder="Exercise Name" type="text"
+                   value="">
+            <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"
+               class="error__message--form"></p>
+
+            <textarea th:field="*{description}"
+                      th:placeholder="#{exercise_edit_form_description}"
+                      name="description"
+                      class="hero__form--edit__exercise__field textarea"
+                      placeholder="Description"
+                      type="text" value=""></textarea>
+
+            <select th:field="*{category}" name="exerciseCategoryEnum"
+                    class="hero__form--edit__exercise__field">
+                <option class="hero__form--edit__exercise__drop" th:text="#{exercise_edit_form_exercise_category}"
+                        value="">--Exercise Category--
+                </option>
+                <option th:each="category: ${allExerciseCategories}"
+                        th:value="${category}"
+                        th:text="${category}"
+                        class="hero__form--edit__exercise__drop">ABS
+                </option>
+            </select>
+            <p th:if="${#fields.hasErrors('category')}" th:errorclass="error"
+               th:errors="*{category}" class="error__message--form"></p>
+
+            <select th:field="*{equipmentType}" name="equipmentTypeEnum"
+                    class="hero__form--edit__exercise__field">
+                <option class="hero__form--edit__exercise__drop" th:text="#{exercise_edit_form_equipment_type}"
+                        value="">--Equipment Type--
+                </option>
+                <option th:each="type: ${allEquipmentTypes}"
+                        th:value="${type}"
+                        th:text="${type}"
+                        class="hero__form--edit__exercise__drop" value="">BARBELL
+                </option>
+            </select>
+            <p th:if="${#fields.hasErrors('equipmentType')}" th:errorclass="error" th:errors="*{equipmentType}"
+               class="error__message--form"></p>
+
+            <input th:field="*{gifUrl}"
+                   th:placeholder="#{exercise_edit_form_gif_url}"
+                   name="videoUrl"
+                   class="hero__form--edit__exercise__field"
+                   placeholder="Video URL"
+                   type="text" value="">
+
+            <textarea th:field="*{instructions}"
+                      th:placeholder="#{exercise_edit_form_instructions}"
+                      name="instructions"
+                      class="hero__form--edit__exercise__field textarea"
+                      placeholder="Instructions"
+                      type="text"
+                      value="">
+            </textarea>
+
+            <textarea th:field="*{notes}"
+                      th:placeholder="#{exercise_edit_form_instructions}"
+                      name="notes"
+                      class="hero__form--edit__exercise__field textarea"
+                      placeholder="Notes"
+                      type="text"
+                      value="">
+            </textarea>
+            <button type="submit" class="hero__edit__exercise--submit btn">Save</button>
+        </form>
+        <div class="edit__exercise__buttons">
+            <form th:method="delete"
+                  th:action="@{/exercises/exercises-by-category/exercise/{id}(id=*{id})}">
+                <button class="info__button delete">Delete Exercise</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+</body>
+
+</html>

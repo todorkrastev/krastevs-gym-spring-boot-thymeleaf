@@ -28,7 +28,7 @@ public class ExerciseEntity {
     @Column(columnDefinition = "TEXT")
     private String instructions;
 
-    @OneToMany(targetEntity = ExerciseNoteEntity.class, mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(targetEntity = ExerciseNoteEntity.class, mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ExerciseNoteEntity> notes;
 
     @ManyToOne(optional = false)

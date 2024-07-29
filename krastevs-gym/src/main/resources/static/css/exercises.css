@@ -23,6 +23,7 @@
 
 #hero .hero__exercises__subtitles {
     padding: 0.5rem;
+    text-align: center;
 }
 
 #hero .hero__exercises__subtitle {
@@ -49,10 +50,11 @@
     border-radius: 5px;
 }
 
-.exercise__title {
-    font-size: 0.875rem;
+.exercise__title--category {
+    color: var(--color-primary);
     margin-top: 1rem;
-    font-weight: 700;
+    text-transform: capitalize;
+    font-size: 0.75rem;
 }
 
 .exercise__categories {
@@ -60,10 +62,18 @@
 }
 
 .exercises__by__category {
-    padding: 3rem 1rem 3rem 0;
+    padding: 3rem 1rem;
+}
+
+.exercise {
+    padding: 0.5rem;
 }
 
 @media screen and (min-width: 768px) {
+    #hero .hero__exercises {
+        width: 50%;
+    }
+
     .exercises__container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -80,7 +90,7 @@
     }
 
     .exercise__categories {
-        padding: 3rem 1rem 3rem 0;
+        padding: 3rem 1rem;
         display: flex;
         flex-wrap: nowrap;
         flex-direction: column;
@@ -118,9 +128,6 @@
 
     #hero .hero__exercises__subtitles {
         text-align: left;
-    }
-
-    #hero .hero__exercises__subtitles {
         width: 50%;
     }
 

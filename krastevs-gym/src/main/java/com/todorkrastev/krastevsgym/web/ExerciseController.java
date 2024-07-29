@@ -55,12 +55,24 @@ public class ExerciseController {
         return "exercise";
     }
 
-    //TODO: implement the logic in the exercise.html
-    @PutMapping("/{id}")
-    public String editExercise(@PathVariable("id") Long id, @Valid EditExerciseDTO editExerciseDTO, Model model) {
-        ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.editExercise(id, editExerciseDTO);
-        model.addAttribute("exerciseDetails", exerciseDetailsDTO);
+    @GetMapping("/{id}/edit")
+    public String editExercise(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
+            Long currentUserId = krastevsGymUserDetails.getCurrId();
+            ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.getExerciseDetails(id, currentUserId);
+            model.addAttribute("exercises", exerciseDetailsDTO);
+        }
 
+        return "exercise-edit";
+    }
+
+    @PutMapping("/{id}/edit")
+    public String editExercise(@PathVariable("id") Long id, @Valid EditExerciseDTO editExerciseDTO, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
+            Long currentUserId = krastevsGymUserDetails.getCurrId();
+            ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.editExercise(id, editExerciseDTO, currentUserId);
+            model.addAttribute("exerciseDetails", exerciseDetailsDTO);
+        }
         return "redirect:/exercises/exercises-by-category/exercise/" + id;
     }
 

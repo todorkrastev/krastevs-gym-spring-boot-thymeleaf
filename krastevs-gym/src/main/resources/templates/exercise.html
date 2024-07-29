@@ -29,7 +29,7 @@
                  class="exercise__wrapper--info">
                 <div class="exercise__wrapper--short__info">
                     <h2 th:text="*{name}"
-                        class="exercise__title">Stability ball V-pass</h2>
+                        class="exercise__title--exercise">Stability ball V-pass</h2>
                     <p th:text="*{description}"
                        class="exercise__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
                         autem hic
@@ -40,11 +40,7 @@
 
                     <th:block th:if="${isCreator}">
                         <div class="info__buttons--exercise">
-                            <button class="info__button edit">Edit</button>
-                            <form th:method="delete"
-                                  th:action="@{/exercises/exercises-by-category/exercise/{id}(id=*{id})}">
-                                <button class="info__button delete">Delete</button>
-                            </form>
+                            <a th:href="@{/exercises/exercises-by-category/exercise/{id}/edit(id=*{id})}" class="info__button edit">Edit</a>
                         </div>
                     </th:block>
                 </div>
@@ -91,7 +87,7 @@
                     name="notes"
                     class="exercise__notes">
           </textarea>
-                    <button type="submit" class="create__note--submit">Submit</button>
+                    <button type="submit" class="create__note--submit">Save</button>
                 </form>
             </section>
         </th:block>
@@ -105,11 +101,10 @@
                     name="notes"
                     class="exercise__notes">
           </textarea>
-                    <button type="submit" class="create__note--submit">Submit</button>
+                    <button type="submit" class="create__note--submit">Save</button>
                 </form>
             </section>
         </th:block>
-
 
 
     </div>

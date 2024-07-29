@@ -17,7 +17,7 @@ public interface ExerciseService {
 
     void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long exerciseId, Long currentUserId);
 
-    ExerciseDetailsDTO editExercise(Long id, EditExerciseDTO editExerciseDTO);
+    ExerciseDetailsDTO editExercise(Long id, EditExerciseDTO editExerciseDTO, Long authorId);
 
     List<ExerciseShortInfoDTO> getExercisesByTypeAndUserId(Long typeId, Long userId, Long categoryId);
 

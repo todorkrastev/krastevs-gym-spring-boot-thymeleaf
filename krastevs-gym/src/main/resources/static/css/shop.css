@@ -71,7 +71,6 @@
 }
 
 @media screen and (min-width: 768px) {
-
     .header {
         padding: 0.625rem 0.875rem;
     }
@@ -82,6 +81,10 @@
 
     .header .btn {
         font-size: 12px;
+    }
+
+    #hero .hero__products {
+        width: 50%;
     }
 
     .shop {

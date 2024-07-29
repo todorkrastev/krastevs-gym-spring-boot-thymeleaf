@@ -8,7 +8,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
 }
 
 .exercise__poster,
@@ -17,9 +18,9 @@
     border-radius: 5px;
 }
 
-.exercise__title {
+.exercise__title--exercise {
     color: var(--color-primary);
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     margin: 1rem 0 1rem;
     font-weight: 700;
     text-transform: capitalize;
@@ -39,10 +40,12 @@
 
 .exercise__wrapper--detailed__info {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
+    align-content: center;
+    flex-wrap: nowrap;
 }
 
 .exercise__instructions__title,
@@ -78,23 +81,24 @@
 }
 
 .create__note--submit {
-    background-color: var(--color-primary);
-    color: var(--color-dark-gray);
+    background-color: transparent;
+    color: var(--color-primary);
     padding: 0.25rem 0.75rem;
     text-transform: capitalize;
     font-size: 1rem;
-    border: 2px solid transparent;
+    border: 2px solid var(--color-primary);
 }
 
 .info__buttons--exercise {
     margin: 1rem 0;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: space-around;
+    align-content: center;
     flex-direction: row;
-    padding: 0.25rem;
-    gap: 13px;
+    /* padding: 0.25rem; */
+    /* gap: 13px; */
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
 }
 
 @media screen and (min-width: 768px) {
@@ -110,7 +114,7 @@
         padding: 5rem 1rem 5rem;
     }
 
-    .exercise__title {
+    .exercise__title--exercise {
         text-align: start;
     }
 
@@ -168,8 +172,8 @@
     }
 
     .create__note--submit:hover {
-        background-color: transparent;
-        color: var(--color-primary);
+        background-color: var(--color-primary);
+        color: var(--color-black);
         border: 2px solid var(--color-primary);
         cursor: pointer;
         transition: color 250ms ease-in-out;

@@ -1,9 +1,6 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
-import com.todorkrastev.krastevsgym.exception.CategoryNotFoundException;
-import com.todorkrastev.krastevsgym.exception.DepartmentNotFoundException;
-import com.todorkrastev.krastevsgym.exception.NoteFoundException;
-import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
+import com.todorkrastev.krastevsgym.exception.*;
 import com.todorkrastev.krastevsgym.model.dto.*;
 import com.todorkrastev.krastevsgym.model.entity.*;
 import com.todorkrastev.krastevsgym.repository.ExerciseNoteRepository;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.todorkrastev.krastevsgym.util.AppConstants.SAMPLE_EXERCISE_IMAGE;
@@ -29,14 +27,14 @@ public class ExerciseServiceImpl implements ExerciseService {
     private final ExerciseNoteService exerciseNoteService;
     private final ExerciseNoteRepository exerciseNoteRepository;
 
-    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService, EquipmentTypeService equipmentTypeService, ExerciseNoteService exerciseNoteService, ExerciseNoteRepository exerciseNoteRepository) {
+    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, ModelMapper modelMapper, ExerciseCategoryService exerciseCategoryService, UserService userService, EquipmentTypeService equipmentTypeService, ExerciseNoteService exerciseNoteService, ExerciseNoteRepository exerciseNoteRepository, ExerciseNoteRepository exerciseNoteRepository1) {
         this.exerciseRepository = exerciseRepository;
         this.modelMapper = modelMapper;
         this.exerciseCategoryService = exerciseCategoryService;
         this.userService = userService;
         this.equipmentTypeService = equipmentTypeService;
         this.exerciseNoteService = exerciseNoteService;
-        this.exerciseNoteRepository = exerciseNoteRepository;
+        this.exerciseNoteRepository = exerciseNoteRepository1;
     }
 
     @Override
@@ -92,26 +90,57 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public ExerciseDetailsDTO editExercise(Long id, EditExerciseDTO editExerciseDTO) {
+    public ExerciseDetailsDTO editExercise(Long id, EditExerciseDTO editExerciseDTO, Long authorId) {
+        ExerciseNoteEntity note = exerciseNoteService.findByExerciseIdAndAuthorId(id, authorId);
+        if (note == null) {
+            throw new NoteFoundException(id, authorId);
+        }
+        note.setNotes(editExerciseDTO.getNotes());
+        exerciseNoteRepository.save(note);
+
         ExerciseEntity exercise = exerciseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
+
+        if (!Objects.equals(exercise.getUser().getId(), authorId)) {
+            throw new UnauthorizedException("You are not authorized to edit this exercise.");
+        }
+
+        UserEntity user = userService.findUserById(authorId);
+        if (user == null) {
+            throw new ResourceNotFoundException("User", "id", authorId);
+        }
 
         ExerciseCategoryEntity category = exerciseCategoryService.findByCategory(editExerciseDTO.getCategory());
         if (category == null) {
             throw new CategoryNotFoundException("Category", "id", editExerciseDTO.getCategory().toString());
         }
 
-        String gifUrl = editExerciseDTO.getGifUrl();
-        if (gifUrl.isBlank()) {
-            gifUrl = SAMPLE_EXERCISE_IMAGE;
-            modelMapper.map(editExerciseDTO, ExerciseEntity.class);
-            editExerciseDTO.setGifUrl(gifUrl);
-        } else {
-            modelMapper.map(editExerciseDTO, ExerciseEntity.class);
+        EquipmentTypeEntity equipmentType = equipmentTypeService.findByCategory(editExerciseDTO.getEquipmentType());
+        if (equipmentType == null) {
+            throw new EquipmentTypeNotFoundException("Equipment type", "category", editExerciseDTO.getEquipmentType().toString());
         }
 
-        exerciseRepository.save(exercise);
+        String gifUrl = editExerciseDTO.getGifUrl();
+        if (gifUrl == null || gifUrl.isEmpty() || gifUrl.isBlank()) {
+            gifUrl = SAMPLE_EXERCISE_IMAGE;
+            editExerciseDTO.setGifUrl(gifUrl);
+        }
 
-        return modelMapper.map(exercise, ExerciseDetailsDTO.class);
+        String muscleWorkedUrl = editExerciseDTO.getMusclesWorkedUrl();
+        if (muscleWorkedUrl == null || muscleWorkedUrl.isEmpty() || muscleWorkedUrl.isBlank()) {
+            muscleWorkedUrl = SAMPLE_MUSCLES_WORKED_IMAGE;
+            editExerciseDTO.setMusclesWorkedUrl(muscleWorkedUrl);
+        }
+
+        ExerciseEntity exerciseEntity = modelMapper.map(editExerciseDTO, ExerciseEntity.class);
+        exerciseEntity.setUser(user);
+        exerciseEntity.setCategory(category);
+        exerciseEntity.setEquipmentType(equipmentType);
+        exerciseEntity.setCreatedAt(exercise.getCreatedAt());
+        exerciseEntity.setNotes(exercise.getNotes());
+
+        exerciseRepository.save(exerciseEntity);
+
+        return modelMapper.map(exerciseEntity, ExerciseDetailsDTO.class);
     }
 
     @Override
@@ -201,5 +230,3 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
     }
 }
-
-

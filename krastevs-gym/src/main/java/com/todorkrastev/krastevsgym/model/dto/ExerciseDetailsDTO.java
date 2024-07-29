@@ -1,5 +1,8 @@
 package com.todorkrastev.krastevsgym.model.dto;
 
+import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
+import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
+
 public class ExerciseDetailsDTO {
     private Long id;
     private String name;
@@ -8,6 +11,9 @@ public class ExerciseDetailsDTO {
     private String musclesWorkedUrl;
     private String instructions;
     private String notes;
+    private EquipmentTypeEnum equipmentType;
+    private ExerciseCategoryEnum category;
+
 
     private Long creatorId;
 
@@ -83,6 +89,24 @@ public class ExerciseDetailsDTO {
 
     public ExerciseDetailsDTO setCreatorId(Long creatorId) {
         this.creatorId = creatorId;
+        return this;
+    }
+
+    public EquipmentTypeEnum getEquipmentType() {
+        return equipmentType;
+    }
+
+    public ExerciseDetailsDTO setEquipmentType(EquipmentTypeEnum equipmentType) {
+        this.equipmentType = equipmentType;
+        return this;
+    }
+
+    public ExerciseCategoryEnum getCategory() {
+        return category;
+    }
+
+    public ExerciseDetailsDTO setCategory(ExerciseCategoryEnum category) {
+        this.category = category;
         return this;
     }
 }

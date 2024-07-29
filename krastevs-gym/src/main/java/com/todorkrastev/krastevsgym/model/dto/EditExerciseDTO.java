@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class EditExerciseDTO {
-    private Long currUserId;
+    private Long id;
 
     @NotBlank(message = "{create.exercise.dto.name.not.blank}")
     @Size(min = 1, message = "{create.exercise.dto.name.size}")
@@ -25,15 +25,19 @@ public class EditExerciseDTO {
 
     private String gifUrl;
 
+    private String musclesWorkedUrl;
+
+    private String notes;
+
     public EditExerciseDTO() {
     }
 
-    public Long getCurrUserId() {
-        return currUserId;
+    public Long getId() {
+        return id;
     }
 
-    public EditExerciseDTO setCurrUserId(Long currUserId) {
-        this.currUserId = currUserId;
+    public EditExerciseDTO setId(Long id) {
+        this.id = id;
         return this;
     }
 
@@ -88,6 +92,24 @@ public class EditExerciseDTO {
 
     public EditExerciseDTO setGifUrl(String gifUrl) {
         this.gifUrl = gifUrl;
+        return this;
+    }
+
+    public String getMusclesWorkedUrl() {
+        return musclesWorkedUrl;
+    }
+
+    public EditExerciseDTO setMusclesWorkedUrl(String musclesWorkedUrl) {
+        this.musclesWorkedUrl = musclesWorkedUrl;
+        return this;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public EditExerciseDTO setNotes(String notes) {
+        this.notes = notes;
         return this;
     }
 }
