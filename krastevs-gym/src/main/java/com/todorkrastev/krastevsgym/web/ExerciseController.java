@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgym.web;
 
+import com.todorkrastev.krastevsgym.exception.UnauthorizedException;
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseDTO;
 import com.todorkrastev.krastevsgym.model.dto.CreateExerciseNotesDTO;
 import com.todorkrastev.krastevsgym.model.dto.EditExerciseDTO;
@@ -16,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Objects;
 
 
 @Controller
@@ -38,7 +41,9 @@ public class ExerciseController {
     }
 
     @GetMapping("/{id}")
-    public String exerciseDetails(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String exerciseDetails(@PathVariable("id") Long id,
+                                  Model model,
+                                  @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
             Long currentUserId = krastevsGymUserDetails.getCurrId();
 
@@ -56,24 +61,55 @@ public class ExerciseController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editExercise(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String editExercise(@PathVariable("id") Long id,
+                               Model model,
+                               @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
             Long currentUserId = krastevsGymUserDetails.getCurrId();
+
+            if (!exerciseService.isTheCreatorOfTheExercise(id, currentUserId)) {
+                throw new UnauthorizedException("You are not the creator of this exercise!");
+            }
+
             ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.getExerciseDetails(id, currentUserId);
-            model.addAttribute("exercises", exerciseDetailsDTO);
+            model.addAttribute("exerciseDetailsDTO", exerciseDetailsDTO);
         }
 
         return "exercise-edit";
     }
 
     @PutMapping("/{id}/edit")
-    public String editExercise(@PathVariable("id") Long id, @Valid EditExerciseDTO editExerciseDTO, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String editExercise(@PathVariable("id") Long id,
+                               @Valid ExerciseDetailsDTO exerciseDetailsDTO,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               Model model,
+                               @AuthenticationPrincipal UserDetails userDetails) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("exerciseDetailsDTO", exerciseDetailsDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.exerciseDetailsDTO", bindingResult);
+
+            return "redirect:/exercises/exercises-by-category/exercise/" + id + "/edit/error";
+        }
+
         if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
             Long currentUserId = krastevsGymUserDetails.getCurrId();
-            ExerciseDetailsDTO exerciseDetailsDTO = exerciseService.editExercise(id, editExerciseDTO, currentUserId);
-            model.addAttribute("exerciseDetails", exerciseDetailsDTO);
+
+            ExerciseDetailsDTO exerciseDetails = exerciseService.editExercise(id, exerciseDetailsDTO, currentUserId);
+            model.addAttribute("exerciseDetails", exerciseDetails);
         }
+
         return "redirect:/exercises/exercises-by-category/exercise/" + id;
+    }
+
+    @GetMapping("/{id}/edit/error")
+    public String editExerciseError(@PathVariable("id") Long id,
+                                    Model model) {
+        if (!model.containsAttribute("exerciseDetailsDTO")) {
+            model.addAttribute("exerciseDetailsDTO", new ExerciseDetailsDTO());
+        }
+
+        return "exercise-edit";
     }
 
     @DeleteMapping("/{id}")

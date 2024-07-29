@@ -17,9 +17,11 @@ public interface ExerciseService {
 
     void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long exerciseId, Long currentUserId);
 
-    ExerciseDetailsDTO editExercise(Long id, EditExerciseDTO editExerciseDTO, Long authorId);
+    ExerciseDetailsDTO editExercise(Long id, ExerciseDetailsDTO editExerciseDTO, Long authorId);
 
     List<ExerciseShortInfoDTO> getExercisesByTypeAndUserId(Long typeId, Long userId, Long categoryId);
 
     void editExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long exerciseId, Long currentUserId);
+
+    boolean isTheCreatorOfTheExercise(Long id, Long authorId);
 }

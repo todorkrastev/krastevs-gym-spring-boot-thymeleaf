@@ -90,7 +90,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public ExerciseDetailsDTO editExercise(Long id, EditExerciseDTO editExerciseDTO, Long authorId) {
+    public ExerciseDetailsDTO editExercise(Long id, ExerciseDetailsDTO editExerciseDTO, Long authorId) {
         ExerciseNoteEntity note = exerciseNoteService.findByExerciseIdAndAuthorId(id, authorId);
         if (note == null) {
             throw new NoteFoundException(id, authorId);
@@ -170,6 +170,11 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         modelMapper.map(createExerciseNotesDTO, note);
         exerciseNoteRepository.save(note);
+    }
+
+    @Override
+    public boolean isTheCreatorOfTheExercise(Long id, Long authorId) {
+        return exerciseRepository.existsByIdAndUserId(id, authorId);
     }
 
     @Override

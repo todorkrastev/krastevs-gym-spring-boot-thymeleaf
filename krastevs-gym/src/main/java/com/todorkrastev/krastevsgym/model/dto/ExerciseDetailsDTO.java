@@ -2,16 +2,26 @@ package com.todorkrastev.krastevsgym.model.dto;
 
 import com.todorkrastev.krastevsgym.model.enums.EquipmentTypeEnum;
 import com.todorkrastev.krastevsgym.model.enums.ExerciseCategoryEnum;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class ExerciseDetailsDTO {
     private Long id;
+
+    @NotBlank(message = "{create.exercise.dto.name.not.blank}")
+    @Size(min = 1, message = "{create.exercise.dto.name.size}")
     private String name;
     private String description;
     private String gifUrl;
     private String musclesWorkedUrl;
     private String instructions;
     private String notes;
+
+    @NotNull(message = "{create.exercise.dto.equipment.type}")
     private EquipmentTypeEnum equipmentType;
+
+    @NotNull(message = "{create.exercise.dto.exercise.category}")
     private ExerciseCategoryEnum category;
 
 

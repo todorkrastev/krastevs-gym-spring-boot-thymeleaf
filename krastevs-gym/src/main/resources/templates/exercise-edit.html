@@ -23,9 +23,9 @@
 
 <main>
     <section id="edit__exercise" class="section--exercise__create">
-        <form th:action="@{/exercises/exercises-by-category/exercise/{id}/edit(id=${exercises.id})}"
+        <form th:action="@{/exercises/exercises-by-category/exercise/{id}/edit(id=${exerciseDetailsDTO.id})}"
               th:method="put"
-              th:object="${exercises}"
+              th:object="${exerciseDetailsDTO}"
               class="hero__form--edit__exercise">
             <h1 class="hero__form--edit__exercise__title">Edit Exercise</h1>
 
@@ -88,7 +88,7 @@
             </textarea>
 
             <textarea th:field="*{notes}"
-                      th:placeholder="#{exercise_edit_form_instructions}"
+                      th:placeholder="#{exercise_edit_form_notes}"
                       name="notes"
                       class="hero__form--edit__exercise__field textarea"
                       placeholder="Notes"

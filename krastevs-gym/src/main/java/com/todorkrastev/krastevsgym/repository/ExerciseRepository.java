@@ -17,6 +17,8 @@ public interface ExerciseRepository extends JpaRepository<ExerciseEntity, Long> 
 
     @Query("SELECT e FROM ExerciseEntity e JOIN e.user u WHERE e.equipmentType.id = ?1 AND u.id IN (?2, ?3) AND e.category.id = ?4 ORDER BY e.createdAt DESC ")
     List<ExerciseEntity> findAllByTypeIdAndAdminIdAndUserIdAndCategoryId(Long typeId, Long adminId, Long userId, Long categoryId);
+
+    boolean existsByIdAndUserId(Long id, Long authorId);
 }
 
 

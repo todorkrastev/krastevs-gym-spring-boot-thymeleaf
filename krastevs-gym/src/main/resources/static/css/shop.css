@@ -36,7 +36,6 @@
 /* Basic information section layout */
 
 .shop .shop__wrapper {
-    margin: 2rem 0;
     justify-content: center;
     width: 95%;
     max-width: 1200px;
