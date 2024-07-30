@@ -2,9 +2,11 @@
 /*@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");*/
 
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+
 @import url("./reset.css");
 @import url("./typography.css");
 @import url("./components.css");
+
 @import url("./login.css");
 @import url("./register.css");
 @import url("./exercises-by-category.css");
@@ -14,7 +16,11 @@
 @import url("./exercises.css");
 @import url("./exercise-edit.css");
 @import url("./shop.css");
+@import url("./product.css");
 @import url("./products-by-department.css");
+@import url("./team.css");
+@import url("./team-employee.css");
+
 @import url("./400.css");
 @import url("./401.css");
 @import url("./403.css");
@@ -26,15 +32,16 @@
 @import url("./department-id-not-found.css");
 @import url("./price-range-not-found.css");
 @import url("./product-by-category-id-and-department-id-not-found.css");
-@import url("./product.css");
 
 :root {
     --color-primary: #ffdd4d;
     --color-light-yellow: #ffec9c;
     --color-white: #fff;
     --color-dark-gray: #222222;
+    --color-gray: #303030;
+    --color-light-gray: #414141;
+
     --color-black: black;
-    --color-grey: #303030;
     --color-orangered: orangered;
 
     /*
@@ -46,7 +53,7 @@
 }
 
 body {
-    background-color: var(--color-grey);
+    background-color: var(--color-gray);
 }
 
 /* Header */
@@ -234,7 +241,7 @@ body {
 
 .footer {
     padding: 3rem 1rem;
-    background-color: var(--color-grey);
+    background-color: var(--color-gray);
 }
 
 .footer .navi .navi-group {

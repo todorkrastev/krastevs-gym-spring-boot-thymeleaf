@@ -1,0 +1,171 @@
+/* start of accordion */
+
+.accordion__wrapper--info {
+    margin: 0.25rem;
+}
+
+.accordion__wrapper--main {
+    margin-top: 1rem;
+}
+
+.accordion {
+    background-color: var(--color-dark-gray);
+    color: var(--color-white);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: var(--color-light-gray);
+}
+
+.accordion:after {
+    content: '\002B';
+    color: var(--color-white);
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+    color: var(--color-white);
+}
+
+.accordion__panel {
+    background-color: var(--color-dark-gray);
+    color: var(--color-white);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+/* end of accordion */
+
+
+.employee {
+    padding: 6rem 1rem 2rem;
+}
+
+.employee__name,
+.employee__position,
+.employee__email--p,
+.employee__phone__number--p {
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.employee__name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.employee__position {
+    color: var(--color-primary);
+}
+
+.employee__position,
+.employee__email,
+.employee__phone__number,
+.accordion,
+.accordion__panel {
+    font-size: 0.625rem;
+}
+
+.employee__img {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.employee__qualifications,
+.employee__performance__module,
+.employee__personal__info {
+    line-height: 1.2;
+    white-space: pre-line;
+}
+
+@media screen and (min-width: 768px) {
+    .employee {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+    }
+
+    .employee__wrapper--main {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .employee__wrapper--info {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        width: 35%;
+        gap: 15px;
+    }
+
+    .employee__wrapper--img {
+        text-align: center;
+        width: 35%;
+    }
+
+    .accordion__wrapper--main {
+         margin-top: unset;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .employee__wrapper--img {
+        width: 27%;
+    }
+}
+
+
+@media screen and (min-width: 1200px) {
+    .employee {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .employee__name {
+        font-size: 1rem;
+    }
+
+
+    .employee__position,
+    .employee__email,
+    .employee__phone__number,
+    .accordion,
+    .accordion__panel {
+        font-size: 0.875rem;
+    }
+
+    .employee__wrapper--img {
+        width: 24%;
+    }
+
+    .employee__email:hover,
+    .employee__phone__number:hover {
+        color: var(--color-primary);
+        transition: color 250ms ease-in-out;
+    }
+
+}

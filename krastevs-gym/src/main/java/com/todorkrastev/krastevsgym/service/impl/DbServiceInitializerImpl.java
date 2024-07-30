@@ -30,10 +30,23 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     private final DepartmentCategoryRepository departmentCategoryRepository;
     private final ProductRepository productRepository;
     private final PriceFilterRepository priceFilterRepository;
+    private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
     private final String adminPass;
 
-    public DbServiceInitializerImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ExerciseRepository exerciseRepository, ExerciseCategoryRepository exerciseCategoryRepository, EquipmentTypeRepository equipmentTypeRepository, PictureRepository pictureRepository, ProductCategoryRepository productCategoryRepository, DepartmentCategoryRepository departmentCategoryRepository, ProductRepository productRepository, PriceFilterRepository priceFilterRepository, PasswordEncoder passwordEncoder, @Value("${app.default.admin.password}") String adminPass) {
+    public DbServiceInitializerImpl(UserRepository userRepository,
+                                    UserRoleRepository userRoleRepository,
+                                    ExerciseRepository exerciseRepository,
+                                    ExerciseCategoryRepository exerciseCategoryRepository,
+                                    EquipmentTypeRepository equipmentTypeRepository,
+                                    PictureRepository pictureRepository,
+                                    ProductCategoryRepository productCategoryRepository,
+                                    DepartmentCategoryRepository departmentCategoryRepository,
+                                    ProductRepository productRepository,
+                                    PriceFilterRepository priceFilterRepository,
+                                    EmployeeRepository employeeRepository,
+                                    PasswordEncoder passwordEncoder,
+                                    @Value("${app.default.admin.password}") String adminPass) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.exerciseRepository = exerciseRepository;
@@ -44,6 +57,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
         this.departmentCategoryRepository = departmentCategoryRepository;
         this.productRepository = productRepository;
         this.priceFilterRepository = priceFilterRepository;
+        this.employeeRepository = employeeRepository;
         this.passwordEncoder = passwordEncoder;
         this.adminPass = adminPass;
     }
@@ -92,10 +106,63 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
             productRepository.saveAll(createProductEntities());
         }
 
+        if (employeeRepository.count() == 0) {
+            employeeRepository.saveAll(createEmployeeEntities());
+        }
+
         LOGGER.info("===================Database startup ends===================");
     }
 
+    private List<EmployeeEntity> createEmployeeEntities() {
+        LOGGER.info("===================Creating employees===================");
+        return List.of(
+                new EmployeeEntity()
+                        .setFirstName("Belmondo")
+                        .setLastName("Smith")
+                        .setPosition("Personal Trainer")
+                        .setEmail("belmondosmith@krastevsgym.de")
+                        .setPhoneNumber("0176 919 606 919")
+                        .setQualifications("""
+                                - Sports Science and Sports Economics (BA)
+                                - A-License Personal Training
+                                - A-License Medical Fitness Training
+                                - A-License Coordination & Functional Training
+                                - B-License Sports Nutrition""")
+                        .setPerformanceModule("""
+                                - Training to build muscle & lose fat
+                                - Rehabilitation & athletic training
+                                - Increase mobility & relieve acute pain
+                                - Stress reduction & preventive training""")
+                        .setPersonalInfo("""
+                                Krastev's Gym is my second home. Over the past few years, I have been able to gain a lot of experience here during my training as a trainer and to develop myself personally. As a personal trainer, the Krastev's Gym Constance offers me the perfect setting and ambience to combine fun and enjoyment of exercise with ambition and success with my clients.""")
+                        .setImageUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1722327656/krastevs-gym/imgs/team/belmondo-smith_ttyals.jpg"),
+                new EmployeeEntity()
+                        .setFirstName("Gisella")
+                        .setLastName("Wesson")
+                        .setPosition("Personal Trainer")
+                        .setEmail("gisellawesson@krastevsgym.de")
+                        .setPhoneNumber("0176 919 303 919")
+                        .setQualifications("""
+                                - Dipl. Sports & Health Trainer (IST)
+                                - Sports and Fitness Management Assistant
+                                - Fitness Business Administrator
+                                - A-License Personal Trainer
+                                - A-License Medical Fitness Training
+                                - B-License Sports Nutrition""")
+                        .setPerformanceModule("""
+                                - Cross Workout
+                                - Group Fitness, Toning & Functional Training
+                                - Muscle Building & Weight Loss
+                                - Yoga & Mobility, Stress Reduction
+                                """)
+                        .setPersonalInfo("""
+                                I am convinced that everyone can reach their full potential. With my experience as a soldier and personal trainer, I know how to achieve top performance even under the most difficult conditions. Let's ignite the spark in you together and unleash your full potential!""")
+                        .setImageUrl("https://res.cloudinary.com/dgtuddxqf/image/upload/v1722327656/krastevs-gym/imgs/team/gisella-wesson_g5u1wd.jpg")
+        );
+    }
+
     private List<EquipmentTypeEntity> createEquipmentTypeEntities() {
+        LOGGER.info("===================Creating equipment types===================");
         return List.of(
                 new EquipmentTypeEntity()
                         .setType(EquipmentTypeEnum.BARBELL),
@@ -117,6 +184,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     }
 
     private List<PriceFilterEntity> createPriceFilterEntities() {
+        LOGGER.info("===================Creating price filters===================");
         return List.of(
                 new PriceFilterEntity()
                         .setFilter(PriceFilterEnum.FROM_0_TO_10),
@@ -132,6 +200,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     }
 
     private List<ProductCategoryEntity> createProductCategoryEntities() {
+        LOGGER.info("===================Creating product categories===================");
         return List.of(
                 new ProductCategoryEntity()
                         .setCategory(ProductCategoryEnum.TOPS),
@@ -145,6 +214,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
     }
 
     private List<DepartmentCategoryEntity> createDepartmentCategoryEntities() {
+        LOGGER.info("===================Creating department categories===================");
         return List.of(
                 new DepartmentCategoryEntity()
                         .setImageURL("https://res.cloudinary.com/dgtuddxqf/image/upload/v1721749168/krastevs-gym/imgs/shop/shop-women/shop-women_bxgaay.jpg")

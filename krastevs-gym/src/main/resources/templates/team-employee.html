@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+    <section class="employee">
+        <div class="employee__wrapper--main">
+            <div class="employee__wrapper--img">
+                <img th:src="${employee.getImageUrl()}" th:alt="Employee" class="employee__img">
+            </div>
+            <div class="employee__wrapper--info">
+                <div class="employee__wrapper--personal">
+                    <h2 th:text="${employee.getFirstName()} + ' ' + ${employee.getLastName()}" class="employee__name">
+                        Belmondo Smith</h2>
+                    <p th:text="${employee.getPosition()}" class="employee__position">Personal Trainer</p>
+                    <p class="employee__email--p">
+                        <a th:href="'mailto:' + ${employee.getEmail()}" th:text="${employee.getEmail()}"
+                           class="employee__email">belmondosmith@krastevsgym.de</a>
+                    </p>
+                    <p class="employee__phone__number--p">
+                        <a th:href="'tel:' + ${employee.getPhoneNumber()}" th:text="${employee.getPhoneNumber()}"
+                           class="employee__phone__number"></a>
+                    </p>
+                </div>
+                <div class="accordion__wrapper--main">
+                    <div class="accordion__wrapper--info">
+                        <button class="accordion">Qualifications</button>
+                        <div class="accordion__panel">
+                            <p th:utext="${#strings.replace(employee.getQualifications(), '\n', '<br />')}" class="employee__qualifications"></p>
+                        </div>
+                    </div>
+                    <div class="accordion__wrapper--info">
+                        <button class="accordion">Performance Module</button>
+                        <div class="accordion__panel">
+                            <p th:utext="${#strings.replace(employee.getPerformanceModule(), '\n', '<br />')}" class="employee__performance__module"></p>
+                        </div>
+                    </div>
+                    <div class="accordion__wrapper--info">
+                        <button class="accordion">Krastev's Gym and I</button>
+                        <div class="accordion__panel">
+                            <p th:utext="${#strings.replace(employee.getPersonalInfo(), '\n', '<br />')}" class="employee__personal__info"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+
+<script th:src="@{/js/accordion.js}"></script>
+</body>
+
+</html>
