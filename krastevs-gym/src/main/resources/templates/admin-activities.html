@@ -23,12 +23,24 @@
 
 <main>
     <section class="activity">
-        <a th:href="@{/admin/activities/{id}(id=${activity.getId()})}" th:each="activity: ${activities}" class="card--activity">
-            <img th:src="${activity.getImageURL()}" alt="Activity" class="img--activity">
-            <div class="wrapper__details--activity">
-                <h4 th:text="${activity.getTitle()}" class="title--activity">Machines</h4>
-            </div>
-        </a>
+        <th:block th:if="${activities.iterator().hasNext()}">
+            <a th:href="@{/admin/activities/{id}(id=${activity.getId()})}" th:each="activity: ${activities}"
+               class="card--activity">
+                <img th:src="${activity.getImageURL()}" alt="Activity" class="img--activity">
+                <div class="wrapper__details--activity">
+                    <h4 th:text="${activity.getTitle()}" class="title--activity">Machines</h4>
+                </div>
+            </a>
+        </th:block>
+        <th:block th:if="${activities.isEmpty()}">
+            <a href="https://github.com/todorkrastev/krastevs-gym-spring-boot-rest"
+               class="card--activity">
+                <img src="/images/github/my-repo.JPG" alt="Activity" class="img--activity">
+                <div class="wrapper__details--activity">
+                    <h4 class="title--activity">To load the data from the API, you need to fetch it.</h4>
+                </div>
+            </a>
+        </th:block>
     </section>
 
     <div class="divider"></div>

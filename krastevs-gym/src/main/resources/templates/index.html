@@ -29,9 +29,17 @@
             <h2 class="hero__subtitle">Hello,
                 <th:block th:text="${welcomeMessage}"></th:block>!
             </h2>
-            <a th:href="@{/exercises/exercises-by-category}" th:text="#{hero_image_btn_authenticated}" class="member__btn">
-                start a training >
-            </a>
+            <th:block sec:authorize="!hasRole('ADMIN')">
+                <a th:href="@{/exercises/exercises-by-category}" th:text="#{hero_image_btn_authenticated}"
+                   class="member__btn">
+                    start a training >
+                </a>
+            </th:block>
+            <th:block sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin}" th:text="#{hero_image_btn_admin}" class="member__btn">
+                    admin dashboard >
+                </a>
+            </th:block>
         </th:block>
         <th:block sec:authorize="!isAuthenticated()">
             <h1 th:text="#{hero_image_title}" class="hero__title">no excuses!</h1>
@@ -79,7 +87,8 @@
                 </p>
 
                 <div class="info__buttons">
-                    <a class="info__button edit" href="https://github.com/todorkrastev/krastevs-gym-spring-boot-rest">my repo</a>
+                    <a class="info__button edit" href="https://github.com/todorkrastev/krastevs-gym-spring-boot-rest">my
+                        repo</a>
                 </div>
             </div>
 
