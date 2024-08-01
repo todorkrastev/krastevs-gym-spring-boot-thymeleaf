@@ -1,18 +1,20 @@
 package com.todorkrastev.krastevsgym.service;
 
 import com.todorkrastev.krastevsgym.model.dto.ActivityDTO;
+import com.todorkrastev.krastevsgym.model.dto.CreateActivityDTO;
 
 import java.util.List;
-import java.util.Set;
 
 public interface ActivityService {
     List<ActivityDTO> findAll();
 
     ActivityDTO getActivityById(Long activityId);
 
-    ActivityDTO updateActivityById(Long activityId, ActivityDTO activityDTO);
+    void createActivity(CreateActivityDTO createActivityDTO);
 
-    Long createActivity(ActivityDTO newActivity);
+    boolean doesTitleExist(String title);
 
-    void deleteActivityById(Long activityId);
+    void updateActivity(Long id, ActivityDTO activityDTO);
+
+    void deleteActivity(Long id);
 }

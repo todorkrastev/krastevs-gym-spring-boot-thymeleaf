@@ -27,7 +27,7 @@
               th:method="post"
               th:object="${createExerciseDTO}"
               class="hero__form--create__exercise">
-            <h1 class="hero__form--create__exercise__title">Create Exercise</h1>
+            <h1 th:text="#{exercise_create_form_title}" class="hero__form--create__exercise__title">Create Exercise</h1>
 
             <input th:field="*{name}"
                    th:placeholder="#{exercise_create_form_name}"
@@ -83,7 +83,7 @@
                       value="">
         </textarea>
 
-            <button type="submit" class="hero__create__exercise--submit btn">Submit</button>
+            <button th:text="#{exercise_create_form_button}" type="submit" class="hero__create__exercise--submit btn">Save</button>
         </form>
     </section>
 

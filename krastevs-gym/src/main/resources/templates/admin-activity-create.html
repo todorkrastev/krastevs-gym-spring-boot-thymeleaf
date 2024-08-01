@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="theme-color" content="#ffffff">
+  <title>Krastev's Gym</title>
+</head>
+
+<body>
+<header class="header">
+  <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+  <section id="create__activity">
+    <form th:action="@{/admin/activities/create}"
+          th:method="post"
+          th:object="${createActivityDTO}"
+          class="hero__form--create__activity">
+      <h1 th:text="#{activity_create_form_title}" class="hero__form--create__activity__title">Create Activity</h1>
+
+      <input th:field="*{title}"
+             th:placeholder="#{activity_create_form_name}"
+             name="title" class="hero__form--create__activity__field" placeholder="Activity Name" type="text">
+      <p th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"
+         class="error__message--form">
+      </p>
+
+      <textarea th:field="*{description}"
+                th:placeholder="#{activity_create_form_description}"
+                name="description" class="hero__form--create__activity__field textarea" placeholder="Description">
+      </textarea>
+      <p th:if="${#fields.hasErrors('description')}" th:errorclass="error" th:errors="*{description}"
+         class="error__message--form">
+      </p>
+
+      <input th:field="*{imageURL}"
+             th:placeholder="#{exercise_create_form_image_url}"
+             name="imageURL" class="hero__form--create__activity__field" placeholder="Image URL" type="text">
+      <p th:if="${#fields.hasErrors('imageURL')}" th:errorclass="error" th:errors="*{imageURL}"
+         class="error__message--form">
+      </p>
+
+      <button th:text="#{activity_create_form_button}" type="submit" class="hero__create__activity--submit btn">Save</button>
+    </form>
+  </section>
+
+  <div class="divider"></div>
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+
+</body>
+
+</html>

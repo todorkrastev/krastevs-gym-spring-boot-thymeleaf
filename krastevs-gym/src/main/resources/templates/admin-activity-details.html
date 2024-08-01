@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+    <section class="activity__details">
+        <article class="activity__details__wrapper__main">
+            <img th:src="${activity.getImageURL()}" src="./imgs/home/boxing.jpg" class="activity__details__img" alt="Activity Image" />
+            <div class="activity__details__wrapper__info">
+                <h6 th:text="${activity.getTitle()}" class="activity__details__title">Activity Name</h6>
+                <p th:text="${activity.getDescription()}" class="activity__details__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates tenetur eligendi architecto ratione? Esse aut deleniti nesciunt maxime, facere perspiciatis maiores veritatis numquam at, vel repudiandae sed veniam saepe cupiditate.</p>
+
+                <div class="activity__details__buttons">
+                    <a th:href="@{/admin/activities/edit/{id}(id=${activity.getId()})}" class="activity__details__button edit">Edit</a>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <div class="divider"></div>
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+
+</body>
+
+</html>

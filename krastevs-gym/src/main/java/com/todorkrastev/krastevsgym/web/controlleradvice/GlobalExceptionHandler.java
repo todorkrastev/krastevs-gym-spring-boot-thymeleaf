@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
@@ -55,5 +56,4 @@ public class GlobalExceptionHandler {
 
         return modelAndView;
     }
-
 }

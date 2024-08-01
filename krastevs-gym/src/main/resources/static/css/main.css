@@ -20,6 +20,10 @@
 @import url("./products-by-department.css");
 @import url("./team.css");
 @import url("./team-employee.css");
+@import url("./admin-activities.css");
+@import url("./admin-activity-create.css");
+@import url("./admin-activity-details.css");
+@import url("./admin-activity-edit.css");
 
 @import url("./400.css");
 @import url("./401.css");
@@ -118,6 +122,7 @@ body {
 .error__message--form {
     margin-bottom: 1rem;
     color: var(--color-orangered);
+    text-align: center;
 }
 
 #hero {
