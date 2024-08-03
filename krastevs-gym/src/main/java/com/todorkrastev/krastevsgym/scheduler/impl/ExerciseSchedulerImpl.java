@@ -1,5 +1,6 @@
-package com.todorkrastev.krastevsgym.scheduler;
+package com.todorkrastev.krastevsgym.scheduler.impl;
 
+import com.todorkrastev.krastevsgym.scheduler.ExerciseScheduler;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 

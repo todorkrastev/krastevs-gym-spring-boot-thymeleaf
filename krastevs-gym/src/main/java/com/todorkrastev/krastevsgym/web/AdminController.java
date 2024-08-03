@@ -189,6 +189,9 @@ public class AdminController {
         if (userDetails instanceof KrastevsGymUserDetails krastevsGymUserDetails) {
             Long currentUserId = krastevsGymUserDetails.getCurrId();
             Long adminId = userService.findAdminId();
+            if (adminId == null) {
+                throw new ResourceNotFoundException("Admin", "id", null);
+            }
             if (!Objects.equals(currentUserId, adminId)) {
                 throw new UnauthorizedException("You are not authorized to access this page!");
             }

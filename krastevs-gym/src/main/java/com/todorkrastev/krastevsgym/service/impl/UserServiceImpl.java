@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long findAdminId() {
-        return this.userRepository.findAdminByCategory(UserRoleEnum.ADMIN).getId();
+        return this.userRepository.findAdminByCategory(UserRoleEnum.ADMIN).getId().describeConstable().orElse(null);
     }
 
     @Override

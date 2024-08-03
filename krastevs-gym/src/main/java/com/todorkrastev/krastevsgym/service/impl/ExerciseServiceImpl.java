@@ -72,6 +72,9 @@ public class ExerciseServiceImpl implements ExerciseService {
         ExerciseEntity exercise = exerciseRepository.findById(exerciseId).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", exerciseId));
 
         Long admin = userService.findAdminId();
+        if (admin == null) {
+            throw new ResourceNotFoundException("Admin", "id", null);
+        }
 
         if (!exercise.getUser().getId().equals(admin)) {
             if (!exercise.getUser().getId().equals(currentUserId)) {
@@ -153,6 +156,10 @@ public class ExerciseServiceImpl implements ExerciseService {
         equipmentTypeService.findById(typeId);
 
         Long adminId = userService.findAdminId();
+        if (adminId == null) {
+            throw new ResourceNotFoundException("Admin", "id", null);
+        }
+
         List<ExerciseEntity> allExercisesByType = exerciseRepository.findAllByTypeIdAndAdminIdAndUserIdAndCategoryId(typeId, adminId, userId, categoryId);
 
         if ((long) allExercisesByType.size() == 0) {
@@ -219,6 +226,9 @@ public class ExerciseServiceImpl implements ExerciseService {
         exerciseCategoryService.findById(categoryId);
 
         Long adminId = userService.findAdminId();
+        if (adminId == null) {
+            throw new ResourceNotFoundException("Admin", "id", null);
+        }
         List<ExerciseEntity> allExercisesByCategoryId = exerciseRepository.findAllByCategoryIdAndAdminIdAndUserId(categoryId, adminId, userId);
 
         if ((long) allExercisesByCategoryId.size() == 0) {

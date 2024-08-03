@@ -37,7 +37,7 @@ public class JwtServiceImpl implements JwtService {
         return jwtBuilder.compact();
     }
 
-    private Key getSingingKey() {
+    protected Key getSingingKey() {
         byte[] keyBytes = jwtConfig.getSecret().getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }

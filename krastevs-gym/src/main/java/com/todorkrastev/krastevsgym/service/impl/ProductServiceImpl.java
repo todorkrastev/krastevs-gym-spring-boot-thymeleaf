@@ -126,7 +126,7 @@ public class ProductServiceImpl implements ProductService {
         return product.get().getDepartmentCategory().getId();
     }
 
-    private int[] extractFirstAndSecondValues(String input) {
+    protected int[] extractFirstAndSecondValues(String input) {
         String regex = "from-(\\d+)-to-(\\d+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
