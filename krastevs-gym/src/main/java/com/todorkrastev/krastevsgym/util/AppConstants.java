@@ -5,8 +5,6 @@ public class AppConstants {
     public static final String USD = "USD";
     public static final String CHF = "CHF";
 
-    public static final String SAMPLE_EXERCISE_IMAGE = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1719701054/krastevs-gym/imgs/chest/gifs/one-leg-push-up_zhwrh4.gif";
-
     public static final String ABS_URL = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1722629137/krastevs-gym/imgs/muscles/abs_wtjkuh.png";
     public static final String BICEPS_URL="https://res.cloudinary.com/dgtuddxqf/image/upload/v1722629137/krastevs-gym/imgs/muscles/biceps_hkoehg.png";
     public static final String CHEST_URL="https://res.cloudinary.com/dgtuddxqf/image/upload/v1722629137/krastevs-gym/imgs/muscles/chest_kh1hrp.png";
