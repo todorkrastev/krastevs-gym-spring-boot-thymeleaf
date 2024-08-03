@@ -24,7 +24,7 @@
 
 <main>
     <div class="exercise__container section--exercise__first">
-        <section class="exercise">
+        <section>
             <div th:object="${exerciseDetails}"
                  class="exercise__wrapper--info">
                 <div class="exercise__wrapper--short__info">
@@ -40,12 +40,14 @@
 
                     <th:block th:if="${isCreator}">
                         <div class="info__buttons--exercise">
-                            <a th:href="@{/exercises/exercises-by-category/exercise/{id}/edit(id=*{id})}" class="info__button edit">Edit</a>
+                            <a th:href="@{/exercises/exercises-by-category/exercise/{id}/edit(id=*{id})}"
+                               class="info__button edit">Edit</a>
                         </div>
                     </th:block>
                 </div>
-                <img th:src="*{gifUrl}"
-                     class="exercise__poster" alt="Section poster"/>
+                <img th:src="*{musclesWorkedUrl}"
+                     class="exercise__view_of_muscle"
+                     alt="Section view of muscles"/>
             </div>
         </section>
     </div>
@@ -53,12 +55,11 @@
     <div class="divider"></div>
 
     <div class="exercise__container section--exercise">
-        <section class="exercise">
+        <section>
             <div th:object="${exerciseDetails}"
                  class="exercise__wrapper--detailed__info">
-                <img th:src="*{musclesWorkedUrl}"
-                     class="exercise__view_of_muscle"
-                     alt="Section view of muscles"/>
+                <img th:src="*{gifUrl}"
+                     class="exercise__poster" alt="Section poster"/>
                 <div class="exercise__wrapper--instructions">
                     <h3 class="exercise__instructions__title">Instructions</h3>
                     <p th:text="*{instructions}"
@@ -75,10 +76,10 @@
 
     <div class="divider"></div>
 
-    <div class="exercise__container section--exercise exercise">
+    <div class="exercise__container section--exercise__last">
         <h3 class="exercise__notes__title">Notes</h3>
         <th:block th:if="${exerciseDetails.getNotes().isEmpty()}">
-            <section class="exercise">
+            <section>
                 <form th:action="@{/exercises/exercises-by-category/exercise/{id}/exercise-notes/create(id=${exerciseDetails.getId()})}"
                       th:method="post"
                       class="create__note">
@@ -92,7 +93,7 @@
             </section>
         </th:block>
         <th:block th:if="${!exerciseDetails.getNotes().isEmpty()}">
-            <section class="exercise">
+            <section>
                 <form th:action="@{/exercises/exercises-by-category/exercise/{id}/exercise-notes/edit(id=${exerciseDetails.getId()})}"
                       th:method="put"
                       class="create__note">

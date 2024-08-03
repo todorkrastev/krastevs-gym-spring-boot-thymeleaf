@@ -10,7 +10,7 @@ public class EditExerciseDTO {
     private Long id;
 
     @NotBlank(message = "{create.exercise.dto.name.not.blank}")
-    @Size(min = 1, message = "{create.exercise.dto.name.size}")
+    //@Size(min = 1, message = "{create.exercise.dto.name.size}")
     private String name;
 
     private String description;

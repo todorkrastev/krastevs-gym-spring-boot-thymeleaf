@@ -48,7 +48,7 @@
                 <option class="hero__form--create__exercise__drop" th:text="#{exercise_create_form_exercise_category}" value="">--Exercise Category--</option>
                 <option th:each="category: ${allExerciseCategories}"
                         th:value="${category}"
-                        th:text="${category}"
+                        th:text="${category.toString().replaceAll('_', ' ')}"
                         class="hero__form--create__exercise__drop">ABS
                 </option>
             </select>
@@ -60,7 +60,7 @@
                 <option class="hero__form--create__exercise__drop" th:text="#{exercise_create_form_equipment_type}"  value="">--Equipment Type--</option>
                 <option th:each="type: ${allEquipmentTypes}"
                         th:value="${type}"
-                        th:text="${type}"
+                        th:text="${type.toString().replaceAll('_', ' ')}"
                         class="hero__form--create__exercise__drop" value="">BARBELL
                 </option>
             </select>

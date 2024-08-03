@@ -28,6 +28,8 @@
 
 #hero .hero__exercises__subtitle {
     margin-bottom: 0.5rem;
+    color: var(--color-lighter-gray);
+    line-height: 1.2;
 }
 
 #hero .hero__exercises__subtitle:last-child {
@@ -42,7 +44,7 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    padding: 0 0.125rem 0 0.125rem;
+    /*padding: 0 0.125rem 0 0.125rem;*/
 }
 
 .exercise__poster {
@@ -54,7 +56,7 @@
     color: var(--color-primary);
     margin-top: 1rem;
     text-transform: capitalize;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
 }
 
 .exercise__categories {
@@ -66,7 +68,7 @@
 }
 
 .exercise {
-    padding: 0.5rem;
+    padding: 2.25rem 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -114,6 +116,7 @@
         text-transform: capitalize;
         padding-left: 1rem;
         font-size: 0.75rem;
+        color: var(--color-lighter-gray);
     }
 }
 

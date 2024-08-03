@@ -7,23 +7,23 @@ import jakarta.validation.constraints.*;
 @PasswordMatch
 public class UserRegisterDTO {
     @NotBlank(message = "{user.register.dto.first.name.not.blank}")
-    @Size(min = 1, message = "{user.register.dto.first.name.size}")
+    //@Size(min = 1, message = "{user.register.dto.first.name.size}")
     private String firstName;
 
     @NotBlank(message = "{user.register.dto.last.name.not.blank}")
-    @Size(min = 1, message = "{user.register.dto.last.name.size}")
+    //@Size(min = 1, message = "{user.register.dto.last.name.size}")
     private String lastName;
 
     @Email(regexp = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$", message = "{user.register.dto.email}")
 //    @UniqueEmail --> my custom validation
     private String email;
 
-    @NotBlank(message = "{user.register.dto.password.not.blank}")
+    //@NotBlank(message = "{user.register.dto.password.not.blank}")
     @Size(min = 5, message = "{user.register.dto.password.size}")
     private String password;
 
     @Size(min = 5, message = "{user.register.dto.password.size}")
-    @NotBlank(message = "{user.register.dto.password.not.blank}")
+    //@NotBlank(message = "{user.register.dto.password.not.blank}")
     private String confirmPassword;
 
     public UserRegisterDTO() {

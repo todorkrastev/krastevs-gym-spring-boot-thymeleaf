@@ -1,21 +1,29 @@
 .section--exercise,
-.section--exercise__first {
+.section--exercise__first,
+.section--exercise__last {
     padding: 3rem 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
 }
 
 .exercise__wrapper--info {
-    margin: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
     flex-wrap: nowrap;
+    gap: 1.5rem;
 }
 
 .exercise__poster,
 .exercise__view_of_muscle {
     width: 100%;
     border-radius: 5px;
+    border: 2px solid var(--color-lighter-gray);
 }
 
 .exercise__title--exercise {
@@ -24,18 +32,20 @@
     margin: 1rem 0 1rem;
     font-weight: 700;
     text-transform: capitalize;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-primary);
 }
 
 .exercise__description {
-    line-height: 1.5rem;
+    line-height: 1.4;
+    color: var(--color-lighter-gray);
 }
-
-
 
 .exercise__notes {
     width: 100%;
-    color: var(--color-black);
+    color: var(--color-dark-gray);
     padding: 0.5rem;
+    background-color: var(--color-lighter-gray);
 }
 
 .exercise__wrapper--detailed__info {
@@ -43,7 +53,7 @@
     flex-direction: column-reverse;
     justify-content: center;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.5rem;
     align-content: center;
     flex-wrap: nowrap;
 }
@@ -55,12 +65,15 @@
     margin: 1rem 0 1rem;
     font-weight: 700;
     text-transform: capitalize;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-primary);
 }
 
 .exercise__instructions {
     margin-bottom: 0.5rem;
     white-space: pre-wrap;
-    line-height: 1.375rem;
+    line-height: 1.4;
+    color: var(--color-lighter-gray);
 }
 
 .exercise__instructions:nth-last-of-type(1) {
@@ -68,7 +81,8 @@
 }
 
 .exercise__notes {
-    min-height: 200px;
+    min-height: 180px;
+    border-radius: 5px;
 }
 
 .create__note {
@@ -77,7 +91,7 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .create__note--submit {
@@ -114,6 +128,11 @@
         padding: 5rem 1rem 5rem;
     }
 
+    .section--exercise__last {
+        width: 50%;
+        margin: 0 auto;
+    }
+
     .exercise__title--exercise {
         text-align: start;
     }
@@ -137,17 +156,9 @@
         text-align: start;
     }
 
-    .exercise__notes__title {
-        text-align: center;
-    }
-
     .exercise__wrapper--notes {
         display: flex;
         justify-content: center;
-    }
-
-    .exercise__notes {
-        width: 80%;
     }
 }
 
@@ -173,10 +184,14 @@
 
     .create__note--submit:hover {
         background-color: var(--color-primary);
-        color: var(--color-black);
+        color: var(--color-dark-gray);
         border: 2px solid var(--color-primary);
         cursor: pointer;
         transition: color 250ms ease-in-out;
+    }
+
+    .section--exercise__last {
+        width: 40%;
     }
 }
 

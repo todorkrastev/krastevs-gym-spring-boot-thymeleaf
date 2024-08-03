@@ -24,13 +24,13 @@
 <main>
     <section class="activity__details">
         <article class="activity__details__wrapper__main">
-            <img th:src="${activity.getImageURL()}" src="./imgs/home/boxing.jpg" class="activity__details__img" alt="Activity Image" />
+            <img th:src="${activityDTO.getImageURL()}" src="./imgs/home/boxing.jpg" class="activity__details__img" alt="Activity Image" />
             <div class="activity__details__wrapper__info">
-                <h6 th:text="${activity.getTitle()}" class="activity__details__title">Activity Name</h6>
-                <p th:text="${activity.getDescription()}" class="activity__details__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates tenetur eligendi architecto ratione? Esse aut deleniti nesciunt maxime, facere perspiciatis maiores veritatis numquam at, vel repudiandae sed veniam saepe cupiditate.</p>
+                <h6 th:text="${activityDTO.getTitle()}" class="activity__details__title">Activity Name</h6>
+                <p th:text="${activityDTO.getDescription()}" class="activity__details__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates tenetur eligendi architecto ratione? Esse aut deleniti nesciunt maxime, facere perspiciatis maiores veritatis numquam at, vel repudiandae sed veniam saepe cupiditate.</p>
 
                 <div class="activity__details__buttons">
-                    <a th:href="@{/admin/activities/edit/{id}(id=${activity.getId()})}" class="activity__details__button edit">Edit</a>
+                    <a th:href="@{/admin/activities/edit/{id}(id=${activityDTO.getId()})}" class="activity__details__button edit">Edit</a>
                 </div>
             </div>
         </article>

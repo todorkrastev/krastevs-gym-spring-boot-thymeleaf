@@ -32,12 +32,12 @@
             <th:block sec:authorize="!hasRole('ADMIN')">
                 <a th:href="@{/exercises/exercises-by-category}" th:text="#{hero_image_btn_authenticated}"
                    class="member__btn">
-                    start a training >
+                    start a training
                 </a>
             </th:block>
             <th:block sec:authorize="hasRole('ADMIN')">
-                <a th:href="@{/admin}" th:text="#{hero_image_btn_admin}" class="member__btn">
-                    admin dashboard >
+                <a th:href="@{/admin/activities/all}" th:text="#{hero_image_btn_admin}" class="member__btn">
+                    admin dashboard
                 </a>
             </th:block>
         </th:block>
@@ -45,7 +45,7 @@
             <h1 th:text="#{hero_image_title}" class="hero__title">no excuses!</h1>
             <h2 th:text="#{hero_image_subtitle}" class="hero__subtitle">get fit now</h2>
             <a th:text="#{hero_image_btn}" th:href="@{/users/register}" class="member__btn">
-                get started >
+                get started
             </a>
         </th:block>
 
@@ -67,8 +67,7 @@
                     </p>
 
                     <div class="info__buttons" sec:authorize="hasRole('ADMIN')">
-                        <button class="info__button edit">Edit</button>
-                        <button class="info__button delete">Delete</button>
+                        <a th:href="@{/admin/activities/edit/{id}(id=${activity.getId()})}" class="info__button edit">Edit</a>
                     </div>
                 </div>
 

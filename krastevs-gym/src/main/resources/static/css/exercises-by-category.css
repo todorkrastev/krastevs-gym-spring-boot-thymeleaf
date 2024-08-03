@@ -27,7 +27,7 @@
 }
 
 .exercise--abs {
-    padding: 0.5rem;
+    padding: 2.25rem 0;
 }
 
 .exercise__wrapper--abs {
@@ -49,7 +49,7 @@
     color: var(--color-primary);
     margin-top: 1rem;
     text-transform: capitalize;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
 }
 
 .exercise__categories--abs {

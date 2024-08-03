@@ -34,6 +34,7 @@
 
 .hero__form--login__title {
     margin-bottom: 1rem;
+    color: var(--color-lighter-gray);
 }
 
 .hero__form--login {
@@ -47,8 +48,9 @@
 .hero__form--login .hero__form--login__field {
     width: 100%;
     margin-bottom: 1rem;
-    color: var(--color-black);
+    color: var(--color-dark-gray);
     padding: 0.5rem;
+    background-color: var(--color-lighter-gray);
 }
 
 
@@ -66,6 +68,7 @@
     position: relative;
     z-index: 3;
     font-size: 0.75rem;
+    color: var(--color-lighter-gray);
 }
 
 .hero__login--register a {

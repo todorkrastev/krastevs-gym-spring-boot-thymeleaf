@@ -152,8 +152,8 @@ public class AdminController {
                                   @AuthenticationPrincipal UserDetails userDetails) {
         isAdminLogged(userDetails);
         try {
-            ActivityDTO activity = activityService.getActivityById(id);
-            model.addAttribute("activity", activity);
+            ActivityDTO activityDTO = activityService.getActivityById(id);
+            model.addAttribute("activityDTO", activityDTO);
             return "admin-activity-details";
         } catch (RestClientResponseException ex) {
             if (ex.getStatusCode().value() == HttpStatus.NOT_FOUND.value()) {

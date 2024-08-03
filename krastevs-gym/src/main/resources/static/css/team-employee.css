@@ -10,7 +10,7 @@
 
 .accordion {
     background-color: var(--color-dark-gray);
-    color: var(--color-white);
+    color: var(--color-lighter-gray);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -27,7 +27,7 @@
 
 .accordion:after {
     content: '\002B';
-    color: var(--color-white);
+    color: var(--color-lighter-gray);
     font-weight: bold;
     float: right;
     margin-left: 5px;
@@ -35,12 +35,12 @@
 
 .active:after {
     content: "\2212";
-    color: var(--color-white);
+    color: var(--color-lighter-gray);
 }
 
 .accordion__panel {
     background-color: var(--color-dark-gray);
-    color: var(--color-white);
+    color: var(--color-lighter-gray);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
@@ -75,8 +75,9 @@
 .employee__email,
 .employee__phone__number,
 .accordion,
-.accordion__panel {
+.accordion__panel{
     font-size: 0.625rem;
+    color: var(--color-lighter-gray);
 }
 
 .employee__img {
@@ -92,6 +93,8 @@ a {
 .employee__personal__info {
     line-height: 1.2;
     white-space: pre-line;
+    color: var(--color-lighter-gray);
+    font-size: 0.75rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -164,7 +167,7 @@ a {
 
     .employee__email:hover,
     .employee__phone__number:hover {
-        color: var(--color-primary);
+        color: #8d8d8d;
         transition: color 250ms ease-in-out;
     }
 

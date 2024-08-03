@@ -38,6 +38,7 @@
 
 .hero__form--register__title {
     margin-bottom: 1rem;
+    color: var(--color-lighter-gray);
 }
 
 .hero__form--register {
@@ -51,8 +52,9 @@
 .hero__form--register .hero__form--register__field {
     width: 100%;
     margin-bottom: 1rem;
-    color: var(--color-black);
+    color: var(--color-dark-gray);
     padding: 0.5rem;
+    background-color: var(--color-lighter-gray);
 }
 
 
@@ -81,7 +83,12 @@
 }
 
 .hero__register--terms {
-    margin-bottom: 0.25rem;;
+    margin-bottom: 0.25rem;
+    color: var(--color-lighter-gray);
+}
+
+.hero__register--login {
+    color: var(--color-lighter-gray);
 }
 
 

@@ -26,7 +26,7 @@
 
 
 .hero__form--create__activity__title {
-    color: var(--color-primary);
+    color: var(--color-lighter-gray);
     margin-bottom: 1rem;
 }
 
@@ -40,8 +40,9 @@
 .hero__form--create__activity .hero__form--create__activity__field {
     width: 100%;
     margin-bottom: 1rem;
-    color: var(--color-black);
+    color: var(--color-dark-gray);
     padding: 0.5rem;
+    background-color: var(--color-lighter-gray);
 }
 
 .textarea {

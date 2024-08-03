@@ -10,7 +10,7 @@ public class CreateExerciseDTO {
     private Long currUserId;
 
     @NotBlank(message = "{create.exercise.dto.name.not.blank}")
-    @Size(min = 1, message = "{create.exercise.dto.name.size}")
+    //@Size(min = 1, message = "{create.exercise.dto.name.size}")
     private String name;
 
     private String description;
@@ -37,11 +37,11 @@ public class CreateExerciseDTO {
         return this;
     }
 
-    public @NotBlank(message = "{create.exercise.dto.name.not.blank}") @Size(min = 1, message = "{create.exercise.dto.name.size}") String getName() {
+    public String getName() {
         return name;
     }
 
-    public CreateExerciseDTO setName(@NotBlank(message = "{create.exercise.dto.name.not.blank}") @Size(min = 1, message = "{create.exercise.dto.name.size}") String name) {
+    public CreateExerciseDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -55,20 +55,20 @@ public class CreateExerciseDTO {
         return this;
     }
 
-    public @NotNull(message = "{create.exercise.dto.equipment.type}") EquipmentTypeEnum getEquipmentType() {
+    public EquipmentTypeEnum getEquipmentType() {
         return equipmentType;
     }
 
-    public CreateExerciseDTO setEquipmentType(@NotNull(message = "{create.exercise.dto.equipment.type}") EquipmentTypeEnum equipmentType) {
+    public CreateExerciseDTO setEquipmentType(EquipmentTypeEnum equipmentType) {
         this.equipmentType = equipmentType;
         return this;
     }
 
-    public @NotNull(message = "{create.exercise.dto.exercise.category}") ExerciseCategoryEnum getCategory() {
+    public ExerciseCategoryEnum getCategory() {
         return category;
     }
 
-    public CreateExerciseDTO setCategory(@NotNull(message = "{create.exercise.dto.exercise.category}") ExerciseCategoryEnum category) {
+    public CreateExerciseDTO setCategory(ExerciseCategoryEnum category) {
         this.category = category;
         return this;
     }

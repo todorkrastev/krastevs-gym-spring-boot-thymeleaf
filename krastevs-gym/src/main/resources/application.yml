@@ -42,6 +42,7 @@ jwt:
     secret: ${JWT_SECRET:d2aUj+XLQy8SEEE/nCw7LW3OpCKuPcycveYiU0tQsFwp1fDxC1GcTx5Vrgi/BBmlFOyuITNrc5Tt3Zj2Jec/Zw==}
     expiration: ${JWT_EXPIRATION:86400}
 
+
 #server:
 #  error:
 #    whitelabel:
@@ -57,4 +58,13 @@ jwt:
 #    thymeleaf:
 #        cache: false
 #        check-template-location: true
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+    com:
+      todorkrastev:
+        krastevsgym: DEBUG
 #        prefix: file:./src/main/resources/templates/

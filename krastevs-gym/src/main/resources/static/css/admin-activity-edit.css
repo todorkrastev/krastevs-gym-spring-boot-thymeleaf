@@ -26,7 +26,7 @@
 
 
 .hero__form--edit__activity__title {
-    color: var(--color-primary);
+    color: var(--color-lighter-gray);
     margin-bottom: 1rem;
 }
 
@@ -40,8 +40,9 @@
 .hero__form--edit__activity .hero__form--edit__activity__field {
     width: 100%;
     margin-bottom: 1rem;
-    color: var(--color-black);
+    color: var(--color-dark-gray);
     padding: 0.5rem;
+    background-color: var(--color-lighter-gray);
 }
 
 .textarea {
@@ -55,6 +56,11 @@
     background-color: transparent;
     color: var(--color-primary);
     border: 2px solid var(--color-primary);
+}
+
+.form__edit__activity__btn__del {
+    text-align: center;
+    margin-top: 1rem;
 }
 
 @media screen and (min-width: 640px) {}

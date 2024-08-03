@@ -28,6 +28,7 @@
   margin-bottom: 1.625rem;
   position: relative;
   z-index: 3;
+  color: var(--color-lighter-gray);
 }
 
 .hero--exception__title {
@@ -81,7 +82,7 @@
 @media screen and (min-width: 1200px) {
   #hero--exception .exception__btn:hover {
     background-color: var(--color-primary);
-    color: var(--color-black);
+    color: var(--color-dark-gray);
     border: 2px solid var(--color-primary);
     cursor: pointer;
     transition: color 250ms ease-in-out;

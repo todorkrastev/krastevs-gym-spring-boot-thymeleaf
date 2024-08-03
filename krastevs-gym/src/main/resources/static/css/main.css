@@ -44,6 +44,7 @@
     --color-dark-gray: #222222;
     --color-gray: #303030;
     --color-light-gray: #414141;
+    --color-lighter-gray: #d9d9d9;
 
     --color-black: black;
     --color-orangered: orangered;
@@ -168,6 +169,7 @@ body {
     position: relative;
     text-transform: uppercase;
     z-index: 3;
+    color: var(--color-lighter-gray);
 }
 
 .hero__title {
@@ -179,9 +181,10 @@ body {
 }
 
 .member__btn {
-    background-color: transparent;
+    background-color: var(--color-primary);
     border: 2px solid var(--color-primary);
-    color: var(--color-primary);
+    border-radius: 30px;
+    color: var(--color-dark-gray);
     font-size: 1rem;
     font-weight: 700;
     padding: 0.5rem 2rem;
@@ -205,6 +208,11 @@ body {
 
 .info .info__title {
     color: var(--color-primary);
+}
+
+.info .info__description {
+    color: var(--color-lighter-gray);
+    line-height: 1.2;
 }
 
 .info__buttons {
@@ -255,7 +263,7 @@ body {
 
 .footer .navi .navi-group .navi-group__title {
     color: var(--color-primary);
-    font-size: 1rem;
+    font-size: 0.75rem;
     margin-bottom: 0.75rem;
 }
 
@@ -266,12 +274,13 @@ body {
 
 .footer .navi .navi-group ul li a {
     text-transform: uppercase;
-    color: var(--color-white);
+    color: var(--color-lighter-gray);
     text-decoration: none;
 }
 
 .footer .navi .navi-group ul li p {
     line-height: 1rem;
+    color: var(--color-lighter-gray);
 }
 
 .footer .info {
@@ -287,7 +296,7 @@ body {
 
 .footer .info .socials a,
 .footer .info p {
-    color: var(--color-white);
+    color: var(--color-lighter-gray);
     text-align: center;
 }
 
@@ -295,9 +304,15 @@ body {
     font-size: 1.250rem;
 }
 
+.footer .info .socials__item .fab {
+    color: var(--color-lighter-gray);
+}
+
 .footer .info .rights {
     font-size: 0.625rem;
 }
+
+
 
 @media screen and (min-width: 375px) {
     .hero__title {
@@ -322,7 +337,7 @@ body {
 
     .footer {
         padding: 3rem 0;
-        width: 95%;
+        width: 83%;
         max-width: 1200px;
         margin: 0 auto;
     }
@@ -362,7 +377,7 @@ body {
     }
 
     .icon i {
-        color: var(--color-white);
+        color: var(--color-primary);
     }
 
     .hero__title {
@@ -482,6 +497,10 @@ body {
     .error__message--form {
         width: 60%;
     }
+
+    .footer {
+        width: 70%;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -550,7 +569,7 @@ body {
 
     #hero .member__btn:hover {
         background-color: var(--color-primary);
-        color: var(--color-black);
+        color: var(--color-dark-gray);
         border: 2px solid var(--color-primary);
         cursor: pointer;
         transition: color 250ms ease-in-out;
@@ -571,6 +590,10 @@ body {
     .error__message--form {
         width: 30%;
     }
+
+    .footer {
+        width: 60%;
+    }
 }
 
 @media screen and (min-width: 1440px) {
@@ -587,10 +610,25 @@ body {
     .error__message--form {
         width: 25%;
     }
+
+    .footer {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .footer {
+        width: 45%;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .footer {
+        width: 37%;
+    }
 }
 
 @media screen and (min-width: 2560px) {
-
     .add,
     .edit,
     .delete {
@@ -599,5 +637,9 @@ body {
 
     .error__message--form {
         width: 20%;
+    }
+
+    .footer {
+        width: 28%;
     }
 }

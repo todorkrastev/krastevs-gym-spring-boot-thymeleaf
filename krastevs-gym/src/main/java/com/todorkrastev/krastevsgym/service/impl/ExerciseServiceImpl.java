@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.todorkrastev.krastevsgym.util.AppConstants.SAMPLE_EXERCISE_IMAGE;
-import static com.todorkrastev.krastevsgym.util.AppConstants.SAMPLE_MUSCLES_WORKED_IMAGE;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
@@ -56,12 +54,12 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         String gifUrl = createExerciseDTO.getGifUrl();
         if (gifUrl.isBlank()) {
-            gifUrl = SAMPLE_EXERCISE_IMAGE;
+            gifUrl = category.getMusclesWorked();
         }
 
         ExerciseEntity exercise = modelMapper.map(createExerciseDTO, ExerciseEntity.class);
         exercise.setId(null);
-        exercise.setGifUrl(gifUrl).setMusclesWorkedUrl(SAMPLE_MUSCLES_WORKED_IMAGE).setCategory(category).setUser(currUser);
+        exercise.setGifUrl(gifUrl).setMusclesWorkedUrl(category.getMusclesWorked()).setCategory(category).setUser(currUser);
         exercise.setEquipmentType(equipmentType);
 
         ExerciseEntity saved = exerciseRepository.save(exercise);
@@ -100,11 +98,10 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public ExerciseDetailsDTO editExercise(Long id, ExerciseDetailsDTO editExerciseDTO, Long authorId) {
         ExerciseNoteEntity note = exerciseNoteService.findByExerciseIdAndAuthorId(id, authorId);
-        if (note == null) {
-            throw new NoteFoundException(id, authorId);
+        if (note != null) {
+            note.setNotes(editExerciseDTO.getNotes());
+            exerciseNoteRepository.save(note);
         }
-        note.setNotes(editExerciseDTO.getNotes());
-        exerciseNoteRepository.save(note);
 
         ExerciseEntity exercise = exerciseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
 
@@ -129,13 +126,13 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         String gifUrl = editExerciseDTO.getGifUrl();
         if (gifUrl == null || gifUrl.isEmpty() || gifUrl.isBlank()) {
-            gifUrl = SAMPLE_EXERCISE_IMAGE;
+            gifUrl = category.getMusclesWorked();
             editExerciseDTO.setGifUrl(gifUrl);
         }
 
         String muscleWorkedUrl = editExerciseDTO.getMusclesWorkedUrl();
         if (muscleWorkedUrl == null || muscleWorkedUrl.isEmpty() || muscleWorkedUrl.isBlank()) {
-            muscleWorkedUrl = SAMPLE_MUSCLES_WORKED_IMAGE;
+            muscleWorkedUrl = category.getMusclesWorked();
             editExerciseDTO.setMusclesWorkedUrl(muscleWorkedUrl);
         }
 

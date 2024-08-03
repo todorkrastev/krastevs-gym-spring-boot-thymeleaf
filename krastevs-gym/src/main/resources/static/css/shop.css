@@ -27,6 +27,8 @@
 
 #hero .hero__products__subtitle {
     margin-bottom: 0.5rem;
+    color: var(--color-lighter-gray);
+    line-height: 1.2;
 }
 
 #hero .hero__products__subtitle:last-child {
@@ -57,6 +59,7 @@
     margin-top: 1rem;
     font-weight: 700;
     text-transform: capitalize;
+    color: var(--color-lighter-gray);
 }
 
 .shop .shop__poster {

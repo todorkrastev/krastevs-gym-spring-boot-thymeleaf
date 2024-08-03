@@ -38,7 +38,8 @@
 .activity__details__description {
     text-align: center;
     font-size: 0.75rem;
-    line-height: 1rem;
+    color: var(--color-lighter-gray);
+    line-height: 1.2;
 }
 
 @media screen and (min-width: 768px) {

@@ -19,6 +19,9 @@ public class ExerciseCategoryEntity {
     @Column(name = "gif_url", nullable = false, columnDefinition = "TEXT")
     public String gifUrl;
 
+    @Column(name = "muscles_worked", nullable = false, columnDefinition = "TEXT")
+    public String musclesWorked;
+
     public ExerciseCategoryEntity() {
     }
 
@@ -55,6 +58,15 @@ public class ExerciseCategoryEntity {
 
     public ExerciseCategoryEntity setGifUrl(String gifUrl) {
         this.gifUrl = gifUrl;
+        return this;
+    }
+
+    public String getMusclesWorked() {
+        return musclesWorked;
+    }
+
+    public ExerciseCategoryEntity setMusclesWorked(String musclesWorked) {
+        this.musclesWorked = musclesWorked;
         return this;
     }
 }

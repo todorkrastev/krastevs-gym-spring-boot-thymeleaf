@@ -31,6 +31,12 @@
                     <h4 th:text="${activity.getTitle()}" class="title--activity">Machines</h4>
                 </div>
             </a>
+            <a th:href="@{/admin/activities/create}" class="card--activity">
+                <img src="/images/icon/plus-plan-c.jpg" alt="Activity" class="img--activity__create">
+                <div class="wrapper__details--activity">
+                    <h4 class="title--activity">Create Activity</h4>
+                </div>
+            </a>
         </th:block>
         <th:block th:if="${activities.isEmpty()}">
             <a href="https://github.com/todorkrastev/krastevs-gym-spring-boot-rest"

@@ -50,7 +50,7 @@
                 </option>
                 <option th:each="category: ${allExerciseCategories}"
                         th:value="${category}"
-                        th:text="${category}"
+                        th:text="${category.toString().replaceAll('_', ' ')}"
                         class="hero__form--edit__exercise__drop">ABS
                 </option>
             </select>
@@ -64,7 +64,7 @@
                 </option>
                 <option th:each="type: ${allEquipmentTypes}"
                         th:value="${type}"
-                        th:text="${type}"
+                        th:text="${type.toString().replaceAll('_', ' ')}"
                         class="hero__form--edit__exercise__drop" value="">BARBELL
                 </option>
             </select>
@@ -95,12 +95,12 @@
                       type="text"
                       value="">
             </textarea>
-            <button type="submit" class="hero__edit__exercise--submit btn">Save</button>
+            <button type="submit" class="edit">Save</button>
         </form>
         <div class="edit__exercise__buttons">
             <form th:method="delete"
                   th:action="@{/exercises/exercises-by-category/exercise/{id}(id=*{id})}">
-                <button class="info__button delete">Delete Exercise</button>
+                <button class="info__button delete">Delete</button>
             </form>
         </div>
     </section>
