@@ -1,7 +1,7 @@
 package com.todorkrastev.krastevsgym.model.dto;
 
 public class EmployeeDetailsDTO {
-    private String id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String position;
@@ -15,11 +15,11 @@ public class EmployeeDetailsDTO {
     public EmployeeDetailsDTO() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public EmployeeDetailsDTO setId(String id) {
+    public EmployeeDetailsDTO setId(Long id) {
         this.id = id;
         return this;
     }

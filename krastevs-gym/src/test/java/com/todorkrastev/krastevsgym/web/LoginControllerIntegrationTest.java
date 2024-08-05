@@ -6,50 +6,56 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RegisterControllerIT {
+class LoginControllerIntegrationTest {
+
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Test
+    void testLogin_GET() throws Exception {
+        mockMvc.perform(get("/users/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"));
+    }
 
     @Test
-    void testRegister() throws Exception {
+    void testLoginError_POST() throws Exception {
         mockMvc.perform(post("/users/register")
                         .param("firstName", "Florian")
                         .param("lastName", "Dewitz")
-                        .param("email", "floriandewitz@mail.com")
+                        .param("email", "floriandewitz@web.de")
                         .param("password", "topsecret")
-                        .with(csrf()))
+                        .param("confirmPassword", "topsecret")
+                        .with(csrf())
+                )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users/login"));
 
-        Optional<UserEntity> userEntityOpt = userRepository.findByEmail("floriandewitz@mail.com");
+        Optional<UserEntity> userEntityOpt = userRepository.findByEmail("floriandewitz@web.de");
 
         assertTrue(userEntityOpt.isPresent());
 
-        UserEntity userEntity = userEntityOpt.get();
-
-        assertEquals("Florian", userEntity.getFirstName());
-        assertEquals("Dewitz", userEntity.getLastName());
-
-        assertTrue(passwordEncoder.matches("topsecret", userEntity.getPassword()));
+        mockMvc.perform(post("/users/login-error")
+                        .param("email", "floriandewitz@web.de")
+                        .param("password", "topsecreT")
+                        .with(csrf())
+                )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/users/login"));
     }
 }

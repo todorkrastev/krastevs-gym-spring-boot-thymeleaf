@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CurrencyControllerIT {
+public class CurrencyControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -26,7 +26,7 @@ public class CurrencyControllerIT {
     private ExRateService mockExRateService;
 
     @Test
-    public void testConvert() throws Exception {
+    void testConvert() throws Exception {
         String from = "SUD";
         String to = "ZWD";
         BigDecimal amount = new BigDecimal("100");
@@ -47,7 +47,7 @@ public class CurrencyControllerIT {
     }
 
     @Test
-    public void testConversionNotFound() throws Exception {
+    void testConversionNotFound() throws Exception {
         String from = "SUD";
         String to = "ZWD";
         BigDecimal amount = new BigDecimal("100");

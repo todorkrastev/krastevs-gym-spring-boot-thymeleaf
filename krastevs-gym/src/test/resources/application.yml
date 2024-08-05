@@ -1,26 +1,37 @@
 spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:krastevs_gym_spring_boot_thymeleaf_db;sql.syntax_mys=true
+    username: sa
+    password:
   jpa:
-    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
     properties:
       hibernate:
+        show_sql: true
         format_sql: true
-    hibernate:
-      ddl-auto: update
+    defer-datasource-initialization: true
   sql:
     init:
       mode: never
-  mvc:
-    hiddenmethod:
-      filter:
-        enabled: true
+
+app:
+  default:
+    admin:
+      password: test_password
 
 forex:
   api:
     key: test
-    url: "https://example.com"
+    url: "http://example.com"
     base: "USD"
 
-exercises:
+activity:
   api:
     baseUrl: "http://localhost:8081"
 
+jwt:
+  secret: test_secret
+  expiration: 86400
