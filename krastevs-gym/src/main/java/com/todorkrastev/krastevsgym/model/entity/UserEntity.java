@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgym.model.entity;
 
+import com.todorkrastev.krastevsgym.model.uuid.UUIDSequence;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 

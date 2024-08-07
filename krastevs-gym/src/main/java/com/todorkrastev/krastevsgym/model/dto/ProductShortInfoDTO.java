@@ -5,7 +5,6 @@ import com.todorkrastev.krastevsgym.model.entity.PictureEntity;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ProductShortInfoDTO {
     private Long id;

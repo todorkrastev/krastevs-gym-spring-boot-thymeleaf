@@ -43,6 +43,9 @@ jwt:
     expiration: ${JWT_EXPIRATION:86400}
 
 
+timezone: Europe/Berlin
+
+
 #server:
 #  error:
 #    whitelabel:

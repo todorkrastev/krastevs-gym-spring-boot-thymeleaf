@@ -113,4 +113,9 @@ public class ExRateServiceImpl implements ExRateService {
                 .map(ExRateEntity::getCurrency)
                 .toList();
     }
+
+    @Override
+    public void deleteAllRates() {
+        exRateRepository.deleteAll();
+    }
 }

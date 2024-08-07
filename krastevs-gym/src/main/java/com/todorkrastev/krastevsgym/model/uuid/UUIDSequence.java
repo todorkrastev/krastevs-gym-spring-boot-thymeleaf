@@ -1,4 +1,4 @@
-package com.todorkrastev.krastevsgym.model.entity;
+package com.todorkrastev.krastevsgym.model.uuid;
 
 import org.hibernate.annotations.ValueGenerationType;
 

@@ -19,4 +19,6 @@ public interface ExRateService {
     BigDecimal convert(String from, String to, BigDecimal amount);
 
     List<String> getEURAndCHFAndUSDCurrencies(String EUR, String CHF, String USD);
+
+    void deleteAllRates();
 }
