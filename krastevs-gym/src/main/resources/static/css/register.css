@@ -85,10 +85,12 @@
 .hero__register--terms {
     margin-bottom: 0.25rem;
     color: var(--color-lighter-gray);
+    line-height: 1.2;
 }
 
 .hero__register--login {
     color: var(--color-lighter-gray);
+    line-height: 1.2;
 }
 
 

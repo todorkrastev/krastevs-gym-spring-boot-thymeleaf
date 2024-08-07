@@ -69,6 +69,10 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public void createExerciseNotes(CreateExerciseNotesDTO createExerciseNotesDTO, Long exerciseId, Long currentUserId) {
+        if (createExerciseNotesDTO.getNotes().isEmpty() || createExerciseNotesDTO.getNotes().isBlank()) {
+            return;
+        }
+
         ExerciseEntity exercise = exerciseRepository.findById(exerciseId).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", exerciseId));
 
         Long admin = userService.findAdminId();
@@ -102,8 +106,13 @@ public class ExerciseServiceImpl implements ExerciseService {
     public ExerciseDetailsDTO editExercise(Long id, ExerciseDetailsDTO editExerciseDTO, Long authorId) {
         ExerciseNoteEntity note = exerciseNoteService.findByExerciseIdAndAuthorId(id, authorId);
         if (note != null) {
-            note.setNotes(editExerciseDTO.getNotes());
-            exerciseNoteRepository.save(note);
+            if (editExerciseDTO.getNotes().isEmpty() || editExerciseDTO.getNotes().isBlank()) {
+                note.setNotes("Type your notes here...");
+                exerciseNoteRepository.save(note);
+            } else {
+                note.setNotes(editExerciseDTO.getNotes());
+                exerciseNoteRepository.save(note);
+            }
         }
 
         ExerciseEntity exercise = exerciseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exercise", "id", id));
@@ -125,6 +134,19 @@ public class ExerciseServiceImpl implements ExerciseService {
         EquipmentTypeEntity equipmentType = equipmentTypeService.findByCategory(editExerciseDTO.getEquipmentType());
         if (equipmentType == null) {
             throw new EquipmentTypeNotFoundException("Equipment type", "category", editExerciseDTO.getEquipmentType().toString());
+        }
+
+        if (note == null) {
+            if (!editExerciseDTO.getNotes().isEmpty() && !editExerciseDTO.getNotes().isBlank()) {
+                ExerciseNoteEntity created = new ExerciseNoteEntity()
+                        .setNotes(editExerciseDTO.getNotes())
+                        .setExercise(exercise)
+                        .setAuthor(user);
+
+                exercise.setNotes(List.of(created));
+
+                exerciseNoteRepository.save(created);
+            }
         }
 
         String gifUrl = editExerciseDTO.getGifUrl();
@@ -178,6 +200,10 @@ public class ExerciseServiceImpl implements ExerciseService {
         ExerciseNoteEntity note = exerciseNoteService.findByExerciseIdAndAuthorId(exerciseId, authorId);
         if (note == null) {
             throw new NoteFoundException(exerciseId, authorId);
+        }
+
+        if (createExerciseNotesDTO.getNotes().isEmpty() || createExerciseNotesDTO.getNotes().isBlank()) {
+            createExerciseNotesDTO.setNotes("Type your notes here...");
         }
 
         modelMapper.map(createExerciseNotesDTO, note);

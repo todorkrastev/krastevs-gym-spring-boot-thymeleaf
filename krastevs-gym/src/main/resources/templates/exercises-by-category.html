@@ -26,13 +26,13 @@
         <img src="/images/hero/exercise.jpg" class="img--bg--abs" alt="Background poster"/>
 
         <div class="hero__abs">
-            <h1 th:text="${exercises.isEmpty() ?
+            <h1 th:text="${exercises == null || exercises.isEmpty() ?
             'The category is under development' :
             exercises.get(0).getCategory().name().toLowerCase().replace('_', ' ')}"
                 class="hero__title__abs">Abs</h1>
 
             <div class="hero__exercises__subtitles">
-                <p th:text="${exercises.isEmpty() ?
+                <p th:text="${exercises == null || exercises.isEmpty() ?
                 'Be the first one to create a new exercise' :
                 exercises.get(0).getCategoryDescription()}"
                    class="hero__exercises__subtitle">
@@ -56,7 +56,7 @@
                    class="exercise__category__name">Abs</a>
             </th:block>
             <h6 class="exercise__categories__title">Type</h6>
-            <th:block th:each="type : ${types}">
+            <th:block th:if="${exercises != null && !exercises.isEmpty()}" th:each="type : ${types}">
                 <a th:href="@{/exercises/exercises-by-category/{categoryId}/exercises-by-type/{typeId}(categoryId=${exercises.getFirst().getCategoryId()},typeId=${type.getId()})}"
                    th:text="${type.getType().name().toLowerCase().replace('_', ' ')}"
                    class="exercise__category__name">Barbell</a>

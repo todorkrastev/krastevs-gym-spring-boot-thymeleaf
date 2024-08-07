@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
+import com.todorkrastev.krastevsgym.config.ActivityApiConfig;
 import com.todorkrastev.krastevsgym.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgym.model.dto.CreateActivityDTO;
 import com.todorkrastev.krastevsgym.service.ActivityService;
@@ -22,8 +23,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final RestClient activityRestClient;
 
-    public ActivityServiceImpl(@Qualifier("activityRestClient") RestClient activityRestClient) {
+    private final ActivityApiConfig activityApiConfig;
+
+    public ActivityServiceImpl(@Qualifier("activityRestClient") RestClient activityRestClient, ActivityApiConfig activityApiConfig) {
         this.activityRestClient = activityRestClient;
+        this.activityApiConfig = activityApiConfig;
     }
 
     @LogActivityExecution
@@ -32,7 +36,7 @@ public class ActivityServiceImpl implements ActivityService {
         try {
             List<ActivityDTO> response = activityRestClient
                     .get()
-                    .uri("http://localhost:8081/api/v1/activities/all")
+                    .uri(activityApiConfig.getBaseUrl() + "/activities/all")
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .body(new ParameterizedTypeReference<>() {
@@ -55,7 +59,7 @@ public class ActivityServiceImpl implements ActivityService {
     public ActivityDTO getActivityById(Long activityId) {
         return activityRestClient
                 .get()
-                .uri("http://localhost:8081/api/v1/activities/" + activityId)
+                .uri(activityApiConfig.getBaseUrl() + "/activities/" + activityId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(ActivityDTO.class);
@@ -66,7 +70,7 @@ public class ActivityServiceImpl implements ActivityService {
         try {
             activityRestClient
                     .post()
-                    .uri("http://localhost:8081/api/v1/activities/create")
+                    .uri(activityApiConfig.getBaseUrl() + "/activities/create")
                     .body(createActivityDTO)
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
@@ -84,7 +88,7 @@ public class ActivityServiceImpl implements ActivityService {
     public boolean doesTitleExist(String title) {
         return Boolean.TRUE.equals(activityRestClient
                 .get()
-                .uri("http://localhost:8081/api/v1/activities/exists/" + title)
+                .uri(activityApiConfig.getBaseUrl() + "/activities/exists/" + title)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(Boolean.class));
@@ -95,7 +99,7 @@ public class ActivityServiceImpl implements ActivityService {
         try {
             activityRestClient
                     .put()
-                    .uri("http://localhost:8081/api/v1/activities/" + id)
+                    .uri(activityApiConfig.getBaseUrl() + "/activities/" + id)
                     .body(activityDTO)
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
@@ -113,7 +117,7 @@ public class ActivityServiceImpl implements ActivityService {
     public void deleteActivity(Long id) {
         activityRestClient
                 .delete()
-                .uri("http://localhost:8081/api/v1/activities/" + id)
+                .uri(activityApiConfig.getBaseUrl() + "/activities/" + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .toBodilessEntity();

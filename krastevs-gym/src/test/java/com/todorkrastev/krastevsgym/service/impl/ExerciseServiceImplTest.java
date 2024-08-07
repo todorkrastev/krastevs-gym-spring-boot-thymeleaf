@@ -65,7 +65,8 @@ class ExerciseServiceImplTest {
     void editExerciseNotes_UpdatesNotesCorrectly() {
         Long exerciseId = 1L;
         Long authorId = 1L;
-        CreateExerciseNotesDTO createExerciseNotesDTO = new CreateExerciseNotesDTO();
+        CreateExerciseNotesDTO createExerciseNotesDTO = new CreateExerciseNotesDTO()
+                .setNotes("Updated notes");
         ExerciseNoteEntity note = new ExerciseNoteEntity();
 
         when(mockExerciseNoteService.findByExerciseIdAndAuthorId(exerciseId, authorId)).thenReturn(note);

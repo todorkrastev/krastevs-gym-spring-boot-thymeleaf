@@ -34,7 +34,7 @@ forex:
 
 activity:
   api:
-    baseUrl: "http://localhost:8081"
+    baseUrl: "http://localhost:8081/api/v1"
 
 
 # To generate a new secret key, go to util/HmacShaUtil.java and run the main method
@@ -59,12 +59,12 @@ jwt:
 #        cache: false
 #        check-template-location: true
 
-logging:
-  level:
-    org:
-      springframework:
-        web: DEBUG
-    com:
-      todorkrastev:
-        krastevsgym: DEBUG
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG
+#    com:
+#      todorkrastev:
+#        krastevsgym: DEBUG
 #        prefix: file:./src/main/resources/templates/
