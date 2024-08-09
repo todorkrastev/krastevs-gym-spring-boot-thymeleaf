@@ -15,4 +15,6 @@ public class AppConstants {
     public static final String SHOULDERS_URL="https://res.cloudinary.com/dgtuddxqf/image/upload/v1722629138/krastevs-gym/imgs/muscles/shoulders_mjw1ry.png";
     public static final String TRAPS_URL="https://res.cloudinary.com/dgtuddxqf/image/upload/v1722629139/krastevs-gym/imgs/muscles/traps_bgp5pf.png";
     public static final String TRICEPS_URL="https://res.cloudinary.com/dgtuddxqf/image/upload/v1722629137/krastevs-gym/imgs/muscles/triceps_f4m9la.png";
+    
+    public static final String PROFILE_IMG_URL = "https://res.cloudinary.com/dgtuddxqf/image/upload/v1723142395/krastevs-gym/imgs/profile/profile_ee5leh.png";
 }

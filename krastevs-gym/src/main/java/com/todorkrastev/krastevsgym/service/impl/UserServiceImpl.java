@@ -1,5 +1,7 @@
 package com.todorkrastev.krastevsgym.service.impl;
 
+import com.todorkrastev.krastevsgym.exception.ResourceNotFoundException;
+import com.todorkrastev.krastevsgym.model.dto.UserInfoDTO;
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 import com.todorkrastev.krastevsgym.model.entity.UserRoleEntity;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
+
+import static com.todorkrastev.krastevsgym.util.AppConstants.PROFILE_IMG_URL;
 
 
 @Service
@@ -67,6 +71,39 @@ public class UserServiceImpl implements UserService {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public UserInfoDTO getProfile() {
+        Long id = getCurrentUser()
+                .map(KrastevsGymUserDetails::getCurrId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", getCurrentUser().get().getCurrId()));
+
+        return userRepository.findById(id)
+                .map(userEntity -> {
+                    UserInfoDTO userInfoDTO = modelMapper.map(userEntity, UserInfoDTO.class);
+                    if (userEntity.getImage() == null || userEntity.getImage().isEmpty() || userEntity.getImage().isBlank()) {
+                        userInfoDTO.setImage(PROFILE_IMG_URL);
+                    }
+                    return userInfoDTO;
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+    }
+
+    @Override
+    public boolean editProfile(UserInfoDTO userInfoDTO) {
+        Long id = getCurrentUser()
+                .map(KrastevsGymUserDetails::getCurrId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", getCurrentUser().get().getCurrId()));
+
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        modelMapper.map(userInfoDTO, userEntity);
+
+        userRepository.save(userEntity);
+
+        return !getCurrentUser().get().getEmail().equals(userEntity.getEmail());
     }
 
     private UserEntity map(UserRegisterDTO userRegisterDTO) {

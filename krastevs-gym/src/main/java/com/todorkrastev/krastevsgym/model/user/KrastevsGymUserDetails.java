@@ -11,6 +11,7 @@ public class KrastevsGymUserDetails extends User {
     private final String firstName;
     private final String lastName;
     private final Long currId;
+    private final String email;
 
     public KrastevsGymUserDetails(
             UUID uuid,
@@ -25,6 +26,7 @@ public class KrastevsGymUserDetails extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.currId = currId;
+        this.email = username;
     }
 
     public UUID getUuid() {
@@ -55,5 +57,9 @@ public class KrastevsGymUserDetails extends User {
 
     public Long getCurrId() {
         return currId;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

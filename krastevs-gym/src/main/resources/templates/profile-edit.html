@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Krastev's Gym</title>
+</head>
+
+<body>
+<header class="header">
+    <div th:replace="~{fragments/navbar}"></div>
+</header>
+
+<main>
+    <section class="profile--edit">
+        <form th:action="@{/profile/edit}"
+              th:method="put"
+              th:object="${userInfoDTO}"
+              class="form__profile--edit">
+            <h1 class="form__profile__title--edit">Edit Profile</h1>
+
+            <input th:field="*{firstName}" name="firstName" class="form__field__profile--edit"
+                   placeholder="First Name" type="text" minlength="1"
+                   maxlength="255" required value="">
+            <p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}"
+               class="error__message--form"></p>
+
+            <input th:field="*{lastName}" name="lastName" class="form__field__profile--edit"
+                   placeholder="Last Name" type="text" minlength="1"
+                   maxlength="255" required value="">
+            <p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}"
+               class="error__message--form"></p>
+
+            <input th:field="*{email}" name="email" class="form__field__profile--edit" placeholder="Email"
+                   type="email" minlength="1"
+                   maxlength="255" required value="">
+            <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"
+               class="error__message--form"></p>
+
+            <input th:field="*{image}" class="form__field__profile--edit" placeholder="Image URL" type="text" maxlength="65535" value="">
+
+            <input th:field="*{weight}" name="weight" class="form__field__profile--edit"
+                   placeholder="Weight (kg)" type="number" min="20"
+                   max="180" value="">
+
+            <input th:field="*{height}" name="height" class="form__field__profile--edit"
+                   placeholder="Height (cm)" type="number" min="100"
+                   max="250" value="">
+
+            <button type="submit" class="form__btn__save__profile--edit">Save</button>
+        </form>
+    </section>
+
+    <div class="divider"></div>
+
+</main>
+
+<footer th:replace="~{fragments/footer}" class="footer"></footer>
+
+</body>
+
+</html>

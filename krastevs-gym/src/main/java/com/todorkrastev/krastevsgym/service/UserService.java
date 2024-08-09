@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgym.service;
 
+import com.todorkrastev.krastevsgym.model.dto.UserInfoDTO;
 import com.todorkrastev.krastevsgym.model.dto.UserRegisterDTO;
 import com.todorkrastev.krastevsgym.model.entity.UserEntity;
 import com.todorkrastev.krastevsgym.model.user.KrastevsGymUserDetails;
@@ -17,4 +18,7 @@ public interface UserService {
 
     Optional<KrastevsGymUserDetails> getCurrentUser();
 
+    UserInfoDTO getProfile();
+
+    boolean editProfile(UserInfoDTO userInfoDTO);
 }

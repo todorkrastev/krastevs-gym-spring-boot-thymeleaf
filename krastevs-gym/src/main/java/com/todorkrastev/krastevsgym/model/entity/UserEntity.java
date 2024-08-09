@@ -30,6 +30,8 @@ public class UserEntity {
 
     private Integer height;
 
+    private String image;
+
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -107,6 +109,15 @@ public class UserEntity {
 
     public UserEntity setHeight(Integer height) {
         this.height = height;
+        return this;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public UserEntity setImage(String image) {
+        this.image = image;
         return this;
     }
 
