@@ -1,8 +1,7 @@
 package com.todorkrastev.krastevsgym.model.dto;
 
 import com.todorkrastev.krastevsgym.validation.annotation.UniqueEmail;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 public class UserInfoDTO {
 
@@ -17,8 +16,15 @@ public class UserInfoDTO {
     private String email;
 
     private Integer age;
+
+    @Min(value = 10, message = "{user.info.dto.weight.min.size}")
+    @Max(value = 180, message = "{user.info.dto.weight.max.size}")
     private Integer weight;
+
+    @Min(value = 100, message = "{user.info.dto.height.min.size}")
+    @Max(value = 250, message = "{user.info.dto.height.max.size}")
     private Integer height;
+
     private String image;
 
 

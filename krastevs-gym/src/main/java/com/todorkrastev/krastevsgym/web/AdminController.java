@@ -72,7 +72,7 @@ public class AdminController {
         try {
             activityService.createActivity(createActivityDTO);
         } catch (RestClientResponseException ex) {
-            if (ex.getStatusCode().value() == HttpStatus.BAD_REQUEST.value()) {
+             if (ex.getStatusCode().value() == HttpStatus.BAD_REQUEST.value()) {
                 Map<String, String> errors = new ObjectMapper().readValue(ex.getResponseBodyAsString(), new TypeReference<>() {
                 });
                 errors.forEach((field, errorMessage) -> bindingResult.rejectValue(field, "error." + field, errorMessage));

@@ -50,12 +50,16 @@
             <input th:field="*{image}" class="form__field__profile--edit" placeholder="Image URL" type="text" maxlength="65535" value="">
 
             <input th:field="*{weight}" name="weight" class="form__field__profile--edit"
-                   placeholder="Weight (kg)" type="number" min="20"
+                   placeholder="Weight (kg)" type="number" min="10"
                    max="180" value="">
+            <p th:if="${#fields.hasErrors('weight')}" th:errorclass="error" th:errors="*{weight}"
+               class="error__message--form"></p>
 
             <input th:field="*{height}" name="height" class="form__field__profile--edit"
                    placeholder="Height (cm)" type="number" min="100"
                    max="250" value="">
+            <p th:if="${#fields.hasErrors('height')}" th:errorclass="error" th:errors="*{height}"
+               class="error__message--form"></p>
 
             <button type="submit" class="form__btn__save__profile--edit">Save</button>
         </form>
