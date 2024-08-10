@@ -4,22 +4,22 @@
 <div>
   <ul>
     <li>
-      <a href="https://github.com/spring-projects/spring-framework" target="_blank">Spring Framework</a>
+      <a href="https://docs.spring.io/spring-framework/reference/index.html" target="_blank">Spring Framework</a>
     </li>
     <li>
-      <a href="https://github.com/spring-projects/spring-boot" target="_blank">Spring Boot</a>
+      <a href="https://docs.spring.io/spring-boot/documentation.html" target="_blank">Spring Boot</a>
     </li>
     <li>
-      <a href="https://github.com/spring-projects/spring-data" target="_blank">Spring Data</a>
+      <a href="https://docs.spring.io/spring-data/jpa/docs/current-SNAPSHOT/reference/html/#reference" target="_blank">Spring Data</a>
     </li>
     <li>
-      <a href="https://github.com/spring-projects/spring-security" target="_blank">Spring Security</a>
+      <a href="https://docs.spring.io/spring-security/reference/index.html" target="_blank">Spring Security</a>
     </li>
     <li>
       <a href="https://dev.mysql.com/doc/refman/8.4/en/" target="_blank">MySQL</a>
     </li>
     <li>
-      <a href="https://github.com/thymeleaf" target="_blank">Thymeleaf</a>
+      <a href="https://www.thymeleaf.org/documentation.html" target="_blank">Thymeleaf</a>
     </li>
     <li>
       <a href="https://github.com/todorkrastev/krastevs-gym-html-css" target="_blank">HTML & CSS</a>
