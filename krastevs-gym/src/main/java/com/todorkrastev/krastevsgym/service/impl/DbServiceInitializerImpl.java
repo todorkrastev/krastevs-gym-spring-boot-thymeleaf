@@ -903,7 +903,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Lie flat on the floor with your legs straight and your arms extended overhead.
                                 2. In one movement, lift your legs off the floor, keeping them straight.
                                 3. Slowly lower yourself back down to the starting position.""")
-                        .setEquipmentType(BODY_WEIGHT)
+                        .setEquipmentType(CABLE)
                         .setCategory(ABS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -974,7 +974,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold an EZ bar with an overhand grip.
                                 2. Curl the bar towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the bar back down to the starting position.""")
-                        .setEquipmentType(DUMBBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -988,7 +988,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold an EZ bar with an underhand grip.
                                 2. Curl the bar towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the bar back down to the starting position.""")
-                        .setEquipmentType(DUMBBELL)
+                        .setEquipmentType(BARBELL)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
@@ -1016,7 +1016,7 @@ public class DbServiceInitializerImpl implements DbServiceInitializer {
                                 1. Stand with your feet shoulder-width apart and hold a cable attachment in each hand.
                                 2. Curl the cable attachment towards your shoulders, keeping your upper arms stationary.
                                 3. Slowly lower the cable attachment back down to the starting position.""")
-                        .setEquipmentType(DUMBBELL)
+                        .setEquipmentType(CABLE)
                         .setCategory(BICEPS)
                         .setUser(ADMIN),
                 new ExerciseEntity()
