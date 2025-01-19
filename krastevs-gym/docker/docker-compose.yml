@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mysql
+    ports:
+      - "3307:3306"
+    command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_bin' ]
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD="yes"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+  krastevs-gym:
+    depends_on: [ db ]
+    image: todorkrastev/krastevs-gym:v1.0.2
+    ports:
+      - "8080:8080"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=V170sh@229O
+      - ADMIN_PASSWORD=V170sh@229O
+      - FOREX_API_KEY=60133f41919446e9b451553c590f5714
+      - INIT_EX_RATES=true
+      - ACTIVITIES_BASE_URL=http://krastevs-gym-rest:8081/api/v1
+      - JWT_SECRET=d2aUj+XLQy8SEEE/nCw7LW3OpCKuPcycveYiU0tQsFwp1fDxC1GcTx5Vrgi/BBmlFOyuITNrc5Tt3Zj2Jec/Zw==
+      - JWT_EXPIRATION=86400
+  krastevs-gym-rest:
+    depends_on: [ db ]
+    image: todorkrastev/krastevs-gym-rest:v1.0.1
+    ports:
+      - "8081:8081"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=V170sh@229O
+      - JWT_SECRET=d2aUj+XLQy8SEEE/nCw7LW3OpCKuPcycveYiU0tQsFwp1fDxC1GcTx5Vrgi/BBmlFOyuITNrc5Tt3Zj2Jec/Zw==
+      - JWT_EXPIRATION=86400

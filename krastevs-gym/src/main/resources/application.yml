@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/krastevs_gym_spring_boot_thymeleaf_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
-    username: ${db_username}
-    password: ${db_password}
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/krastevs_gym_spring_boot_thymeleaf_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${MYSQL_USER:${db_username}}
+    password: ${MYSQL_PASSWORD:${db_password}}
   mvc:
     hiddenmethod:
       filter:
@@ -24,23 +24,24 @@ spring:
 app:
   default:
     admin:
-      password: ${db_password}
+      password: ${ADMIN_PASSWORD:V170sh@229O}
 
 forex:
   api:
     key: ${FOREX_API_KEY:}
     url: "https://openexchangerates.org/api/latest.json?app_id={app_id}"
     base: "USD"
+  init-ex-rates: ${INIT_EX_RATES:false}
 
 activity:
   api:
-    baseUrl: "http://localhost:8081/api/v1"
+    baseUrl: "${ACTIVITIES_BASE_URL:http://localhost:8081/api/v1}"
 
 
 # To generate a new secret key, go to util/HmacShaUtil.java and run the main method
 jwt:
-    secret: ${JWT_SECRET:d2aUj+XLQy8SEEE/nCw7LW3OpCKuPcycveYiU0tQsFwp1fDxC1GcTx5Vrgi/BBmlFOyuITNrc5Tt3Zj2Jec/Zw==}
-    expiration: ${JWT_EXPIRATION:86400}
+  secret: ${JWT_SECRET:d2aUj+XLQy8SEEE/nCw7LW3OpCKuPcycveYiU0tQsFwp1fDxC1GcTx5Vrgi/BBmlFOyuITNrc5Tt3Zj2Jec/Zw==}
+  expiration: ${JWT_EXPIRATION:86400}
 
 
 timezone: Europe/Berlin
@@ -71,3 +72,10 @@ timezone: Europe/Berlin
 #      todorkrastev:
 #        krastevsgym: DEBUG
 #        prefix: file:./src/main/resources/templates/
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          context: DEBUG
