@@ -1,6 +1,10 @@
-# Krastev's gym
+# Krastev's Gym
 
-## Used technologies:
+## Description
+
+This project is developed using Spring Boot and Thymeleaf for building a gym application. The application is secured with Spring Security and uses MySQL for data storage. The application is deployed using Docker.
+
+## Technologies Used
 
 * [Spring Framework](https://docs.spring.io/spring-framework/reference/index.html)
 * [Spring Boot](https://docs.spring.io/spring-boot/documentation.html)
@@ -13,23 +17,33 @@
 * [Open Exchange Rates](https://docs.openexchangerates.org/reference/api-introduction)
 * [Docker](https://docs.docker.com/)
 
-## Getting started
-Download [Docker Desktop](https://www.docker.com/products/docker-desktop) for Mac or Windows. [Docker Compose](https://docs.docker.com/compose) will be automatically installed
+## Getting Started
 
-Pull the docker images from Docker Hub
+### Prerequisites
 
-* [krastevs-gym](https://hub.docker.com/r/todorkrastev/krastevs-gym/tags)
-* [krastevs-gym-rest](https://hub.docker.com/r/todorkrastev/krastevs-gym-rest/tags)
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) for Mac or Windows (Docker Compose will be
+  automatically installed)
 
+### Installation
 
-Go to `docker` directory to build and run the app:
+1. Pull the docker images from Docker Hub:
+
+ ```shell
+docker pull todorkrastev/krastevs-gym:v1.0.7
+docker pull todorkrastev/krastevs-gym-rest:v1.0.5
+ ```
+
+2. Navigate to `docker` directory to build and run the application:
 
 ```shell
+cd docker
 docker-compose -f docker-compose.yml up
 ```
 
-The `krastevs-gym` app will be running at [http://localhost:8080](http://localhost:8080), and the `krastevs-gym-rest` will be
-at [http://localhost:8081](http://localhost:8081).
+3. The `krastevs-gym` app will be running at [http://localhost:8080](http://localhost:8080), and the `krastevs-gym-rest`
+   will be available
+   at [http://localhost:8081](http://localhost:8081).
 
-## Krastev's Gym App is deployed on:
-[TO DO]()
+## License
+
+This project is licensed under the terms of the Creative Commons Legal Code CC0 1.0 Universal. See the `LICENSE` file for details.
